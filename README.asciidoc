@@ -1,9 +1,8 @@
 * 需要有schema，是为了根据schema读page。格式类似
+[source,sql]
 -------------------------------------------------------------------------
 CREATE TABLE LINEITEM ( L_ORDERKEY    INTEGER NOT NULL,
-
                              L_PARTKEY     INTEGER NOT NULL,
-
                              L_SUPPKEY     INTEGER NOT NULL,
                              L_LINENUMBER  INTEGER NOT NULL,
                              L_QUANTITY    DECIMAL(15,2) NOT NULL,
