@@ -1,5 +1,5 @@
 /*
- * Here is the structure to define a schema,
+ * The structure of a schema,
  * which is represented as a link list.
  */
 struct ehdb_schema

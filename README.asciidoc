@@ -21,3 +21,9 @@ CREATE TABLE LINEITEM ( L_ORDERKEY    INTEGER NOT NULL,
 或自定义格式就会比较快，甚至直接根据lineitem写死schema更快。
 为了速度，打算直接写死schema。
 
+* to read the table
+    . Put it into the appropriate bucket
+    . check if the bucket is in the memory. If not, fetch it
+    . check if the bucket is full. If not, check whether to double the buckets, or to generate a linked list.
+    Note: this means that, first, the bucket should be able to generate a linked list. Second, the redistribution is necessary.
+    . Then actual data should be read and saved. The items in the bucket should contain the location(page and index) of the entire corresponding record.
