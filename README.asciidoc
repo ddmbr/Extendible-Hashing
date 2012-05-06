@@ -22,8 +22,14 @@ CREATE TABLE LINEITEM ( L_ORDERKEY    INTEGER NOT NULL,
 为了速度，打算直接写死schema。
 
 * to read the table
-    . Put it into the appropriate bucket
-    . check if the bucket is in the memory. If not, fetch it
+    . Put it into the appropriate bucket and before this, 
+    . check whether the index(equal to page id) is in the memory, if not, fetch it.
+    . get the location of the bucket, check whether it's in the memory, if not, fetch it.
     . check if the bucket is full. If not, check whether to double the buckets, or to generate a linked list.
     Note: this means that, first, the bucket should be able to generate a linked list. Second, the redistribution is necessary.
     . Then actual data should be read and saved. The items in the bucket should contain the location(page and index) of the entire corresponding record.
+    . Housekeeping value: global depth
+
+* For the pages, 
+    . Every bucket contains: its local depth(32 bits = 4 bytes), the number of records(32 bits = 4 bytes, lineitem.tbl has 6001215 records), the `next' pointer(also an integer), the end of data region(integer), then the records, and data region.
+    . Every index contains: its lable(integer), and the corresponding page id(bucket, integer). Thus, such a page contains 4k records.
