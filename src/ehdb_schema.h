@@ -1,3 +1,4 @@
+/*
 #define INT 1
 #define FLOAT 2
 #define CHAR 3
@@ -20,3 +21,4 @@ int ebdb_data_type = {
     STRING,
     STRING
 }
+*/
