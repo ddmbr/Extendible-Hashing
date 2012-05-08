@@ -5,10 +5,6 @@
 // how many (hash_value, bucket_id) tuple can a page store
 const int Dictpair_per_page = Page_size / (2 * (sizeof(int)));
 
-/* load a page from disk to a page_t
- */
-static void load_page_to(FILE * f, int page_cnt, page_t * page);
-
 /* load bucket page from disk
  */
 static void
