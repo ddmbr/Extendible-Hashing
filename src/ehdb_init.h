@@ -1,0 +1,1 @@
+void ehdb_init();

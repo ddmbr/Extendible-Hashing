@@ -12,7 +12,7 @@ ehdb_bulk_insert(file_loc)
     int next_page = 0;
 
     source_tbl_file = fopen(file_loc, "r");
-    source_ptr = (char*)malloc((size_t)(8 * 1024));
+    source_ptr = ehdb_new_page();
     fread(source_ptr, 8 * 1024, 1, source_tbl_file);
 
     while() //TODO while page not full
@@ -20,35 +20,56 @@ ehdb_bulk_insert(file_loc)
         //seek for the key
         for(i = 1; i <= schema_length; i++)
         {
-            if(i != ehdb_key)
+            if(i != key_col)
             {
                 while(*source_ptr != '|') source_ptr++;
                 source_ptr++;
                 continue;
             }
-            ptr = ehdb_read_int(ptr, key);
+            source_ptr = ehdb_read_int(source_ptr, &key);
         }
 
-        //with the key, fetch the corresponding page
-        //read data
+        //TODO with the key, fetch the corresponding page
+        ehdb_fetch_page(key, &is_full);
+
         //check whether page is full while reading data
-        //if full, set the pointer beyond the free space pointer
+        //with the `is_full' flag
         for(i = 1; i <= schema_length; i++)
         {
             switch(ehdb_data_type[i])
             {
                 case INT:
-                    source_ptr = ehdb_read_int(source_ptr, int_num);
+                    //TODO
+                    source_ptr = ehdb_save_int(source_ptr, &is_full);
                     break;
                 case FLOAT:
-                    source_ptr = ehdb_read_float(source_ptr);
+                    //TODO
+                    source_ptr = ehdb_save_float(source_ptr, &is_full);
                     break;
                 case STRING:
-                    ehdb_read_string(ptr);
+                    //TODO
+                    source_ptr = ehdb_save_string(source_ptr, &is_full);
+                    break;
+                case CHAR:
+                    //TODO
+                    source_ptr = ehdb_save_char(source_ptr, &is_full);
+                case DATE:
+                    //TODO date's format:
+                    //2 bytes for the year, 1 byte for the month
+                    //and 1 byte for the day
+                    source_ptr = ehdb_save_date(source_ptr, &is_full);
                     break;
             }
         }
-        //if success, modify the counter
-        //else create a new page
+        if(!is_full)
+        {
+            //if success, modify the counter
+            ;
+        }
+        else
+        {
+            //else create a new page
+            ehdb_fetch_page(key, &is_full);
+        }
     }
 }
