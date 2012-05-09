@@ -1,3 +1,6 @@
+#include "ehdb_hash.h"
+#include "ehdb_buffer_mgr.h"
+
 int
 ehdb_hash_func(int key, int depth)
 {
@@ -12,42 +15,59 @@ ehdb_hash_func(int key, int depth)
 int
 ehdb_hash_h(int key, int depth)
 {
-
+    //TODO
 }
 
 int
 ehdb_hash_l(int key, int depth)
 {
-    return key >> depth;
+    /* return key >> depth; */
+    return (key & (1 << depth));
 }
 
+/* check whether a page is overflowed after the insertion of record
+ */
 short
-ehdb_is_overflow(struct page_t* page_ptr)
+is_overflow(page_t* page_ptr, record_t* record)
 {
-    return ehdb_free_begin(page_ptr) >= ehdb_free_end(page_ptr);
+    return (size_t)(ehdb_free_end(page_ptr) - ehdb_free_begin(page_ptr)
+            + ehdb_test_record_size(record)) > Page_size;
 }
 
 void
-ehdb_write_record(struct page_t* page_ptr, struct record_t record*)
+ehdb_write_record(struct page_t* bucket_page, struct record_t *record)
 {
-    if(is_overflow(page_ptr))
+    if(is_overflow(bucket_page, record))
     {
-        int bucket_id = ehdb_split_bucket(page_ptr);
-        page_ptr = ehdb_get_bucket_page(bucket_id);
-        if(is_overflow(page_ptr))
+        int bucket_id = ehdb_split_bucket(bucket_page);
+        page_t * new_bucket_page = ehdb_get_bucket_page(bucket_id);
+        if(is_overflow(bucket_page, record) 
+            && is_overflow(new_bucket_page, record))
         {
-            bucket_id = ehdb_bucket_grow(page_ptr);
-            page_ptr = ehdb_get_bucket_page(bucket_id);
+            bucket_id = ehdb_bucket_grow(bucket_page);
+            bucket_page = ehdb_get_bucket_page(bucket_id);
         }
     }
-    ehdb_record2page_record(record, page_ptr);
+    ehdb_record2page_record(record, bucket_page);
 }
 
 void
-ehdb_double_index(struct page_t *page_ptr)
+ehdb_double_index(page_t *page_ptr)
 {
-    //if the size of index is smaller than one page
+    int n = (1 << global_depth);
+    int i, j;
+    int bucket_id;
+    page_t *src_index_page,
+           *dest_index_page;
 
-    //if bigger than one page
-    
+    for(i = 0; i < n; i++){
+        // i is the index to be duplicated
+        j = n + i;
+        src_index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        bucket_id = ((int*)src_index_page->head)[i % Dictpair_per_page];
+
+        dest_index_page = ehdb_get_index_page(j / Dictpair_per_page);
+        ((int*)dest_index_page->head)[i % Dictpair_per_page] = bucket_id;
+        dest_index_page->modified = 1;
+    }
 }
