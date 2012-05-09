@@ -1,1 +1,3 @@
-void ehdb_init();
+/* Initailize the system */
+void
+ehdb_init();
