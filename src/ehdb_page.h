@@ -1,6 +1,7 @@
 #pragma once
 
-enum {RAW, INDEX, BUCKET, FREE} page_type_t;
+enum page_type_t{RAW, INDEX, BUCKET, FREE};
+typedef enum page_type_t page_type_t;
 
 struct page_t{
     page_type_t page_type;
