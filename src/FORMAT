@@ -1,8 +1,7 @@
 format of index page:
 ---------------------
-an sequence of (hvalue, bucket_id) tuples
-each integer use 32bit = 4byte
-each tuple use 8byte
+an sequence of bucket_id 
+each bucket_id is an integer, use 32bit = 4byte
 
 format of bucket page:
 ----------------------
