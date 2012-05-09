@@ -16,3 +16,9 @@ ehdb_copy_from_file(struct page_t *page_ptr, int page_id, int page_type);
  */
 void
 ehdb_save_to_file(struct page_t *page_ptr);
+
+/* split the bucket and
+ * return a bucket id
+ */
+int
+ehdb_split_bucket();

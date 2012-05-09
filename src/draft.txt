@@ -12,7 +12,7 @@ read raw data(ehdb_parser.h: ehdb_bulk_insert())
                                                                             | ehdb_buffer_mgr.h:
         fetch the index page that contain this map:k->bucket_id(buffer_mgr) | 
         fetch the bucket                                                    | page_t* ehdb_get_bucket_page(int hash_value)
-        write the record                                                    | ehdb_hash.h: ehdb_write_record(page_t*)
+        write the record                                                    | ehdb_hash.h: ehdb_write_record(page_t*, struct record_t*)
             check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
             if yes:
                 split the bucket(local depth will +1)                       | ehdb_file_mgr.h: void ehdb_split_bucket(int bucket_id)
