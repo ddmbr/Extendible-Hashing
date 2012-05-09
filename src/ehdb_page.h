@@ -8,7 +8,7 @@ struct page_t{
     void * head;
     short modified;
 };
-typedef struct page_t page_t
+typedef struct page_t page_t;
 
 /* get the begin of the free space
  * of a specific page
