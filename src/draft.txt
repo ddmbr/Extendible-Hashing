@@ -1,0 +1,64 @@
+read raw data(ehdb_parser: ehdb_bulk_insert())
+    get a page of the tbl file, from the disk, to the memory | ehdb_parser: ehdb_single_insert()
+
+    read a record                   | ehdb_parser.h: struct record_t ehdb_next_line()
+    translate it into a struct      |
+
+    get the key of the record       | ehdb_parser.h: int ehdb_get_key(struct record_t*)
+
+    insert the record
+        get the hash value k        | ehdb_hash.h: int ehdb_hash_func(int)
+
+                                                                            | ehdb_buffer_mgr.h:
+        fetch the index page that contain this map:k->bucket_id(buffer_mgr) | page_t* ehdb_get_index_page(int hash_value)
+        fetch the bucket                                                    | page_t* ehdb_get_bucket_page(int bucket_id)
+        write the record                                                    | ehdb_hash.h: ehdb_write_record(page_t*)
+            check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
+            if yes:
+                split the bucket(local depth will +1)                       | ehdb_file_mgr.h: void ehdb_split_bucket(int bucket_id)
+                if the local depth > global depth, double the index, global depth increace by 1
+            update the hash value
+            check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
+            if yes, generate a linked list                                  | ehdb_file_mgr.h: ehdb_bucket_grow()
+            write the record into the bucket                                | ehdb_hash.h: ehdb_add_record()
+query
+    get the key
+    get the hash value k
+    fetch the ditionary page that contain this map:k->page_id(buffer mgr)
+    fetch the bucket
+    get the record and print it
+
+modules:
+    ehdb_parser                 | ray
+    ehdb_record(converters)     | ray
+        ehdb_raw2record(void*)
+    ehdb_page                   | ddmbr
+        extract info from a page
+        ehdb_get_depth
+        ehdb_get_record_num
+        void *ehdb_free_bgein()
+        void *endb_free_end()
+    ehdb_buffer_mgr             | ray
+    ehdb_file_mgr               | ddmbr
+    ehdb_hash                   | ddmbr
+    ehdb_init                   | ddmbr
+
+global variables:
+    const int Page_num = 8;
+    const size_t Page_size = (8 * 1024)
+    int global_depth
+    struct page_t pages[Page_num]
+
+data structs:
+struct page_t
+{
+    int page_type = [RAW | INDEX | BUCKET | FREE];
+    int page_id;
+    void *head;
+    short modified;
+};
+
+struct record_t
+{
+
+};
