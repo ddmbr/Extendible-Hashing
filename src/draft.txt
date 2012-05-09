@@ -1,5 +1,5 @@
-read raw data(ehdb_parser: ehdb_bulk_insert())
-    get a page of the tbl file, from the disk, to the memory | ehdb_parser: ehdb_single_insert()
+read raw data(ehdb_parser.h: ehdb_bulk_insert())
+    get a page of the tbl file, from the disk, to the memory | ehdb_parser.h: ehdb_single_insert()
 
     read a record                   | ehdb_parser.h: struct record_t ehdb_next_line()
     translate it into a struct      |
@@ -10,8 +10,8 @@ read raw data(ehdb_parser: ehdb_bulk_insert())
         get the hash value k        | ehdb_hash.h: int ehdb_hash_l(int)
 
                                                                             | ehdb_buffer_mgr.h:
-        fetch the index page that contain this map:k->bucket_id(buffer_mgr) | page_t* ehdb_get_index_page(int hash_value)
-        fetch the bucket                                                    | page_t* ehdb_get_bucket_page(int bucket_id)
+        fetch the index page that contain this map:k->bucket_id(buffer_mgr) | 
+        fetch the bucket                                                    | page_t* ehdb_get_bucket_page(int hash_value)
         write the record                                                    | ehdb_hash.h: ehdb_write_record(page_t*)
             check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
             if yes:
@@ -22,11 +22,13 @@ read raw data(ehdb_parser: ehdb_bulk_insert())
             if yes, generate a linked list                                  | ehdb_file_mgr.h: ehdb_bucket_grow()
             write the record into the bucket                                | ehdb_hash.h: ehdb_add_record()
 query
-    get the key
-    get the hash value k
-    fetch the ditionary page that contain this map:k->page_id(buffer mgr)
-    fetch the bucket
-    get the record and print it
+    get the key of the record       | ehdb_parser.h: int ehdb_get_key(struct record_t*)
+    get the hash value k            | ehdb_hash.h: int ehdb_hash_func(int)
+
+    fetch the ditionary page that contain this map:k->page_id(buffer mgr)   |
+    fetch the bucket                                                        | page_t* ehdb_get_bucket_page(int hash_value)
+
+    get the record and print it                                             | ehdb_record2raw(record_t * record, char * raw);
 
 modules:
     ehdb_parser                 | ray
@@ -42,6 +44,8 @@ modules:
     ehdb_file_mgr               | ddmbr
     ehdb_hash                   | ddmbr
     ehdb_init                   | ddmbr
+    ehdb_query
+        void ehdb_query(int key, FILE *fout)
 
 global variables:
     const int Page_num = 8;
