@@ -1,6 +1,13 @@
 Compiler=gcc
-Flags=-g 
-Objects=ehdb_parser.o ehdb_record.o
+Flags=-g -DDEBUG
+Objects=ehdb_parser.o ehdb_record.o ehdb_buffer_mgr.o
+
+
+ehdb_buffer_mgr.o: ehdb_buffer_mgr.c ehdb_buffer_mgr.h ehdb_page.h ehdb_init.h ehdb_file_mgr.h
+	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
+
+# ehdb_file_mgr.o: ehdb_file_mgr.c ehdb_file_mgr.h ehdb_page.h ehdb_init.h ehdb_file_mgr.h
+# 	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
 
 ehdb_parser.o: ehdb_parser.c ehdb_parser.h ehdb_buffer_mgr.h ehdb_record.h
 	$(Compiler) $(Flags) -c ehdb_parser.c
