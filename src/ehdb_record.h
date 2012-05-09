@@ -1,8 +1,8 @@
 #pragma once
 #include "page.h"
 typedef int identifier_t;
-typedef short flag_t;
-typedef int decimal_t;
+typedef char flag_t;
+typedef float decimal_t;
 typedef int date_t;
 
 struct record_t{
@@ -49,4 +49,5 @@ ehdb_record2page_record(record_t * record, page_t * page);
 
 /* check the total size if the record is to be converted to page_record
  */
-size_t test_record_size(record_t * record);
+size_t ehdb_test_record_size(record_t * record);
+

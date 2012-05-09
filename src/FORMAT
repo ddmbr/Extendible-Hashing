@@ -29,3 +29,9 @@ in the middle is called free part.
     4~free_begin-1: datas
     free_begin~free_end-1: unused
     free_end~Page_size-1: strings
+
+line format in .tbl file
+-----------------------
+identifier_t x 3, int, decimal_t x 4, flag x 2, date_t x 3, string x 3
+1|155190|7706|1|17|21168.23|0.04|0.02|N|O|1996-03-13|1996-02-12|1996-03-22|DELIVER IN PERSON|TRUCK|egular courts above the|
+
