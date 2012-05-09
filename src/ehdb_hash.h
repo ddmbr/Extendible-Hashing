@@ -18,3 +18,8 @@ ehdb_is_overflow(struct page_t* page_ptr);
  */
 struct page_t*
 ehdb_bucket_grow(int bucket_id);
+
+/* write a record into a bucket
+ */
+void
+ehdb_write_record(struct page_t* page_ptr, struct record_t record*);

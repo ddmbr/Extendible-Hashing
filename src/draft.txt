@@ -13,14 +13,14 @@ read raw data(ehdb_parser.h: ehdb_bulk_insert())
         fetch the index page that contain this map:k->bucket_id(buffer_mgr) | 
         fetch the bucket                                                    | page_t* ehdb_get_bucket_page(int hash_value)
         write the record                                                    | ehdb_hash.h: ehdb_write_record(page_t*, struct record_t*)
-            check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
+            check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(struct page_t*)
             if yes:
-                split the bucket(local depth will +1)                       | ehdb_file_mgr.h: void ehdb_split_bucket(int bucket_id)
+                split the bucket(local depth will +1)                       | ehdb_file_mgr.h: void ehdb_split_bucket(page_t*)
                 if the local depth > global depth, double the index, global depth increace by 1
             update the hash value
             check if the bucket will be overflowed                          | ehdb_hash.h: is_overflow(int bucket_id)
             if yes, generate a linked list                                  | ehdb_file_mgr.h: ehdb_bucket_grow()
-            write the record into the bucket                                | ehdb_hash.h: ehdb_add_record()
+            write the record into the bucket                                | ehdb_hash.h: ehdb_record2page_record()
 query
     get the key of the record       | ehdb_parser.h: int ehdb_get_key(struct record_t*)
     get the hash value k            | ehdb_hash.h: int ehdb_hash_func(int)

@@ -23,4 +23,17 @@ ehdb_bucket_grow(int bucket_id)
 }
 
 void
-ehdb_write_record(page_t*)
+ehdb_write_record(struct page_t* page_ptr, struct record_t record*)
+{
+    if(is_overflow(page_ptr))
+    {
+        int bucket_id = ehdb_split_bucket(page_ptr);
+        page_ptr = ehdb_get_bucket_page(bucket_id);
+        if(is_overflow(page_ptr))
+        {
+            bucket_id = ehdb_bucket_grow(page_ptr);
+            page_ptr = ehdb_get_bucket_page(bucket_id);
+        }
+    }
+    ehdb_record2page_record(record, page_ptr);
+}

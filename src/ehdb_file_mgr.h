@@ -21,4 +21,7 @@ ehdb_save_to_file(struct page_t *page_ptr);
  * return a bucket id
  */
 int
-ehdb_split_bucket();
+ehdb_split_bucket(struct page_t *page_ptr);
+
+int
+ehdb_bucket_grow(struct page_t* page_ptr)
