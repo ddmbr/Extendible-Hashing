@@ -24,7 +24,7 @@ void ehdb_query(int key, FILE *fout){
 	//hash_page =ehdb_get_bucket_page(hash_value); & next
 	//the same
     }
-    
+    fclose(fout);    
 }
 
 void quick_sorting(page_t *page_array[], int arrayLength){
