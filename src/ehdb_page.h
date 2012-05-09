@@ -1,25 +1,17 @@
 #pragma once
 
 enum {RAW, INDEX, BUCKET, FREE} page_type_t;
-typedef short bool;
 
 struct page_t{
     page_type_t page_type;
     int page_id;
     void * head;
-    bool modified;
+    short modified;
 };
 
 /* get the begin of the free space
  * of a specific page
  */
-struct page_t
-{
-    int page_type;
-    int page_id;
-    void* head;
-    short modified;
-};
 void* 
 ehdb_free_begin(struct page_t* page_ptr);
 
