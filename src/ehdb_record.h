@@ -1,5 +1,7 @@
 #pragma once
 #include "ehdb_page.h"
+#include "string.h"
+
 typedef int identifier_t;
 typedef char flag_t;
 typedef float decimal_t;
@@ -24,6 +26,8 @@ struct record_t{
     char shipmode[10];
     char comment[44];
 };
+
+typedef struct record_t record_t;
 
 /* read the string and convert to `record`, starting from `start`
  * return: the end position
