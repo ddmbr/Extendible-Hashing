@@ -2,6 +2,7 @@
 
 enum page_type_t{RAW, INDEX, BUCKET, FREE};
 typedef enum page_type_t page_type_t;
+
 struct page_t{
     page_type_t page_type;
     int page_id;
@@ -33,6 +34,11 @@ ehdb_get_depth(struct page_t* page_ptr);
  */
 int
 ehdb_get_record_num(struct page_t* page_ptr);
+
+/* get the strings' length from the back
+ */
+int
+ehdb_get_record_string_len(page_t* page);
 
 /* get to the next bucket
  * if there exits a linked list
