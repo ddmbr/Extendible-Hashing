@@ -111,7 +111,17 @@ find_page(page_type_t page_type, int page_id){
 }
 
 page_t*
-ehdb_get_bucket_page(int hash_value){
+ehdb_get_bucket_page(int bucket_id){
+    return load_page(BUCKET, bucket_id);
+}
+
+page_t*
+ehdb_get_index_page(int index_id){
+    return load_page(INDEX, index_id);
+}
+
+page_t*
+ehdb_get_bucket_page_by_hvalue(int hash_value){
     int index_id, offset;
     page_t * index_page, 
            * bucket_page;
