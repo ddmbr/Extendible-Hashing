@@ -1,5 +1,5 @@
 #pragma once
-#include "page.h"
+#include "ehdb_page.h"
 typedef int identifier_t;
 typedef char flag_t;
 typedef float decimal_t;
