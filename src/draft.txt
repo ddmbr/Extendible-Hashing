@@ -7,7 +7,7 @@ read raw data(ehdb_parser: ehdb_bulk_insert())
     get the key of the record       | ehdb_parser.h: int ehdb_get_key(struct record_t*)
 
     insert the record
-        get the hash value k        | ehdb_hash.h: int ehdb_hash_func(int)
+        get the hash value k        | ehdb_hash.h: int ehdb_hash_l(int)
 
                                                                             | ehdb_buffer_mgr.h:
         fetch the index page that contain this map:k->bucket_id(buffer_mgr) | page_t* ehdb_get_index_page(int hash_value)
