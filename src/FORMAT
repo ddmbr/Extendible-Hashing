@@ -1,0 +1,31 @@
+format of index page:
+---------------------
+an sequence of (hvalue, bucket_id) tuples
+each integer use 32bit = 4byte
+each tuple use 8byte
+
+format of bucket page:
+----------------------
+divide into two part, the first part, `fxdata`, starts from the front,
+the other part, `vadata`, starts from the end. The unused free space
+in the middle is called free part.
+
+* `fxdata`
+    This part is used to store fixed-size data. For strings, we represent it by two
+    integer, (start, length). The `start` is the position of the string in the `vadata`
+    part.
+
+* `vadata`
+    This part is to store strings. For example, if three strings were inserted in order.
+        'hello', 'monkey', 'sah'
+    Then in this part, they are stored like:
+        sahmonkeyhello(end of the page)
+
+* summary
+    0, ?
+    1, ?
+    2, ?
+    3, ?
+    4~free_begin-1: datas
+    free_begin~free_end-1: unused
+    free_end~Page_size-1: strings
