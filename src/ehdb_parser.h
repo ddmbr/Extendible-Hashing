@@ -7,12 +7,13 @@
 void
 ehdb_parse_start(char * fileaddr);
 
-/* get next record in the file
+/* get next line in the file, convert and store in record
  */
-record_t
-ehdb_next_line();
+void
+ehdb_next_line(record_t* record);
 
 int
-ehdb_get_key(record_t* record){
-    return record->orderkey;
-}
+ehdb_test_eof();
+
+int
+ehdb_get_key(record_t* record);
