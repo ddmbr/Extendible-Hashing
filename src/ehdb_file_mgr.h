@@ -24,4 +24,4 @@ int
 ehdb_split_bucket(struct page_t *page_ptr);
 
 int
-ehdb_bucket_grow(struct page_t* page_ptr)
+ehdb_bucket_grow(struct page_t* page_ptr);
