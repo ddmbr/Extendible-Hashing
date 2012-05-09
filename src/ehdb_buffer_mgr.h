@@ -1,6 +1,7 @@
 #pragma once
 #include "ehdb_init.h"
 #include "ehdb_file_mgr.h"
+#include "ehdb_page.h"
 
 // how many (hash_value, bucket_id) tuple can a page store
 #define Dictpair_per_page (2048); 

@@ -2,6 +2,9 @@
 #include "ehdb_file_mgr.h"
 #include "ehdb_page.h"
 #include "ehdb_init.h"
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
 
 struct clock_list_node_t{
     struct page_t * page;
@@ -10,7 +13,7 @@ struct clock_list_node_t{
 
 typedef struct clock_list_node_t clock_list_node_t;
 
-clock_list_node_t clock_list[Page_num]
+clock_list_node_t clock_list[Page_num];
 
 /* clock_hand: the index of hand of the Clock page replacement algorithm
  * clock_head: the head index of the list. The available items are 
@@ -31,9 +34,15 @@ ehdb_buffer_init(){
 void
 swap_out_page(page_t* page){
     if(page->modified){
-        page->ehdb_save_to_file(page);
+        ehdb_save_to_file(page);
     }
 }
+
+#ifdef DEBUG
+void print_clock_state(){
+    fprintf(stderr, "clock{start:%d, size:%d, hand:%d}\n", clock_head, clock_size, clock_hand);
+}
+#endif
 
 /* Find the available position in the clock_list. Will swap out old page if
  * neccessery.
@@ -45,19 +54,19 @@ available_page_pos(){
         pos = (clock_head + clock_size) % Page_size;
         clock_size++;
         // allocate the page space for the page
-        clock_list[pos]->page->head = malloc(Page_size);
+        clock_list[pos].page->head = malloc(Page_size);
         // TODO
         // init other page fields
     }else{
-        while(clock_list[clock_hand]->refbit == 1){
-            clock_list[clock_hand]->refbit = 0;
+        while(clock_list[clock_hand].refbit == 1){
+            clock_list[clock_hand].refbit = 0;
             if(clock_hand == (clock_head + clock_size) % Page_size){
                 clock_hand = clock_head;
             }else{
                 clock_hand = (clock_hand + 1) % Page_size;
             }
         }
-        swap_out_page(clock_list[clock_head]->page);
+        swap_out_page(clock_list[clock_head].page);
         pos = clock_hand;
     }
     return pos;
@@ -74,7 +83,10 @@ load_page(int page_id, page_type_t page_type){
     }
     clock_list_node_t * node;
     node = &clock_list[page_pos];
-    ehdb_copy_from_file(node->page, page_id, page_type);
+    /* ehdb_copy_from_file(node->page, page_id, page_type); */
+#ifdef DEBUG
+    fprintf(stderr, "page{id:%d, type:%d} loaded\n", page_id, page_type);
+#endif
     node->refbit = 1;
     /* node->page->page_type = page_type; */
     /* node->page->page_id = page_id; */
@@ -90,8 +102,8 @@ find_page(page_type_t page_type, int page_id){
     int i, j;
     for(i = clock_head; i <= clock_head + clock_size; i++){
         j = i % Page_num;
-        if(clock_list[j].page->page_id == index_id 
-                && clock_list[j].page->page_type == INDEX){
+        if(clock_list[j].page->page_id == page_id 
+                && clock_list[j].page->page_type == page_type){
             return j;
         }
     }
@@ -101,21 +113,22 @@ find_page(page_type_t page_type, int page_id){
 page_t*
 ehdb_get_bucket_page(int hash_value){
     int index_id, offset;
-    page_t * index_page, bucket_page;
+    page_t * index_page, 
+           * bucket_page;
 
     index_id = hash_value / Dictpair_per_page;
     offset = hash_value % Dictpair_per_page;
 
-    index_page = load_page(index_id);
-    int bucket_id = (int *)(index_page->head)[offset];
+    index_page = load_page(INDEX, index_id);
+    int bucket_id = ((int *)(index_page->head))[offset];
 
-    bucket_page = load_page(bucket_id);
+    bucket_page = load_page(BUCKET, bucket_id);
     return bucket_page;
 }
 
-page_t * ehdb_make_available_page(){
+page_t* 
+ehdb_make_available_page(){
     int pos = available_page_pos();
-    clock_list[pos]->refbit = 1;
-    ehdb_new_page(clock_list[pos]->page);
-    return clock_list[pos]->page;
+    clock_list[pos].refbit = 1;
+    return clock_list[pos].page;
 }
