@@ -1,6 +1,7 @@
 #include "ehdb_record.h"
 #include "stdio.h"
 #include "string.h"
+#include "ehdb_page.h"
 
 // convert ints to date_t
 date_t ints2date(int y, int m, int d){

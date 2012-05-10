@@ -33,7 +33,7 @@ ehdb_get_depth(struct page_t* page_ptr);
  * of a specific page
  */
 int
-ehdb_get_record_num(struct page_t* page_ptr);
+ehdb_get_record_num(page_t* page_ptr);
 
 /* get the strings' length from the back
  */

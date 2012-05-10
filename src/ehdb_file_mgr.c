@@ -67,8 +67,8 @@ ehdb_copy_from_file(struct page_t *page_ptr)
     else if(page_ptr->page_type == BUCKET)
         file = fopen("buckets", "w");
 
-    fseek(file, (page_ptr->page_id - 1) * Page_size, SEEK_SET);
-    fread(page_ptr, Page_size, 1, file);
+    fseek(file, (page_ptr->page_id - 1) * PAGE_SIZE, SEEK_SET);
+    fread(page_ptr, PAGE_SIZE, 1, file);
 }
 
 /* this method will save the corresponding
@@ -84,8 +84,8 @@ ehdb_save_to_file(struct page_t *page_ptr)
     else if(page_ptr->page_type == BUCKET)
         file = fopen("buckets", "w");
 
-    fseek(file, (page_ptr->page_id - 1) * Page_size, SEEK_SET);
-    fwrite(page_ptr, Page_size, 1, file);
+    fseek(file, (page_ptr->page_id - 1) * PAGE_SIZE, SEEK_SET);
+    fwrite(page_ptr, PAGE_SIZE, 1, file);
 }
 
 /* split the bucket and

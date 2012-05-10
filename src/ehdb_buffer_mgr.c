@@ -13,7 +13,7 @@ struct clock_list_node_t{
 
 typedef struct clock_list_node_t clock_list_node_t;
 
-clock_list_node_t clock_list[Page_num];
+clock_list_node_t clock_list[PAGE_NUM];
 
 /* clock_hand: the index of hand of the Clock page replacement algorithm
  * clock_head: the head index of the list. The available items are 
@@ -50,20 +50,18 @@ void print_clock_state(){
 int 
 available_page_pos(){
     int pos;
-    if(clock_size < Page_size){
-        pos = (clock_head + clock_size) % Page_size;
+    if(clock_size < PAGE_SIZE){
+        pos = (clock_head + clock_size) % PAGE_SIZE;
         clock_size++;
         // allocate the page space for the page
-        clock_list[pos].page->head = malloc(Page_size);
-        // TODO
-        // init other page fields
+        clock_list[pos].page->head = malloc(PAGE_SIZE);
     }else{
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
-            if(clock_hand == (clock_head + clock_size) % Page_size){
+            if(clock_hand == (clock_head + clock_size) % PAGE_SIZE){
                 clock_hand = clock_head;
             }else{
-                clock_hand = (clock_hand + 1) % Page_size;
+                clock_hand = (clock_hand + 1) % PAGE_SIZE;
             }
         }
         swap_out_page(clock_list[clock_head].page);
@@ -101,7 +99,7 @@ int
 find_page(page_type_t page_type, int page_id){
     int i, j;
     for(i = clock_head; i <= clock_head + clock_size; i++){
-        j = i % Page_num;
+        j = i % PAGE_NUM;
         if(clock_list[j].page->page_id == page_id 
                 && clock_list[j].page->page_type == page_type){
             return j;
