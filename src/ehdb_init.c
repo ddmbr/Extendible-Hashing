@@ -4,7 +4,6 @@
 
 int Global_depth;
 int Bucket_page_num;
-int Index_page_num;
 
 void
 ehdb_init()

@@ -10,8 +10,15 @@
 void
 ehdb_file_init()
 {
-    Bucket_page_num = 0;
-    Index_page_num = 0;
+    int bucket_0 = ehdb_new_page(BUCKET, 1);
+    int bucket_1 = ehdb_new_page(BUCKET, 1);
+    index_page = ehdb_get_index_page(0);
+    ((int*)index_page->head)[hv_l % Dictpair_per_page] = bucket_0;
+    index_page->modified = 1;
+
+    index_page = ehdb_get_index_page(1);
+    ((int*)index_page->head)[hv_h % Dictpair_per_page] = bucket_1;
+    index_page->modified = 1;
 }
 
 int
@@ -29,7 +36,7 @@ ehdb_new_page(page_type_t type, int depth)
     page_ptr = ehdb_make_available_page();
 
     page_ptr->page_type = type;
-    page_ptr->page_id = *page_num;
+    page_ptr->page_id = *page_num - 1;
     page_ptr->modified = 0;
     ehdb_init_page_free_end(page_ptr);
     ehdb_init_page_record_num(page_ptr);
@@ -77,7 +84,7 @@ ehdb_save_to_file(struct page_t *page_ptr)
 /* split the bucket and
  * return a bucket id
  */
-int
+void
 ehdb_split_bucket(struct page_t *page_ptr)
 {
     int hv_l, hv_h, pid_l, pid_h, depth;

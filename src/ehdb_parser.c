@@ -61,3 +61,23 @@ ehdb_next_line(record_t * record){
     }
     current_pos = ehdb_raw2record(current_pos, record);
 }
+
+void
+ehdb_bulk_insert();
+{
+    record_t record;
+    while(!ehdb_test_eof())
+    {
+        ehdb_next_line(&record);
+        ehdb_single_insert(&record);
+    }
+}
+
+void ehdb_single_insert(record_t *record)
+{
+    int key = ehdb_get_key(record);
+    int hv = ehdb_hash_func(key);
+    page_t *page_ptr;
+    page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
+    ehdb_write_record(page_ptr, record)
+}
