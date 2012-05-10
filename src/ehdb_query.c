@@ -10,7 +10,7 @@ void ehdb_query(int key, FILE *fout){
 
     hash_value =ehdb_hash_func(key);
      
-    arrayLength =array_length(hash_page)	// count array length, quick sort maxiuman number
+    arrayLength =array_length(hash_page);	// count array length, quick sort maxiuman number
 
     if(ehdb_get_next_bucket(hash_value) ==NULL){	// Extendible Chain not exist
 	
