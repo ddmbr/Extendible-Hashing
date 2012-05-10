@@ -1,5 +1,6 @@
 #include "ehdb_record.h"
 #include "stdio.h"
+#include "string.h"
 
 // convert ints to date_t
 date_t ints2date(int y, int m, int d){
@@ -86,14 +87,118 @@ ehdb_record2raw(record_t * record, char * raw){
                 );
 }
 
+void* 
+next_int(void * start, int * i){
+    *i = ((int*)start)[0];
+    return (int*)start + 1;
+}
+
+void*
+next_float(void * start, float* f){
+    *f = ((float*)start)[0];
+    return (float*)start + 1;
+}
+
+void*
+next_char(void * start, char* f){
+    *f = ((char*)start)[0];
+    return (char*)start + 1;
+}
+
+void*
+next_str(page_t* page, void* start, char* s){
+    short s_start, s_len;
+    s_start = ((short*)start)[0];
+    s_len = ((short*)start)[1];
+    strncpy(s, (char*)(page->head+s_start), s_len);
+    return (short*)start + 2;
+}
+
 int 
 ehdb_page_record2record(page_t * page, int offset, record_t * record){
-    //TODO
+    if(offset < 0) return -1;
+    // read and convert a record from the page
+    void * start = page->head + offset;
+    start = next_int(start, &record->orderkey);
+    start = next_int(start, &record->partkey);
+    start = next_int(start, &record->suppkey);
+    start = next_int(start, &record->linenumber);
+
+    start = next_float(start, &record->quantity);
+    start = next_float(start, &record->extendedprice);
+    start = next_float(start, &record->discount);
+    start = next_float(start, &record->tax);
+
+    start = next_char(start, &record->returnflag);
+    start = next_char(start, &record->linestatus);
+
+    start = next_int(start, &record->shipdate);
+    start = next_int(start, &record->commitdate);
+    start = next_int(start, &record->receiptdate);
+
+    start = next_str(page, start, record->shipinstruct);
+    start = next_str(page, start, record->shipmode);
+    start = next_str(page, start, record->comment);
+    if(ehdb_free_begin(page) <= start)
+        return -1;
+    else
+        return start - page->head - offset;
+}
+
+void*
+write_int(void* p, int i){
+    ((int*)p)[0] = i;
+    return (int*)p+1;
+}
+void*
+write_float(void* p, float i){
+    ((float*)p)[0] = i;
+    return (float*)p+1;
+}
+void*
+write_char(void* p, char i){
+    ((char*)p)[0] = i;
+    return (char*)p+1;
 }
 
 void 
+write_str(page_t* page, void**begin, void**end, char*s){
+    int len = strlen(s);
+    strncpy((char*)(*end - len), s, strlen(s));
+    //write string offset
+    ((short*)(*begin))[0] = (short)(*end - page->head);
+    ((short*)(*begin))[1] = (short)len;
+    *end = (char*)(*end) - len;
+    *begin = (short*)(*begin) + 2;
+}
+void
 ehdb_record2page_record(record_t * record, page_t * page){
-    //TODO
+    void * begin,
+         * end;
+    begin = ehdb_free_begin(page);
+    end = ehdb_free_end(page);
+    page->modified = 1;
+
+    begin = write_int(begin, record->orderkey);
+    begin = write_int(begin, record->partkey);
+    begin = write_int(begin, record->suppkey);
+    begin = write_int(begin, record->suppkey);
+
+    begin = write_float(begin, record->quantity);
+    begin = write_float(begin, record->extendedprice);
+    begin = write_float(begin, record->discount);
+    begin = write_float(begin, record->tax);
+
+    begin = write_char(begin, record->returnflag);
+    begin = write_char(begin, record->linestatus);
+
+    begin = write_int(begin, record->shipdate);
+    begin = write_int(begin, record->commitdate);
+    begin = write_int(begin, record->receiptdate);
+
+    write_str(page, &begin, &end, record->shipinstruct);
+    write_str(page, &begin, &end, record->shipmode);
+    write_str(page, &begin, &end, record->comment);
 }
 
 size_t ehdb_test_record_size(record_t * record){
