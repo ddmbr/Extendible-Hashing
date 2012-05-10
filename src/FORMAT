@@ -20,13 +20,13 @@ in the middle is called free part.
     Then in this part, they are stored like:
         sahmonkeyhello(end of the page)
 
-* summary
-    0, ?
-    1, ?
-    2, ?
-    3, ?
+* summary of the bucket page format
+    0, local depth
+    1, record num(count)
+    2, next bucket id
+    3, total string length
     4~free_begin-1: datas
-    free_begin~free_end-1: unused
+    free_begin~free_end-1: unused free space
     free_end~Page_size-1: strings
 
 line format in .tbl file
