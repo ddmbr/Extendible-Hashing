@@ -23,5 +23,7 @@ ehdb_save_to_file(struct page_t *page_ptr);
 int
 ehdb_split_bucket(struct page_t *page_ptr);
 
+/* generate a link list
+ */
 int
 ehdb_bucket_grow(struct page_t* page_ptr)
