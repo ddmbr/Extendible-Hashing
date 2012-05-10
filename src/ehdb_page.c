@@ -35,6 +35,7 @@ ehdb_get_record_string_len(page_t* page){
 void*
 ehdb_free_end(struct page_t* page_ptr)
 {
+<<<<<<< HEAD
     int string_len = ehdb_get_record_string_len(page_ptr);
     return page_ptr->head + (Page_size - string_len);
 }
@@ -43,4 +44,6 @@ void
 ehdb_set_page_link(struct page_t* page_ptr, int page_id)
 {
     ((int*)page_ptr->head)[3] = page_id;
+    int string_len = ehdb_get_record_string_len(page_ptr);
+    return page_ptr->head + (Page_size - string_len);
 }

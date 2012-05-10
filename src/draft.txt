@@ -51,7 +51,6 @@ global variables:
     const int Page_num = 8;
     const size_t Page_size = (8 * 1024)
     int global_depth
-    struct page_t pages[Page_num]
 
 data structs:
 struct page_t

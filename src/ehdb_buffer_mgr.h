@@ -1,32 +1,21 @@
 #pragma once
-#include "init.h"
+#include "ehdb_init.h"
 #include "ehdb_file_mgr.h"
+#include "ehdb_page.h"
 
-// how many (hash_value, bucket_id) tuple can a page store
-const int Dictpair_per_page = Page_size / (2 * (sizeof(int)));
+//define how many (hash_value, bucket_id) tuple can a page store
+#define Dictpair_per_page (2048) 
 
-/* load bucket page from disk
- */
-static void
-load_bucket_page(int bucket_id);
+void
+ehdb_buffer_init();
 
-/* load index page from disk
- */
-static void
-load_index_page(int index_id);
-
-static void inline 
-get_index_id(int hash_value){
-    return hash_value / Dictpair_per_page;
-}
-
-/*
- * get a page by the hash_value
- */
 page_t *
-ehdb_get_index_page(int hash_value);
+ehdb_get_bucket_page_by_hvalue(int hash_value);
 
 page_t *
 ehdb_get_bucket_page(int bucket_id);
 
+page_t *
+ehdb_get_index_page(int index_id);
 
+page_t * ehdb_make_available_page();
