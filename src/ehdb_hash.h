@@ -1,3 +1,7 @@
+#pragma once
+#include "ehdb_page.h"
+#include "ehdb_record.h"
+
 /* The main hash function
  */
 int
@@ -13,15 +17,13 @@ ehdb_hash_l(int key, int depth);
 int
 ehdb_hash_h(int key, int depth);
 
-/* check whether a page is overflowed
- */
 short
-ehdb_is_overflow(struct page_t* page_ptr);
+ehdb_is_overflow(page_t* page_ptr);
 
 /* write a record into a bucket
  */
 void
-ehdb_write_record(struct page_t* page_ptr, struct record_t record*);
+ehdb_write_record(page_t* page_ptr, record_t* record);
 
 void
-ehdb_double_index(struct page_t *page_ptr);
+ehdb_double_index(page_t *page_ptr);
