@@ -42,6 +42,17 @@ ehdb_record2raw(record_t * record, char * raw);
 
 /* read and convert a record from `page` start with `offset`
  * return: the new offset when conversion finished
+ *
+ * Example usage:
+ *
+ * int offset = 0
+ * page_t * page = ...;
+ * record_t record;
+ * while(offset != -1){
+ *      offset = ehdb_page_record2record(page, offset, &record);
+ *      // do something or print out the record
+ *      //...
+ * }
  */
 int 
 ehdb_page_record2record(page_t * page, int offset, record_t * record);
