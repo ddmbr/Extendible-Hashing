@@ -5,25 +5,20 @@
 void ehdb_query(int key, FILE *fout){
 
     int hash_value, record_length;
-    page_t *hash_page;
-    page_t *page_array[];
+    page_t *hash_bucket;
+    //page_t *page_array[];
 
     hash_value =ehdb_hash_func(key);
-     
+    hash_bucket =ehdb_get_bucket_page(hash_value); 
     record_length =ehdb_get_record_num(hash_value);	// data sum, quick sort maxiuman number    || wait to confirm
+    page_t *page_array[record_length];
+  
+    while(hash_bucket =ehdb_page_record2record(hash_bucket) !=-1){
+	
+	
+	
+    } 
 
-    if(ehdb_get_next_bucket(hash_value) ==NULL){	// Extendible Chain not exist
-	
-	//hash_page =ehdb_get_bucket_page(hash_value);	
-	//quick sort
-	//export fout
-	//ehdb_raw2record	
-		
-    }else{
-	
-	//hash_page =ehdb_get_bucket_page(hash_value); & next
-	//the same
-    }
     fclose(fout);    
 }
 
