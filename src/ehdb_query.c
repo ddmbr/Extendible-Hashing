@@ -14,8 +14,10 @@ void ehdb_query(int key, FILE *fout){
     page_t *page_array[record_length];
   
     while(UNKNOW =ehdb_page_record2record(hash_bucket) !=-1){
-	
-	
+	// data into array
+	// sorting array
+	printf(UNKNOW);
+	fprintf(fout,"%s",UNKNOW);	
 	
     } 
 
@@ -38,7 +40,7 @@ void quick_sorting(UNKNOW, int record_length){
 	    while(j-1 >-1 && page_array[--j].page_id >page_array[left].page_id);
     	    if(i>=j)
 		break;
-	    k =page_array[i].page_id;
+	    k =page_array[i].UNKNOW;
 	    page_array[i].page_id =page_array[j].page_id;
 	    page_array[j].page_id =k;
 
