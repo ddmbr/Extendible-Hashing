@@ -4,22 +4,27 @@
 # include "ehdb_record.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <assert.h>
 
+FILE *bucket_file;
+FILE *index_file;
 /* This will generate a new page
  * the provided page_t will be modified.
  */
 void
 ehdb_file_init()
 {
+#ifdef DEBUG
+    fprintf(stderr, "file mgr initing...\n");
+#endif
     page_t *index_page;
+    bucket_file = fopen("bucket", "w+");
+    index_file = fopen("index", "w+");
 
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
     index_page = ehdb_get_index_page(0);
     ((int*)index_page->head)[0] = bucket_0;
-    index_page->modified = 1;
-
-    index_page = ehdb_get_index_page(1);
     ((int*)index_page->head)[1] = bucket_1;
     index_page->modified = 1;
 }
@@ -27,17 +32,24 @@ ehdb_file_init()
 int
 ehdb_new_page(page_type_t type, int depth)
 {
+#ifdef DEBUG
+    fprintf(stderr, "call ehdb_new_page\n");
+#endif
     int *page_num;
+#ifdef DEBUG
+    assert(type == INDEX || type == BUCKET);
+#endif
+
     if(type == INDEX)
     {
         //page_num = &Index_page_num;
         //Necessary?
     }
-    else
+    else if(type == BUCKET)
     {
         page_num = &Bucket_page_num;
     }
-    *page_num ++;
+    (*page_num) ++;
 
     page_t *page_ptr;
 
@@ -63,13 +75,16 @@ void
 ehdb_copy_from_file(struct page_t *page_ptr)
 {
     FILE *file;
+#ifdef DEBUG
+    fprintf(stderr, "ehdb_copy_from_file: page id:%d\n", page_ptr->page_id);
+#endif
 
     if(page_ptr->page_type == INDEX)
-        file = fopen("index", "w");
+        file = index_file;
     else if(page_ptr->page_type == BUCKET)
-        file = fopen("buckets", "w");
+        file = bucket_file;
 
-    fseek(file, (page_ptr->page_id - 1) * PAGE_SIZE, SEEK_SET);
+    fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     fread(page_ptr, PAGE_SIZE, 1, file);
 }
 
@@ -82,9 +97,9 @@ ehdb_save_to_file(struct page_t *page_ptr)
     FILE *file;
 
     if(page_ptr->page_type == INDEX)
-        file = fopen("index", "w");
+        file = index_file;
     else if(page_ptr->page_type == BUCKET)
-        file = fopen("buckets", "w");
+        file = bucket_file;
 
     fseek(file, (page_ptr->page_id - 1) * PAGE_SIZE, SEEK_SET);
     fwrite(page_ptr, PAGE_SIZE, 1, file);
@@ -151,4 +166,11 @@ ehdb_bucket_grow(struct page_t* page_ptr)
     ehdb_set_page_link(page_ptr, prev_id);
 
     return bucket_id;
+}
+
+void
+ehdb_file_close()
+{
+    fclose(bucket_file);
+    fclose(index_file);
 }

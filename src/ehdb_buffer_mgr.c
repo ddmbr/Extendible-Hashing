@@ -7,7 +7,7 @@
 #include "stdlib.h"
 
 struct clock_list_node_t{
-    struct page_t * page;
+    page_t * page;
     int refbit;
 };
 
@@ -27,13 +27,23 @@ int clock_hand,
 
 void
 ehdb_buffer_init(){
+#ifdef DEBUG
+    fprintf(stderr, "buffer mgr initing...\n");
+#endif
     clock_head = clock_size = 0;
     clock_hand = 0;
 }
 
 void
 swap_out_page(page_t* page){
+#ifdef DEBUG
+    char * ffk[2] = {"INDEX", "BUCKET"};
+    fprintf(stderr, "swap out page(id=%d, type=%s)\n", page->page_id, ffk[page->page_type]);
+#endif
     if(page->modified){
+#ifdef DEBUG
+        fprintf(stderr, "need write back to file\n");
+#endif
         ehdb_save_to_file(page);
     }
 }
@@ -76,6 +86,7 @@ available_page_pos(){
 page_t*
 load_page(int page_id, page_type_t page_type){
     int page_pos;
+    // find page in mem
     page_pos = find_page(page_type, page_id);
     if(page_pos == -1){
         page_pos = available_page_pos();
@@ -86,7 +97,10 @@ load_page(int page_id, page_type_t page_type){
     node->page->page_id = page_id;
     ehdb_copy_from_file(node->page);
 #ifdef DEBUG
-    fprintf(stderr, "page{id:%d, type:%d} loaded\n", page_id, page_type);
+    if(page_type == INDEX)
+        fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "INDEX");
+    else if(page_type == BUCKET)
+        fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "BUCKET");
 #endif
     node->refbit = 1;
     return node->page;
@@ -111,12 +125,12 @@ find_page(page_type_t page_type, int page_id){
 
 page_t*
 ehdb_get_bucket_page(int bucket_id){
-    return load_page(BUCKET, bucket_id);
+    return load_page(bucket_id, BUCKET);
 }
 
 page_t*
 ehdb_get_index_page(int index_id){
-    return load_page(INDEX, index_id);
+    return load_page(index_id, INDEX);
 }
 
 page_t*
@@ -128,10 +142,10 @@ ehdb_get_bucket_page_by_hvalue(int hash_value){
     index_id = hash_value / Dictpair_per_page;
     offset = hash_value % Dictpair_per_page;
 
-    index_page = load_page(INDEX, index_id);
+    index_page = load_page(index_id, INDEX);
     int bucket_id = ((int *)(index_page->head))[offset];
 
-    bucket_page = load_page(BUCKET, bucket_id);
+    bucket_page = load_page(bucket_id, BUCKET);
     return bucket_page;
 }
 
@@ -140,4 +154,13 @@ ehdb_make_available_page(){
     int pos = available_page_pos();
     clock_list[pos].refbit = 1;
     return clock_list[pos].page;
+}
+
+void
+ehdb_save_pages(){
+    int i, j;
+    for(i = clock_head; i < clock_head + clock_size; i++){
+        j = i % PAGE_NUM;
+        swap_out_page(clock_list[j].page);
+    }
 }

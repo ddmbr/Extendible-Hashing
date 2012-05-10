@@ -17,7 +17,7 @@ ehdb: $(Objects)
 ehdb_query.o: ehdb_query.c
 	$(Compiler) $(Flags) -c ehdb_query.c
 
-main.o: main.c ehdb_init.h
+main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h
 	$(Compiler) $(Flags) -c main.c
 
 ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
