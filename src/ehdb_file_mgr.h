@@ -4,7 +4,7 @@
  * the provided page_t will be modified.
  */
 void
-ehdb_new_page(page_t *page_ptr);
+ehdb_new_page(page_ptr_t type, int depth);
 
 /* Providing page_t, page_id and page_type,
  * this method will copy the corresponding
