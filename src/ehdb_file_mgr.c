@@ -2,7 +2,8 @@
 # include "ehdb_buffer_mgr.h"
 # include "ehdb_page.h"
 # include "ehdb_record.h"
-# include "stdio.h"
+# include <stdio.h>
+# include <stdlib.h>
 
 /* This will generate a new page
  * the provided page_t will be modified.
@@ -94,15 +95,15 @@ ehdb_save_to_file(struct page_t *page_ptr)
 void
 ehdb_split_bucket(struct page_t *page_ptr)
 {
-    int hv_l, hv_h, pid_l, pid_h, depth;
+    int hv_l, hv_h, pid_h, depth;
 
     depth = ehdb_get_depth(page_ptr);
     depth++;
 
-    pid_l = ehdb_new_page(BUCKET, depth);
     pid_h = ehdb_new_page(BUCKET, depth);
     page_t *page_l, *page_h;
-    page_l = ehdb_get_bucket_page(pid_l);
+    page_l = (page_t*)malloc(sizeof(page_t));
+    page_l->head = malloc(PAGE_SIZE);
     page_h = ehdb_get_bucket_page(pid_h);
 
     //loop through the page
@@ -130,13 +131,14 @@ ehdb_split_bucket(struct page_t *page_ptr)
         ehdb_double_index(page_ptr);
     }
     page_t *index_page;
-    index_page = ehdb_get_index_page(hv_l / Dictpair_per_page);
-    ((int*)index_page->head)[hv_l % Dictpair_per_page] = page_l->page_id;
-    index_page->modified = 1;
-
     index_page = ehdb_get_index_page(hv_h / Dictpair_per_page);
     ((int*)index_page->head)[hv_h % Dictpair_per_page] = page_h->page_id;
     index_page->modified = 1;
+
+    memcpy(page_ptr->head, page_l->head, PAGE_SIZE);
+
+    free(page_l->head);
+    free(page_l);
 }
 
 int
