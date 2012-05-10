@@ -1,16 +1,30 @@
+# include "ehdb_init.h"
+
 /* This will generate a new page
  * the provided page_t will be modified.
  */
+void ehdb_file_init()
+{
+    Bucket_page_num = 0;
+    Index_page_num = 0;
+}
+
 int
 ehdb_new_page(page_type_t type, int depth)
 {
-    Page_num += 1;
+    int page_num;
+    if(type == INDEX)
+        page_num = &Index_page_num;
+    else
+        page_num = &Bucket_page_num;
+    *page_num ++;
+
     struct page_t* page_ptr;
 
     page_ptr = ehdb_make_available_page();
 
     page_ptr->page_type = type;
-    page_ptr->page_id = Page_num;
+    page_ptr->page_id = page_num;
     page_ptr->modified = 0;
     ehdb_init_page_free_end(page_ptr);
     ehdb_init_page_record_num(page_ptr);

@@ -2,11 +2,13 @@
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_file_mgr.h"
 
-int global_depth;
+int Global_depth;
+int Bucket_page_num;
+int Index_page_num;
 
 void
 ehdb_init()
 {
     ehdb_buffer_init();
-    //TODO: init file manager
+    ehdb_file_init();
 }
