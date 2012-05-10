@@ -55,8 +55,6 @@ available_page_pos(){
         clock_size++;
         // allocate the page space for the page
         clock_list[pos].page->head = malloc(Page_size);
-        // TODO
-        // init other page fields
     }else{
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
