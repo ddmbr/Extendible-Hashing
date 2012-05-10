@@ -2,7 +2,7 @@ import re
 import sys, os
 s = open('Makefile', 'r').read().replace('\\\n\t', ' ').replace('\\\n','')
 
-IncludePatt = re.compile('#include ?"(.+)"')
+IncludePatt = re.compile('# *include *"(.+)"')
 
 equals = re.findall('([a-zA-z_0-9.]+)=(.+)', s)
 print 'vars:', equals

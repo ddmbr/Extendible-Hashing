@@ -1,5 +1,4 @@
-# include "ehdb_io_utils.h"
-# include "ehdb_init.h"
+#include "ehdb_init.h"
 int
 main()
 {

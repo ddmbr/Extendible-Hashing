@@ -1,7 +1,14 @@
 Compiler=gcc
-Flags=-g -DDEBUG -DL_HASH
-Objects=ehdb_parser.o ehdb_record.o ehdb_buffer_mgr.o
+HashFunc=L_HASH
+Flags=-g -DDEBUG -D$(HashFunc)
+Objects=ehdb_parser.o ehdb_record.o ehdb_buffer_mgr.o main.o
+TestObjects=test_parser
 
+ehdb: $(Objects)
+	$(Compiler) $(Flags) -o ehdb
+
+main.o: main.c ehdb_init.h
+	$(Compiler) $(Flags) -c main.c
 
 ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_buffer_mgr.h\
@@ -9,6 +16,12 @@ ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_init.h\
 	ehdb_file_mgr.h
 	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
+
+ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h
+	$(Compiler) $(Flags) -c ehdb_init.c
+
+ehdb_page.o: ehdb_page.c ehdb_page.h ehdb_init.h
+	$(Compiler) $(Flags) -c ehdb_page.c
 
 ehdb_hash.o: ehdb_hash.c\
 	ehdb_file_mgr.h\
@@ -47,4 +60,4 @@ test_parser: test_parser.c\
 	$(Compiler) $(Flags) ehdb_parser.o ehdb_record.o test_parser.c -o test_parser
 
 clean:
-	rm -vf $(Objects) test_parser
+	rm -vf $(Objects) $(TestObjects)

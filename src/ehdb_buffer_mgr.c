@@ -83,13 +83,13 @@ load_page(int page_id, page_type_t page_type){
     }
     clock_list_node_t * node;
     node = &clock_list[page_pos];
-    /* ehdb_copy_from_file(node->page, page_id, page_type); */
+    node->page->page_type = page_type;
+    node->page->page_id = page_id;
+    ehdb_copy_from_file(node->page);
 #ifdef DEBUG
     fprintf(stderr, "page{id:%d, type:%d} loaded\n", page_id, page_type);
 #endif
     node->refbit = 1;
-    /* node->page->page_type = page_type; */
-    /* node->page->page_id = page_id; */
     return node->page;
 }
 
