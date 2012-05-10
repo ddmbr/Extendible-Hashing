@@ -5,10 +5,10 @@
 #include "string.h"
 #include "stdio.h"
 
-#define Line_size (200)
+#define LINE_SIZE (200)
 FILE * fin;
-static char buf[Page_size + 1];
-static char line[Line_size];
+static char buf[PAGE_SIZE + 1];
+static char line[LINE_SIZE];
 char * current_pos;
 int buf_size;
 int eof;
@@ -48,9 +48,9 @@ ehdb_next_line(record_t * record){
             strncpy(buf, current_pos, rest_size);
             current_pos = buf;
             // read new lines into buf after 
-            int readnum = fread(buf + rest_size, 1, (Page_size - rest_size), fin);
+            int readnum = fread(buf + rest_size, 1, (PAGE_SIZE - rest_size), fin);
             buf_size = rest_size + readnum;
-            if(readnum < Page_size - rest_size){
+            if(readnum < PAGE_SIZE - rest_size){
                 if(buf[rest_size + readnum - 1] != '\n')
                     buf[rest_size + readnum] = '\n';
                 eof = 1;

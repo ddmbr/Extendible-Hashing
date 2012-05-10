@@ -31,7 +31,7 @@ short
 is_overflow(page_t* page_ptr, record_t* record)
 {
     return (size_t)(ehdb_free_end(page_ptr) - ehdb_free_begin(page_ptr)
-            + ehdb_test_record_size(record)) > Page_size;
+            + ehdb_test_record_size(record)) > PAGE_SIZE;
 }
 
 void
@@ -54,7 +54,7 @@ ehdb_write_record(struct page_t* bucket_page, struct record_t *record)
 void
 ehdb_double_index(page_t *page_ptr)
 {
-    int n = (1 << global_depth);
+    int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
     page_t *src_index_page,
