@@ -19,41 +19,40 @@ void ehdb_query(int key, FILE *fout){
 	while(offset =ehdb_page_record2record(hash_bucket, offset, &record_data) !=-1){
 		record_array[while_count] =record_data;
 		quick_sorting(record_array ,record_length)
-			printf(UNKNOW);
-		fprintf(fout,"%s",UNKNOW);	
+		printf(record_data);
+		fprintf(fout,"%s",record_array);	
 
 	} 
 
 	fclose(fout);    
 }
 
-void quick_sorting(UNKNOW, int record_length){
+void quick_sorting(record_t record_array, int record_length){
 
 	if(left < right){
 		int right =record_length-1;
 		int left =0;
-
 		int i =left;
 		int j =right +1;
 		int k =0;
 
 		while(1){
 
-			while(i+1 < record_length && page_array[++i].page_id <page_array[left].page_id);
-			while(j-1 >-1 && page_array[--j].page_id >page_array[left].page_id);
+			while(i+1 < record_length && record_array[++i].partkey <record_data[left].partkey);
+			while(j-1 >-1 && record_array[--j].partkey >record_data[left].partkey);
 			if(i>=j)
 				break;
-			k =page_array[i].UNKNOW;
-			page_array[i].page_id =page_array[j].page_id;
-			page_array[j].page_id =k;
+			k =record_array[i].partykey;
+			record_array[i].partkey =record_data[j].partkey;
+			record_array[j].partkey =k;
 
 		}
-		k =page_array[i].page_id;
-		page_array[i].page_id =page_array[j].page_id;
-		page_array[j].page_id =k;
+		k =record_array[i].partkey;
+		record_array[i].partkey =record_data[j].partkey;
+		record_array[j].partkey =k;
 
-		quick_sorting(page_array, left, j-1);
-		quick_sorting(page_array, j+1,, right);
+		quick_sorting(record_array, left, j-1);
+		quick_sorting(record_array, j+1,, right);
 	}
 }
 
