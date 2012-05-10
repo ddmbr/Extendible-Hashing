@@ -39,18 +39,18 @@ void quick_sorting(page_t *page_array[], int record_length){
 
 	while(1){
 
-	    while(i+1 < record_length && page_array[++i].page_type <page_array[left].page_type);
-	    while(j-1 >-1 && page_array[--j].page_type >page_array[left].page_type);
+	    while(i+1 < record_length && page_array[++i].page_id <page_array[left].page_id);
+	    while(j-1 >-1 && page_array[--j].page_id >page_array[left].page_id);
     	    if(i>=j)
 		break;
-	    k =page_array[i].page_type;
-	    page_array[i].page_type =page_array[j].page_type;
-	    page_array[j].page_type =k;
+	    k =page_array[i].page_id;
+	    page_array[i].page_id =page_array[j].page_id;
+	    page_array[j].page_id =k;
 
 	}
-	k =page_array[i].page_type;
-	page_array[i].page_type =page_array[j].page_type;
-	page_array[j].page_type =k;
+	k =page_array[i].page_id;
+	page_array[i].page_id =page_array[j].page_id;
+	page_array[j].page_id =k;
 
 	quick_sorting(page_array, left, j-1);
 	quick_sorting(page_array, j+1,, right);
