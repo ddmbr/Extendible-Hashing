@@ -2,7 +2,7 @@
 #include "ehdb_init.h"
 #include "ehdb_buffer_mgr.h"
 
-#define Record_size (13 + 3*2)
+#define Record_size (13 * 4 + 3*2)
 
 int
 ehdb_get_record_num(page_t* page_ptr)
@@ -25,7 +25,7 @@ ehdb_get_next_bucket(page_t* page_ptr)
 void*
 ehdb_free_begin(page_t* page_ptr)
 {
-    return page_ptr + 4*sizeof(int)
+    return page_ptr->head + 4*sizeof(int)
         + ehdb_get_record_num(page_ptr) * Record_size;
 }
 

@@ -30,8 +30,8 @@ ehdb_hash_l(int key, int depth)
 short
 is_overflow(page_t* page_ptr, record_t* record)
 {
-    return (size_t)(ehdb_free_end(page_ptr) - ehdb_free_begin(page_ptr)
-            + ehdb_test_record_size(record)) > PAGE_SIZE;
+    return (size_t)(ehdb_free_end(page_ptr) - ehdb_free_begin(page_ptr) 
+            - ehdb_test_record_size(record)) <= 0;
 }
 
 void

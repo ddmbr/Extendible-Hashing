@@ -63,7 +63,7 @@ ehdb_record2raw(record_t * record, char * raw){
     date2ints(record->commitdate, ymds[1]);
     date2ints(record->receiptdate, ymds[2]);
     sprintf(raw, 
-            "%d|%d|%d|%d|.2%f|.2%f|.2%f|.2%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%s|%s|%s|\n",
+            "%d|%d|%d|%d|%.2f|%.2f|%.2f|%.2f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%s|%s|%s|\n",
             record->orderkey, 
             record->partkey,
             record->suppkey,
@@ -168,6 +168,10 @@ write_str(page_t* page, void**begin, void**end, char*s){
     strncpy((char*)(*end - len), s, strlen(s));
     //write string offset
     ((short*)(*begin))[0] = (short)(*end - page->head);
+#ifdef DEBUG
+    fprintf(stderr, "string write to: %d\n", (int)(*end - len - page->head));
+    fprintf(stderr, "  string wrote: [%s]\n", (char*)(*end - len));
+#endif
     ((short*)(*begin))[1] = (short)len;
     *end = (char*)(*end) - len;
     *begin = (short*)(*begin) + 2;

@@ -18,8 +18,8 @@ ehdb_file_init()
     fprintf(stderr, "file mgr initing...\n");
 #endif
     page_t *index_page;
-    bucket_file = fopen("bucket", "w+");
-    index_file = fopen("index", "w+");
+    bucket_file = fopen("bucket", "r+");
+    index_file = fopen("index", "r+");
 
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
@@ -85,7 +85,7 @@ ehdb_copy_from_file(struct page_t *page_ptr)
         file = bucket_file;
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
-    fread(page_ptr, PAGE_SIZE, 1, file);
+    fread(page_ptr->head, PAGE_SIZE, 1, file);
 }
 
 /* this method will save the corresponding
@@ -101,8 +101,8 @@ ehdb_save_to_file(struct page_t *page_ptr)
     else if(page_ptr->page_type == BUCKET)
         file = bucket_file;
 
-    fseek(file, (page_ptr->page_id - 1) * PAGE_SIZE, SEEK_SET);
-    fwrite(page_ptr, PAGE_SIZE, 1, file);
+    fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
+    fwrite(page_ptr->head, PAGE_SIZE, 1, file);
 }
 
 /* split the bucket and
