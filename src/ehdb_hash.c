@@ -35,26 +35,27 @@ is_overflow(page_t* page_ptr, record_t* record)
 }
 
 void
-ehdb_write_record(struct page_t* bucket_page, struct record_t *record)
+ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
 {
     int hv, key;
-    while(is_overflow(bucket_page, record))
+    while(is_overflow(page_ptr, record))
     {
-        ehdb_split_bucket(bucket_page);
+        ehdb_split_bucket(page_ptr);
         key = ehdb_get_key(record);
-        hv = ehdb_hash_func(key, ehdb_get_depth(bucket_page));
-        bucket_page = ehdb_get_bucket_page_by_hvalue(hv);
+        hv = ehdb_hash_func(key, ehdb_get_depth(page_ptr));
+        page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
     }
 /*
-    page_t * new_bucket_page = ehdb_get_bucket_page(bucket_id);
-    if(is_overflow(bucket_page, record) 
-        && is_overflow(new_bucket_page, record))
+    page_t * new_page_ptr = ehdb_get_bucket_page(bucket_id);
+    if(is_overflow(page_ptr, record) 
+        && is_overflow(new_page_ptr, record))
     {
-        bucket_id = ehdb_bucket_grow(bucket_page);
-        bucket_page = ehdb_get_bucket_page(bucket_id);
+        bucket_id = ehdb_bucket_grow(page_ptr);
+        page_ptr = ehdb_get_bucket_page(bucket_id);
     }
 */
-    ehdb_record2page_record(record, bucket_page);
+    ehdb_record2page_record(record, page_ptr);
+    page_ptr->modified = 1;
 }
 
 void

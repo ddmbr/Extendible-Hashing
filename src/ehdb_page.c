@@ -79,4 +79,5 @@ void
 ehdb_set_page_depth(page_t *page_ptr, int depth)
 {
     ((int*)page_ptr->head)[0] = depth;
+    page_ptr->modified = 1;
 }
