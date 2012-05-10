@@ -3,5 +3,5 @@ int
 main()
 {
     ehdb_init();
-    ehdb_bulk_insert("");
+    ehdb_bulk_insert();
 }

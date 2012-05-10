@@ -37,17 +37,22 @@ is_overflow(page_t* page_ptr, record_t* record)
 void
 ehdb_write_record(struct page_t* bucket_page, struct record_t *record)
 {
-    if(is_overflow(bucket_page, record))
+    int hv;
+    while(is_overflow(bucket_page, record))
     {
-        int bucket_id = ehdb_split_bucket(bucket_page);
-        page_t * new_bucket_page = ehdb_get_bucket_page(bucket_id);
-        if(is_overflow(bucket_page, record) 
-            && is_overflow(new_bucket_page, record))
-        {
-            bucket_id = ehdb_bucket_grow(bucket_page);
-            bucket_page = ehdb_get_bucket_page(bucket_id);
-        }
+        ehdb_split_bucket(bucket_page);
+        hv = ehdb_hash_func(key);
+        bucket_page = ehdb_get_bucket_page_by_hvalue(hv);
     }
+/*
+    page_t * new_bucket_page = ehdb_get_bucket_page(bucket_id);
+    if(is_overflow(bucket_page, record) 
+        && is_overflow(new_bucket_page, record))
+    {
+        bucket_id = ehdb_bucket_grow(bucket_page);
+        bucket_page = ehdb_get_bucket_page(bucket_id);
+    }
+*/
     ehdb_record2page_record(record, bucket_page);
 }
 
