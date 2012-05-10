@@ -50,6 +50,7 @@ ehdb_new_page(page_type_t type, int depth)
     ehdb_init_page_record_num(page_ptr);
     ehdb_init_page_link(page_ptr);
     ehdb_set_page_depth(page_ptr, depth);
+    page_ptr->modified = 1;
 
     return page_ptr->page_id;
 }
