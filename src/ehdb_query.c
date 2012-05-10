@@ -4,13 +4,13 @@
 
 void ehdb_query(int key, FILE *fout){
 
-    int hash_value, arrayLength;
+    int hash_value, record_length;
     page_t *hash_page;
     page_t *page_array[];
 
     hash_value =ehdb_hash_func(key);
      
-    arrayLength =array_length(hash_page);	// count array length, quick sort maxiuman number
+    record_length =ehdb_get_record_num(hash_value);	// data sum, quick sort maxiuman number    || wait to confirm
 
     if(ehdb_get_next_bucket(hash_value) ==NULL){	// Extendible Chain not exist
 	
@@ -27,10 +27,10 @@ void ehdb_query(int key, FILE *fout){
     fclose(fout);    
 }
 
-void quick_sorting(page_t *page_array[], int arrayLength){
+void quick_sorting(page_t *page_array[], int record_length){
 
     if(left < right){
-	int right =arrayLength-1;
+	int right =record_length-1;
 	int left =0;
 
 	int i =left;
@@ -39,7 +39,7 @@ void quick_sorting(page_t *page_array[], int arrayLength){
 
 	while(1){
 
-	    while(i+1 < arrayLength && page_array[++i].page_type <page_array[left].page_type);
+	    while(i+1 < record_length && page_array[++i].page_type <page_array[left].page_type);
 	    while(j-1 >-1 && page_array[--j].page_type >page_array[left].page_type);
     	    if(i>=j)
 		break;
@@ -57,11 +57,13 @@ void quick_sorting(page_t *page_array[], int arrayLength){
     }
 }
 
+
+/*
 int array_length(page_t *page_array[]){
 
     return sizeof(page_array)/sizeof(page_t);
 }
-
+*/
 
 
 
