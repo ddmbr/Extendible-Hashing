@@ -13,7 +13,7 @@ void ehdb_query(int key, FILE *fout){
     record_length =ehdb_get_record_num(hash_value);	// data sum, quick sort maxiuman number    || wait to confirm
     page_t *page_array[record_length];
   
-    while(hash_bucket =ehdb_page_record2record(hash_bucket) !=-1){
+    while(UNKNOW =ehdb_page_record2record(hash_bucket) !=-1){
 	
 	
 	
@@ -22,7 +22,7 @@ void ehdb_query(int key, FILE *fout){
     fclose(fout);    
 }
 
-void quick_sorting(page_t *page_array[], int record_length){
+void quick_sorting(UNKNOW, int record_length){
 
     if(left < right){
 	int right =record_length-1;
