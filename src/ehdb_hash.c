@@ -37,11 +37,12 @@ is_overflow(page_t* page_ptr, record_t* record)
 void
 ehdb_write_record(struct page_t* bucket_page, struct record_t *record)
 {
-    int hv;
+    int hv, key;
     while(is_overflow(bucket_page, record))
     {
         ehdb_split_bucket(bucket_page);
-        hv = ehdb_hash_func(key);
+        key = ehdb_get_key(record);
+        hv = ehdb_hash_func(key, ehdb_get_depth(bucket_page));
         bucket_page = ehdb_get_bucket_page_by_hvalue(hv);
     }
 /*

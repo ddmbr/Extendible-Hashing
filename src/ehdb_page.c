@@ -56,3 +56,27 @@ ehdb_inc_bucket_depth(page_t* page_ptr)
     ((int*)page_ptr->head)[0]++;
 }
 */
+
+void
+ehdb_init_page_free_end(page_t *page_ptr)
+{
+    ((int*)page_ptr->head)[3] = 0;
+}
+
+void
+ehdb_init_page_record_num(page_t *page_ptr)
+{
+    ((int*)page_ptr->head)[1] = 0;
+}
+
+void
+ehdb_init_page_link(page_t *page_ptr)
+{
+
+}
+
+void
+ehdb_set_page_depth(page_t *page_ptr, int depth)
+{
+    ((int*)page_ptr->head)[0] = depth;
+}

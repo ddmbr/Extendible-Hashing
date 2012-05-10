@@ -43,9 +43,20 @@ ehdb_get_record_string_len(page_t* page);
 /* get to the next bucket
  * if there exits a linked list
  */
-struct page_t*
-ehdb_get_next_bucket(struct page_t* page_ptr);
+page_t*
+ehdb_get_next_bucket(page_t* page_ptr);
 
 void
-ehdb_set_page_link(struct page_t* page_ptr, int page_id);
+ehdb_set_page_link(page_t* page_ptr, int page_id);
 
+void
+ehdb_init_page_free_end(page_t *page_ptr);
+
+void
+ehdb_init_page_record_num(page_t *page_ptr);
+
+void
+ehdb_init_page_link(page_t *page_ptr);
+
+void
+ehdb_set_page_depth(page_t *page_ptr, int depth);

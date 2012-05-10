@@ -48,7 +48,7 @@ ehdb_new_page(page_type_t type, int depth)
     ehdb_init_page_free_end(page_ptr);
     ehdb_init_page_record_num(page_ptr);
     ehdb_init_page_link(page_ptr);
-    ehdb_set_page_depth(page_ptr);
+    ehdb_set_page_depth(page_ptr, depth);
 
     return page_ptr->page_id;
 }
