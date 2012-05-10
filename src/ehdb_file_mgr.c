@@ -10,14 +10,16 @@
 void
 ehdb_file_init()
 {
+    page_t *index_page;
+
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
     index_page = ehdb_get_index_page(0);
-    ((int*)index_page->head)[hv_l % Dictpair_per_page] = bucket_0;
+    ((int*)index_page->head)[0] = bucket_0;
     index_page->modified = 1;
 
     index_page = ehdb_get_index_page(1);
-    ((int*)index_page->head)[hv_h % Dictpair_per_page] = bucket_1;
+    ((int*)index_page->head)[1] = bucket_1;
     index_page->modified = 1;
 }
 
@@ -26,9 +28,14 @@ ehdb_new_page(page_type_t type, int depth)
 {
     int *page_num;
     if(type == INDEX)
-        page_num = &Index_page_num;
+    {
+        //page_num = &Index_page_num;
+        //Necessary?
+    }
     else
+    {
         page_num = &Bucket_page_num;
+    }
     *page_num ++;
 
     page_t *page_ptr;

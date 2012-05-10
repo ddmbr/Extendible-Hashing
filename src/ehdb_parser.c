@@ -63,7 +63,7 @@ ehdb_next_line(record_t * record){
 }
 
 void
-ehdb_bulk_insert();
+ehdb_bulk_insert()
 {
     record_t record;
     while(!ehdb_test_eof())
@@ -79,5 +79,5 @@ void ehdb_single_insert(record_t *record)
     int hv = ehdb_hash_func(key);
     page_t *page_ptr;
     page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
-    ehdb_write_record(page_ptr, record)
+    ehdb_write_record(page_ptr, record);
 }

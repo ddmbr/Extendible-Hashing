@@ -29,7 +29,7 @@ ehdb_save_to_file(page_t *page_ptr);
 /* split the bucket and
  * return a bucket id
  */
-int
+void
 ehdb_split_bucket(page_t *page_ptr);
 
 /* generate a link list
