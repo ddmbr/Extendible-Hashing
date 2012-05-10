@@ -14,6 +14,9 @@ TestObjects=test_parser
 ehdb: $(Objects)
 	$(Compiler) $(Flags) $(Objects) -o ehdb
 
+ehdb_query.o: ehdb_query.c
+	$(Compiler) $(Flags) -c ehdb_query.c
+
 main.o: main.c ehdb_init.h
 	$(Compiler) $(Flags) -c main.c
 

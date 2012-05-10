@@ -54,6 +54,7 @@ available_page_pos(){
         pos = (clock_head + clock_size) % PAGE_SIZE;
         clock_size++;
         // allocate the page space for the page
+        clock_list[pos].page = (page_t*)malloc(sizeof(page_t));
         clock_list[pos].page->head = malloc(PAGE_SIZE);
     }else{
         while(clock_list[clock_hand].refbit == 1){
@@ -98,7 +99,7 @@ load_page(int page_id, page_type_t page_type){
 int 
 find_page(page_type_t page_type, int page_id){
     int i, j;
-    for(i = clock_head; i <= clock_head + clock_size; i++){
+    for(i = clock_head; i < clock_head + clock_size; i++){
         j = i % PAGE_NUM;
         if(clock_list[j].page->page_id == page_id 
                 && clock_list[j].page->page_type == page_type){
