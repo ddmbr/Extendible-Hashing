@@ -1,5 +1,7 @@
 #include "ehdb_hash.h"
 #include "ehdb_buffer_mgr.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int
 ehdb_hash_func(int key, int depth)
@@ -21,8 +23,11 @@ ehdb_hash_h(int key, int depth)
 int
 ehdb_hash_l(int key, int depth)
 {
-    /* return key >> depth; */
-    return (key & (1 << depth));
+#ifdef DEBUG
+    fprintf(stderr, "key: %d, depth: %d, hv: %d\n", key, depth, key % (1 << depth));
+#endif
+    return key % (1 << depth);
+    /* return (key & (1 << depth)); */
 }
 
 /* check whether a page is overflowed after the insertion of record

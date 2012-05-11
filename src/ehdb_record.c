@@ -138,22 +138,15 @@ ehdb_page_record2record(page_t * page, int offset, record_t * record){
     start = next_int(start, &record->commitdate);
     start = next_int(start, &record->receiptdate);
 
-#ifdef DEBUG
-    fprintf(stderr, "start: %hd\n", *((short*)start));
-#endif
     start = next_str(page, start, record->shipinstruct);
-#ifdef DEBUG
-    fprintf(stderr, "start: %hd\n", *((short*)start));
-#endif
     start = next_str(page, start, record->shipmode);
-#ifdef DEBUG
-    fprintf(stderr, "start: %hd\n", *((short*)start));
-#endif
     start = next_str(page, start, record->comment);
+
     if(ehdb_free_begin(page) <= start)
         return -1;
     else
-        return start - page->head - offset;
+        return start - page->head;
+        //return start - page->head - offset;
 }
 
 void*

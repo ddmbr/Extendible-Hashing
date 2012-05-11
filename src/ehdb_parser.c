@@ -77,8 +77,13 @@ ehdb_bulk_insert(char * fileaddr)
 void ehdb_single_insert(record_t *record)
 {
     int key = ehdb_get_key(record);
-    int hv = ehdb_hash_func(key);
+    int hv = ehdb_hash_func(key, Global_depth);
+#ifdef DEBUG
+    fprintf(stderr, "key: %d, global depth: %d, hash value: %d\n", key, Global_depth, hv);
+#endif
+
     page_t *page_ptr;
     page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
+
     ehdb_write_record(page_ptr, record);
 }
