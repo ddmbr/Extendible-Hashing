@@ -8,13 +8,14 @@ Objects=ehdb_parser.o\
 		ehdb_hash.o\
 		ehdb_file_mgr.o\
 		ehdb_page.o\
-		ehdb_init.o
+		ehdb_init.o\
+		ehdb_query.o
 TestObjects=test_parser print_bucket
 
 ehdb: $(Objects) main.o
 	$(Compiler) $(Flags) $(Objects) main.o -o ehdb
 
-ehdb_query.o: ehdb_query.c
+ehdb_query.o: ehdb_query.c ehdb_page.h ehdb_record.h ehdb_buffer_mgr.h ehdb_file_mgr.h ehdb_init.h
 	$(Compiler) $(Flags) -c ehdb_query.c
 
 main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h
