@@ -1,6 +1,6 @@
 #pragma once
 
-enum page_type_t{RAW, INDEX, BUCKET, FREE};
+enum page_type_t{INDEX, BUCKET};
 typedef enum page_type_t page_type_t;
 
 struct page_t{
@@ -60,3 +60,9 @@ ehdb_init_page_link(page_t *page_ptr);
 
 void
 ehdb_set_page_depth(page_t *page_ptr, int depth);
+
+void
+ehdb_set_page_record_num(page_t *page_ptr, int record_num);
+
+void
+ehdb_set_free_end(page_t *page_ptr, void* free_end);

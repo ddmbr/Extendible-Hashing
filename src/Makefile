@@ -4,17 +4,19 @@ Flags=-g -DDEBUG -D$(HashFunc)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
 		ehdb_buffer_mgr.o\
-		main.o\
 		ehdb_hash.o\
 		ehdb_file_mgr.o\
 		ehdb_page.o\
 		ehdb_init.o
-TestObjects=test_parser
+TestObjects=test_parser print_bucket
 
-ehdb: $(Objects)
-	$(Compiler) $(Flags) $(Objects) -o ehdb
+ehdb: $(Objects) main.o
+	$(Compiler) $(Flags) $(Objects) main.o -o ehdb
 
-main.o: main.c ehdb_init.h
+ehdb_query.o: ehdb_query.c
+	$(Compiler) $(Flags) -c ehdb_query.c
+
+main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h
 	$(Compiler) $(Flags) -c main.c
 
 ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
@@ -66,6 +68,9 @@ test_parser: test_parser.c\
 	ehdb_parser.o\
 	ehdb_record.o
 	$(Compiler) $(Flags) ehdb_parser.o ehdb_record.o test_parser.c -o test_parser
+
+print_bucket: $(Objects) print_bucket.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_record.h
+	$(Compiler) $(Flags) $(Objects) print_bucket.c -o print_bucket
 
 clean:
 	rm -vf $(Objects) $(TestObjects)

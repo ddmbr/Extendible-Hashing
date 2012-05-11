@@ -24,7 +24,7 @@ in the middle is called free part.
     0, local depth
     1, record num(count)
     2, next bucket id
-    3, total string length
+    3, end offset
     4~free_begin-1: datas
     free_begin~free_end-1: unused free space
     free_end~Page_size-1: strings

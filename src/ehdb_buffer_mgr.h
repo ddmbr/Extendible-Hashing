@@ -18,4 +18,10 @@ ehdb_get_bucket_page(int bucket_id);
 page_t *
 ehdb_get_index_page(int index_id);
 
-page_t * ehdb_make_available_page();
+page_t *
+ehdb_make_available_page();
+
+void
+ehdb_save_pages();
+
+

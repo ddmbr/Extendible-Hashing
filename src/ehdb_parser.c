@@ -63,8 +63,9 @@ ehdb_next_line(record_t * record){
 }
 
 void
-ehdb_bulk_insert()
+ehdb_bulk_insert(char * fileaddr)
 {
+    ehdb_parse_start(fileaddr);
     record_t record;
     while(!ehdb_test_eof())
     {

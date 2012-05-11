@@ -63,7 +63,7 @@ ehdb_record2raw(record_t * record, char * raw){
     date2ints(record->commitdate, ymds[1]);
     date2ints(record->receiptdate, ymds[2]);
     sprintf(raw, 
-            "%d|%d|%d|%d|.2%f|.2%f|.2%f|.2%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%s|%s|%s|\n",
+            "%d|%d|%d|%d|%.2f|%.2f|%.2f|%.2f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%s|%s|%s|\n",
             record->orderkey, 
             record->partkey,
             record->suppkey,
@@ -168,6 +168,10 @@ write_str(page_t* page, void**begin, void**end, char*s){
     strncpy((char*)(*end - len), s, strlen(s));
     //write string offset
     ((short*)(*begin))[0] = (short)(*end - page->head);
+#ifdef DEBUG
+    fprintf(stderr, "string write to: %d\n", (int)(*end - len - page->head));
+    fprintf(stderr, "  string wrote: [%s]\n", (char*)(*end - len));
+#endif
     ((short*)(*begin))[1] = (short)len;
     *end = (char*)(*end) - len;
     *begin = (short*)(*begin) + 2;
@@ -179,6 +183,10 @@ ehdb_record2page_record(record_t * record, page_t * page){
     begin = ehdb_free_begin(page);
     end = ehdb_free_end(page);
     page->modified = 1;
+
+#ifdef DEBUG
+    fprintf(stderr, "insert record into bucket page(id=%d), begin %d, end %d\n", page->page_id, (begin - page->head), (end - page->head));
+#endif
 
     begin = write_int(begin, record->orderkey);
     begin = write_int(begin, record->partkey);
@@ -200,6 +208,12 @@ ehdb_record2page_record(record_t * record, page_t * page){
     write_str(page, &begin, &end, record->shipinstruct);
     write_str(page, &begin, &end, record->shipmode);
     write_str(page, &begin, &end, record->comment);
+
+    ehdb_set_page_record_num(page, ehdb_get_record_num(page)+1);
+    ehdb_set_free_end(page, end);
+#ifdef DEBUG
+    fprintf(stderr, "after insert, begin %d, end %d\n\n",(begin - page->head), (end - page->head));
+#endif
 }
 
 size_t ehdb_test_record_size(record_t * record){

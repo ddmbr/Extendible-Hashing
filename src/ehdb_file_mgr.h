@@ -36,3 +36,6 @@ ehdb_split_bucket(page_t *page_ptr);
  */
 int
 ehdb_bucket_grow(page_t* page_ptr);
+
+void
+ehdb_file_close();
