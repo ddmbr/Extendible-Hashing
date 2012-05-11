@@ -9,6 +9,7 @@ int Bucket_page_num;
 void
 ehdb_init()
 {
+    Global_depth = 1;
     ehdb_buffer_init();
     ehdb_file_init();
 }

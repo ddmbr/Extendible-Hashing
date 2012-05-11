@@ -11,13 +11,14 @@ int main(){
     int offset;
     ehdb_buffer_init();
     ehdb_file_init();
-    page_t* page_ptr = ehdb_get_bucket_page(0);
+    page_t* page_ptr = ehdb_get_bucket_page(1);
     offset = 16;
     while(offset != -1)
     {
         offset = ehdb_page_record2record(page_ptr, offset, &record);
         ehdb_record2raw(&record, s);
         printf("read a new:\n  %s\n", s);
+        printf("new offset: %d\n", offset);
     }
     return 0;
 }
