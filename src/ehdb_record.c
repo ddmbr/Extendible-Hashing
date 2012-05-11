@@ -172,10 +172,6 @@ write_str(page_t* page, void**begin, void**end, char*s){
     //write string offset
     //((short*)(*begin))[0] = (short)(*end - page->head);
     ((short*)(*begin))[0] = (short)(*end - len - page->head);
-#ifdef DEBUG
-    fprintf(stderr, "string write to: %d\n", (int)(*end - len - page->head));
-    fprintf(stderr, "  string wrote: [%s]\n", (char*)(*end - len));
-#endif
     ((short*)(*begin))[1] = (short)len;
     *end = (char*)(*end) - len;
     *begin = (short*)(*begin) + 2;

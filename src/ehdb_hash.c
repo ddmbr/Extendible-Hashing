@@ -35,8 +35,9 @@ ehdb_hash_l(int key, int depth)
 short
 is_overflow(page_t* page_ptr, record_t* record)
 {
-    return (size_t)(ehdb_free_end(page_ptr) - ehdb_free_begin(page_ptr) 
-            - ehdb_test_record_size(record)) <= 0;
+    return ((int)ehdb_free_end(page_ptr)
+            - (int)ehdb_free_begin(page_ptr) 
+            - (int)ehdb_test_record_size(record)) <= 0;
 }
 
 void
@@ -45,6 +46,9 @@ ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
     int hv, key;
     while(is_overflow(page_ptr, record))
     {
+#ifdef DEBUG
+        fprintf(stderr, "OVERFLOW!\n");
+#endif
         ehdb_split_bucket(page_ptr);
         key = ehdb_get_key(record);
         hv = ehdb_hash_func(key, ehdb_get_depth(page_ptr));
@@ -66,6 +70,9 @@ ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
 void
 ehdb_double_index(page_t *page_ptr)
 {
+#ifdef DEBUG
+        fprintf(stderr, "INDEX DOUBLE!\n");
+#endif
     int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
@@ -82,4 +89,5 @@ ehdb_double_index(page_t *page_ptr)
         ((int*)dest_index_page->head)[i % Dictpair_per_page] = bucket_id;
         dest_index_page->modified = 1;
     }
+    Global_depth++;
 }

@@ -115,34 +115,43 @@ ehdb_split_bucket(struct page_t *page_ptr)
 
     depth = ehdb_get_depth(page_ptr);
     depth++;
+    ehdb_set_page_depth(page_ptr, depth);
+
+    page_t *page_l, *page_h;
 
     pid_h = ehdb_new_page(BUCKET, depth);
-    page_t *page_l, *page_h;
-    page_l = (page_t*)malloc(sizeof(page_t));
-    page_l->head = malloc(PAGE_SIZE);
     page_h = ehdb_get_bucket_page(pid_h);
 
+    page_l = (page_t*)malloc(sizeof(page_t));
+    page_l->head = malloc(PAGE_SIZE);
+    ehdb_init_page_free_end(page_l);
+    ehdb_init_page_record_num(page_l);
+    ehdb_init_page_link(page_l);
+    ehdb_set_page_depth(page_l, depth);
+
     //loop through the page
-    int counter = ehdb_get_record_num(page_ptr);
     size_t offset = 16;
     struct record_t record;
-    while(counter--)
+    while(offset != -1)
     {
         offset = ehdb_page_record2record(page_ptr, offset, &record);
         if(record.orderkey & (1 << (depth - 1)))
         {
             ehdb_record2page_record(&record, page_h);
-            hv_h = ehdb_hash_func(record.orderkey);
+            hv_h = ehdb_hash_func(record.orderkey, depth);
         }
         else
         {
             ehdb_record2page_record(&record, page_l);
-            hv_l = ehdb_hash_func(record.orderkey);
+            hv_l = ehdb_hash_func(record.orderkey, depth);
         }
     }
 
     //check if local depth > global depth
-    if(ehdb_get_depth(page_ptr) > Global_depth)
+#ifdef DEBUG
+    fprintf(stderr, "Global depth: %d\n", Global_depth);
+#endif
+    if(depth > Global_depth)
     {
         ehdb_double_index(page_ptr);
     }
