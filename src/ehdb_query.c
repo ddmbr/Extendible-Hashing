@@ -18,9 +18,10 @@ void ehdb_query(int key, FILE *fout){
 
 	while(offset =ehdb_page_record2record(hash_bucket, offset, &record_data) !=-1){
 		record_array[while_count] =record_data;
-		quick_sorting(record_array ,record_length)
+		quick_sorting(record_array ,record_length);
 		printf(record_data);
-		fprintf(fout,"%s",record_array);	
+		fwrite(record_array[while_count], sizeof(record_t), 1, fout);
+		while_count++;	
 
 	} 
 
