@@ -22,6 +22,7 @@ ehdb_raw2record(char * start, record_t * record){
     memset(record->shipmode, 0, sizeof record->shipmode);
     memset(record->comment, 0, sizeof record->comment);
     sscanf(start, 
+            //"%d|%d|%d|%d|%f|%f|%f|%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%[^|]|%[^|]|%[^|]|\n",
             "%d|%d|%d|%d|%f|%f|%f|%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%[^|]|%[^|]|%[^|]|\n",
             &record->orderkey, 
             &record->partkey,
@@ -137,8 +138,17 @@ ehdb_page_record2record(page_t * page, int offset, record_t * record){
     start = next_int(start, &record->commitdate);
     start = next_int(start, &record->receiptdate);
 
+#ifdef DEBUG
+    fprintf(stderr, "start: %hd\n", *((short*)start));
+#endif
     start = next_str(page, start, record->shipinstruct);
+#ifdef DEBUG
+    fprintf(stderr, "start: %hd\n", *((short*)start));
+#endif
     start = next_str(page, start, record->shipmode);
+#ifdef DEBUG
+    fprintf(stderr, "start: %hd\n", *((short*)start));
+#endif
     start = next_str(page, start, record->comment);
     if(ehdb_free_begin(page) <= start)
         return -1;
@@ -167,7 +177,8 @@ write_str(page_t* page, void**begin, void**end, char*s){
     int len = strlen(s);
     strncpy((char*)(*end - len), s, strlen(s));
     //write string offset
-    ((short*)(*begin))[0] = (short)(*end - page->head);
+    //((short*)(*begin))[0] = (short)(*end - page->head);
+    ((short*)(*begin))[0] = (short)(*end - len - page->head);
 #ifdef DEBUG
     fprintf(stderr, "string write to: %d\n", (int)(*end - len - page->head));
     fprintf(stderr, "  string wrote: [%s]\n", (char*)(*end - len));
