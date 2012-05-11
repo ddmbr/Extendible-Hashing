@@ -137,6 +137,9 @@ ehdb_split_bucket(struct page_t *page_ptr)
         offset = ehdb_page_record2record(page_ptr, offset, &record);
         if(record.orderkey & (1 << (depth - 1)))
         {
+#ifdef DEBUG
+    fprintf(stderr, "pid_h: %d\n", pid_h);
+#endif
             ehdb_record2page_record(&record, page_h);
             hv_h = ehdb_hash_func(record.orderkey, depth);
         }
