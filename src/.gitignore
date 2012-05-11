@@ -1,3 +1,7 @@
 *.swp
 *.o
 *.tbl
+bucket
+index
+print_bucket
+ehdb
