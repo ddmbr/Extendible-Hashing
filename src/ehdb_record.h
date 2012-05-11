@@ -2,6 +2,8 @@
 #include "ehdb_page.h"
 #include "string.h"
 
+#define RECORD_SIZE (8 * 4 + 2 + 3*4 + 3*2*2)
+
 typedef int identifier_t;
 typedef char flag_t;
 typedef float decimal_t;
@@ -22,9 +24,9 @@ struct record_t{
            commitdate,
            receiptdate;
 
-    char shipinstruct[25];
-    char shipmode[10];
-    char comment[44];
+    char shipinstruct[25+1];
+    char shipmode[10+1];
+    char comment[44+1];
 };
 
 typedef struct record_t record_t;

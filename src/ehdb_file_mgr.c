@@ -6,6 +6,9 @@
 # include <stdlib.h>
 # include <assert.h>
 
+/* #define WRITEMODE ("r+") */
+#define WRITEMODE ("w+")
+
 FILE *bucket_file;
 FILE *index_file;
 /* This will generate a new page
@@ -17,10 +20,13 @@ ehdb_file_init()
 #ifdef DEBUG
     fprintf(stderr, "file mgr initing...\n");
 #endif
-    page_t *index_page;
-    bucket_file = fopen("bucket", "r+");
-    index_file = fopen("index", "r+");
+    bucket_file = fopen("bucket", WRITEMODE);
+    index_file = fopen("index", WRITEMODE);
+}
 
+void
+ehdb_file_buckets_init(){
+    page_t *index_page;
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
     index_page = ehdb_get_index_page(0);
@@ -63,6 +69,12 @@ ehdb_new_page(page_type_t type, int depth)
     ehdb_init_page_link(page_ptr);
     ehdb_set_page_depth(page_ptr, depth);
     page_ptr->modified = 1;
+
+#ifdef DEBUG
+    char* ffk[2] = {"INDEX", "BUCKET"};
+    fprintf(stderr, "new page created, page{id=%d, type=%s\n",
+            page_ptr->page_id, ffk[page_ptr->page_type]);
+#endif
 
     return page_ptr->page_id;
 }
@@ -108,20 +120,48 @@ ehdb_save_to_file(struct page_t *page_ptr)
 /* split the bucket and
  * return a bucket id
  */
+/* The split algorithm
+ * TODO
+ *
+ */
 void
-ehdb_split_bucket(struct page_t *page_ptr)
+ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 {
-    int hv_l, hv_h, pid_h, depth;
-
+    int pid_h, depth;
+    int offset;
+    struct record_t record;
+#ifdef DEBUG
+    fprintf(stderr, "2222222222222 now split a bucket(page{id=%d})\n", page_ptr->page_id);
+#endif
     depth = ehdb_get_depth(page_ptr);
+    //check if local depth = global depth
+    if(depth == Global_depth)
+    {
+#ifdef DEBUG
+        fprintf(stderr, "222222222222222 gdepth==ldepth=%d, need double index\n", Global_depth);
+#endif
+        ehdb_double_index(page_ptr);
+    }
     depth++;
     ehdb_set_page_depth(page_ptr, depth);
 
     page_t *page_l, *page_h;
 
+    // create a new page on the disk
     pid_h = ehdb_new_page(BUCKET, depth);
     page_h = ehdb_get_bucket_page(pid_h);
+#ifdef DEBUG
+    fprintf(stderr, "2222222222222222 new bucket(page{id=%d})\n", page_h->page_id);
+#endif
 
+    // write the new page's id to index
+    page_t *index_page;
+    int new_index = (1 << (depth-1))+(((1 << (depth-1))-1) & hvalue);
+    index_page = ehdb_get_index_page(new_index / Dictpair_per_page);
+    ((int*)index_page->head)[new_index % Dictpair_per_page] = page_h->page_id;
+    index_page->modified = 1;
+
+    // page_l is temp page, it will write back to current page later
     page_l = (page_t*)malloc(sizeof(page_t));
     page_l->head = malloc(PAGE_SIZE);
     ehdb_init_page_free_end(page_l);
@@ -129,41 +169,28 @@ ehdb_split_bucket(struct page_t *page_ptr)
     ehdb_init_page_link(page_l);
     ehdb_set_page_depth(page_l, depth);
 
+    offset = 16;
     //loop through the page
-    size_t offset = 16;
-    struct record_t record;
     while(offset != -1)
     {
-        offset = ehdb_page_record2record(page_ptr, offset, &record);
-        if(record.orderkey & (1 << (depth - 1)))
-        {
 #ifdef DEBUG
-    fprintf(stderr, "pid_h: %d\n", pid_h);
+        fprintf(stderr, "offset = %d\n", offset);
 #endif
+        offset = ehdb_page_record2record(page_ptr, offset, &record);
+        if(ehdb_hash_func(record.orderkey, depth) 
+                != ehdb_hash_func(record.orderkey, depth - 1))
+        {
+            // this record need to move to new bucket
             ehdb_record2page_record(&record, page_h);
-            hv_h = ehdb_hash_func(record.orderkey, depth);
         }
         else
         {
             ehdb_record2page_record(&record, page_l);
-            hv_l = ehdb_hash_func(record.orderkey, depth);
         }
     }
 
-    //check if local depth > global depth
-#ifdef DEBUG
-    fprintf(stderr, "Global depth: %d\n", Global_depth);
-#endif
-    if(depth > Global_depth)
-    {
-        ehdb_double_index(page_ptr);
-    }
-    page_t *index_page;
-    index_page = ehdb_get_index_page(hv_h / Dictpair_per_page);
-    ((int*)index_page->head)[hv_h % Dictpair_per_page] = page_h->page_id;
-    index_page->modified = 1;
-
     memcpy(page_ptr->head, page_l->head, PAGE_SIZE);
+    page_ptr->modified = 1;
 
     free(page_l->head);
     free(page_l);

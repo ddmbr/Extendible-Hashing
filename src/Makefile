@@ -1,6 +1,7 @@
 Compiler=gcc
 HashFunc=L_HASH
 Flags=-g -DDEBUG -D$(HashFunc)
+# Flags=-O2 -D$(HashFunc)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
 		ehdb_buffer_mgr.o\
@@ -29,7 +30,7 @@ ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h
 	$(Compiler) $(Flags) -c ehdb_init.c
 
-ehdb_page.o: ehdb_page.c ehdb_page.h ehdb_init.h ehdb_file_mgr.h ehdb_buffer_mgr.h
+ehdb_page.o: ehdb_page.c ehdb_page.h ehdb_init.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h
 	$(Compiler) $(Flags) -c ehdb_page.c
 
 ehdb_hash.o: ehdb_hash.c\
@@ -61,13 +62,12 @@ ehdb_parser.o: ehdb_parser.c\
 ehdb_record.o: ehdb_record.c ehdb_record.h ehdb_page.h
 	$(Compiler) $(Flags) -c ehdb_record.c
 
-test_parser: test_parser.c\
+test_parser: $(Objects) test_parser.c\
 	ehdb_page.h\
 	ehdb_parser.h\
-	ehdb_record.h\
-	ehdb_parser.o\
-	ehdb_record.o
-	$(Compiler) $(Flags) ehdb_parser.o ehdb_record.o test_parser.c -o test_parser
+	ehdb_init.h\
+	ehdb_record.h
+	$(Compiler) $(Flags) $(Objects) test_parser.c -o test_parser
 
 print_bucket: $(Objects) print_bucket.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_record.h
 	$(Compiler) $(Flags) $(Objects) print_bucket.c -o print_bucket

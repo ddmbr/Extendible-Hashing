@@ -60,7 +60,7 @@ void print_clock_state(){
 int 
 available_page_pos(){
     int pos;
-    if(clock_size < PAGE_SIZE){
+    if(clock_size < PAGE_NUM){
         pos = (clock_head + clock_size) % PAGE_SIZE;
         clock_size++;
         // allocate the page space for the page
@@ -69,7 +69,8 @@ available_page_pos(){
     }else{
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
-            if(clock_hand == (clock_head + clock_size) % PAGE_SIZE){
+            // increace clock_hand
+            if(clock_hand == (clock_head + clock_size - 1) % PAGE_SIZE){
                 clock_hand = clock_head;
             }else{
                 clock_hand = (clock_hand + 1) % PAGE_SIZE;
@@ -78,6 +79,9 @@ available_page_pos(){
         swap_out_page(clock_list[clock_head].page);
         pos = clock_hand;
     }
+#ifdef DEBUG
+    fprintf(stderr, "available_page_pos = %d\n", pos);
+#endif
     return pos;
 }
 
@@ -86,12 +90,25 @@ available_page_pos(){
 page_t*
 load_page(int page_id, page_type_t page_type){
     int page_pos;
+    clock_list_node_t * node;
     // find page in mem
     page_pos = find_page(page_type, page_id);
-    if(page_pos == -1){
-        page_pos = available_page_pos();
+    if(page_pos != -1){
+        // if found page on mem
+        clock_list[page_pos].refbit = 1;
+#ifdef DEBUG
+        if(page_type == INDEX)
+            fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "INDEX");
+        else if(page_type == BUCKET)
+            fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "BUCKET");
+#endif
+        return clock_list[page_pos].page;
     }
-    clock_list_node_t * node;
+    // if can not found
+#ifdef DEBUG
+    fprintf(stderr, "I can not found page(id=%d)\n", page_id);
+#endif
+    page_pos = available_page_pos();
     node = &clock_list[page_pos];
     node->page->page_type = page_type;
     node->page->page_id = page_id;

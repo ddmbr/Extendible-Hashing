@@ -5,7 +5,7 @@
 /* The main hash function
  */
 int
-ehdb_hash_func(int key);
+ehdb_hash_func(int key, int depth);
 
 /* The hash function, begin from LSB
  */

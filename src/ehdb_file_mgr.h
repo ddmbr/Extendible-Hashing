@@ -6,6 +6,10 @@
 void
 ehdb_file_init();
 
+// call to init the two bucket
+void
+ehdb_file_buckets_init();
+
 /* This will generate a new page
  * the provided page_t will be modified.
  * return value is the bucket id
@@ -30,7 +34,7 @@ ehdb_save_to_file(page_t *page_ptr);
  * return a bucket id
  */
 void
-ehdb_split_bucket(page_t *page_ptr);
+ehdb_split_bucket(page_t *page_ptr, int hvalue);
 
 /* generate a link list
  */

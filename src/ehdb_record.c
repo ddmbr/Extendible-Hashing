@@ -113,6 +113,7 @@ next_str(page_t* page, void* start, char* s){
     s_start = ((short*)start)[0];
     s_len = ((short*)start)[1];
     strncpy(s, (char*)(page->head+s_start), s_len);
+    s[s_len] = '\0';
     return (short*)start + 2;
 }
 
@@ -170,7 +171,6 @@ write_str(page_t* page, void**begin, void**end, char*s){
     int len = strlen(s);
     strncpy((char*)(*end - len), s, strlen(s));
     //write string offset
-    //((short*)(*begin))[0] = (short)(*end - page->head);
     ((short*)(*begin))[0] = (short)(*end - len - page->head);
     ((short*)(*begin))[1] = (short)len;
     *end = (char*)(*end) - len;
@@ -218,13 +218,14 @@ ehdb_record2page_record(record_t * record, page_t * page){
 
 size_t ehdb_test_record_size(record_t * record){
     size_t sum = 0;
-    sum += sizeof(identifier_t) * 3;
-    sum += sizeof(int) * 1;
-    sum += sizeof(decimal_t) * 4;
-    sum += sizeof(flag_t) * 2;
-    sum += sizeof(date_t) * 3;
-    sum += 2 + strlen(record->shipinstruct);
-    sum += 2 + strlen(record->shipmode);
-    sum += 2 + strlen(record->comment);
+    /* sum += sizeof(identifier_t) * 3; */
+    /* sum += sizeof(int) * 1; */
+    /* sum += sizeof(decimal_t) * 4; */
+    /* sum += sizeof(flag_t) * 2; */
+    /* sum += sizeof(date_t) * 3; */
+    sum += RECORD_SIZE;
+    sum += strlen(record->shipinstruct);
+    sum += strlen(record->shipmode);
+    sum += strlen(record->comment);
     return sum;
 }
