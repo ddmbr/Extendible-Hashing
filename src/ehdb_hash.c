@@ -4,13 +4,13 @@
 #include <stdio.h>
 
 int
-ehdb_hash_func(int key, int depth)
+ehdb_hash_func(int key)
 {
     #ifdef H_HASH
-        return ehdb_hash_h(key, depth);
+        return ehdb_hash_h(key, Global_depth);
     #endif
     #ifdef L_HASH
-        return ehdb_hash_l(key, depth);
+        return ehdb_hash_l(key, Global_depth);
     #endif
 }
 
@@ -26,8 +26,7 @@ ehdb_hash_l(int key, int depth)
 #ifdef DEBUG
     fprintf(stderr, "key: %d, depth: %d, hv: %d\n", key, depth, key % (1 << depth));
 #endif
-    return key % (1 << depth);
-    /* return (key & (1 << depth)); */
+    return key & ((1 << depth) - 1);
 }
 
 /* check whether a page is overflowed after the insertion of record
@@ -44,25 +43,19 @@ void
 ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
 {
     int hv, key;
+    // try to write the record into the page
     while(is_overflow(page_ptr, record))
     {
+        //can not write into it, need split the bucket
 #ifdef DEBUG
-        fprintf(stderr, "OVERFLOW!\n");
+        fprintf(stderr, "!!!!!!!!!!!!!!!!!!!!page{id=%d, record_num=%d} will OVERFLOW!\n", page_ptr->page_id, ehdb_get_record_num(page_ptr));
 #endif
         ehdb_split_bucket(page_ptr);
+        // address the new bucket 
         key = ehdb_get_key(record);
         hv = ehdb_hash_func(key, ehdb_get_depth(page_ptr));
         page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
     }
-/*
-    page_t * new_page_ptr = ehdb_get_bucket_page(bucket_id);
-    if(is_overflow(page_ptr, record) 
-        && is_overflow(new_page_ptr, record))
-    {
-        bucket_id = ehdb_bucket_grow(page_ptr);
-        page_ptr = ehdb_get_bucket_page(bucket_id);
-    }
-*/
     ehdb_record2page_record(record, page_ptr);
     page_ptr->modified = 1;
 }
