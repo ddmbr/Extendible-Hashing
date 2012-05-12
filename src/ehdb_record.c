@@ -146,7 +146,7 @@ ehdb_page_record2record(page_t * page, int offset, record_t * record){
     if(ehdb_free_begin(page) <= start)
         return -1;
     else
-        return start - page->head;
+        return (int)(start - page->head);
         //return start - page->head - offset;
 }
 
