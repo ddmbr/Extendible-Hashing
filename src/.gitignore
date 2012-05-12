@@ -5,6 +5,8 @@ bucket
 index
 print_bucket
 ehdb
+gmon.out
 lineitem*
 out
+tags
 *.log
