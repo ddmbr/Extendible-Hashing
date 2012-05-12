@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{xeCJK}
+\linespread{1.1}
+\setCJKmainfont{WenQuanYi Micro Hei}
+\title{Extendible Hashing项目实验报告}
+\author{10389048杨帆 \\ 10389084梁展瑞 \\ 12xxxxxx古宣佑}
+\begin{document}
+\maketitle
+\section{摘要}
+\section{实验环境与工具}
+    \begin{enumerate}
+        \item Operating system: Linux(Debian \& Arch \& Ubuntu, with 3.0+ kernels)
+        \item Language: C
+        \item Compiler: GCC
+        \item Documentation: \LaTeX , asciidoc, Markdown
+        \item Collaboration Platform/Project Hosting: GitHub
+        \item Debug utils: GDB, python, perf, gprof, xdot, gprof2dot, VIM(to do regex matching often)
+        \item Editor: VIM
+    \end{enumerate}
+    \paragraph{}
+        这是在GitHub上的repo，可以看到多个branch及历史记录。
+    \begin{verbatim}
+https://github.com/ddmbr/Extendible-Hashing/
+    \end{verbatim}
+\section{流程总览}
+    \paragraph{}
+        整个流程可以划分为建立和查询两个大方面，分别叙述如下。(repo有初期使用的草稿:draft.txt)
+    \subsection{建立数据库}
+        \paragraph{}
+            考虑到一个情况，当同时有大量的相同key的数据插入时，会导致一个桶无法分裂而必须拉链。但事前的统计发现，
+        \begin{enumerate}
+            \item key相同的条目最多只有7条。
+            \item 依照我们的实现方式，每个桶的容量大概在100条。
+        \end{enumerate}
+        \paragraph{}
+            所以我们的程序没有加入拉链的方法。以下是简要流程。
+\begin{verbatim}
+While the end of the raw file(i.e, lineitem.tbl) is not reached, 
+    Load a page from the raw file to the memory.
+    Loop through the page, to:
+        Read the next record in the page.
+        Get its key.
+        Get the hash value `hv' of the key.
+        Fetch the corresponding index page,
+        According to the index, fetch the corresponding
+        bucket page.
+        Before inserting the record, check that 
+        whether the bucket will be overflowed.
+            If yes,
+                If global depth == local depth,
+                    Double the index
+            Then split the bucket and redistribute.
+        Write the record into the page.
+
+\end{verbatim}
+    \subsection{查询}
+\begin{verbatim}
+While not reach the end of the query,
+    Read next specific key.
+    Get the hash value `hv' of the key.
+    Fetch the corresponding bucket
+    Loop through the bucket and print the matched records.
+\end{verbatim}
+\section{架构}
+    \subsection{总览}
+        \paragraph{}
+            程序大致划分为4个模块，分别为File Manager, Buffer Manager, Parser以及Hash。
+        \begin{itemize}
+            \item File Manager主要跟磁盘相关的操作，例如在磁盘上申请新页。
+            \item Buffer Manager处理跟内存管理相关的操作，例如换页等，时钟页面算法的核心在这个模块里。
+            \item Parser处理和源文本文件(lineitem.tbl)读取相关的操作。
+            \item Hash模块则处理和哈希算法相关的操作，含有Extendible Hashing的核心。
+        \end{itemize}
+        \paragraph{}
+            在数据结构上，设计了page\_t和record\_t两个重要的结构体，用于存储页(使用void*)和存储记录，附带一些必要信息，如页号，并相应有多种相关方法。比如，将record\_t转换成可以输出的字符串，在page\_t中的页面二进制数据中抓取出指定的记录并转成record\_t，等等。完整方法详见src/ehdb\_record.h，已附有详细注释。
+    \subsection{关键实现说明}
+        \begin{enumerate}
+            \item 时钟页面算法
+                \paragraph{}
+                    TODO
+            \item 哈希算法
+                \paragraph{}
+                    TODO
+        \end{enumerate}
+\section{结果与分析}
+\section{总结}
+\end{document}
