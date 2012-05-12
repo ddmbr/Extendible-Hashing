@@ -7,4 +7,7 @@ src/print_bucket
 src/ehdb
 src/lineitem*
 src/out
+out
+ehdb
+*.out
 *.log
