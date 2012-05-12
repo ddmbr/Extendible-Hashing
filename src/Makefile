@@ -9,7 +9,8 @@ Objects=ehdb_parser.o\
 		ehdb_file_mgr.o\
 		ehdb_page.o\
 		ehdb_init.o\
-		ehdb_query.o
+		ehdb_query.o\
+		ehdb_utils.o
 TestObjects=test_parser print_bucket
 
 ehdb: $(Objects) main.o
@@ -18,8 +19,11 @@ ehdb: $(Objects) main.o
 ehdb_query.o: ehdb_query.c ehdb_page.h ehdb_record.h ehdb_buffer_mgr.h ehdb_file_mgr.h ehdb_init.h
 	$(Compiler) $(Flags) -c ehdb_query.c
 
-main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h
+main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_utils.h
 	$(Compiler) $(Flags) -c main.c
+
+ehdb_utils.o: ehdb_utils.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h
+	$(Compiler) $(Flags) -c ehdb_utils.c
 
 ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_buffer_mgr.h\
@@ -28,7 +32,7 @@ ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_file_mgr.h
 	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
 
-ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h
+ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_utils.h
 	$(Compiler) $(Flags) -c ehdb_init.c
 
 ehdb_page.o: ehdb_page.c ehdb_page.h ehdb_init.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h
@@ -40,7 +44,8 @@ ehdb_hash.o: ehdb_hash.c\
 	ehdb_hash.h\
 	ehdb_buffer_mgr.h\
 	ehdb_page.h\
-	ehdb_record.h
+	ehdb_record.h\
+	ehdb_utils.h
 	$(Compiler) $(Flags) -c ehdb_hash.c
 
 ehdb_file_mgr.o: ehdb_file_mgr.c\
@@ -48,6 +53,7 @@ ehdb_file_mgr.o: ehdb_file_mgr.c\
 	ehdb_page.h\
 	ehdb_init.h\
 	ehdb_buffer_mgr.h\
+	ehdb_utils.h\
 	ehdb_record.h
 	$(Compiler) $(Flags) -c ehdb_file_mgr.c
 

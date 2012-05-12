@@ -2,6 +2,7 @@
 # include "ehdb_buffer_mgr.h"
 # include "ehdb_page.h"
 # include "ehdb_record.h"
+# include "ehdb_utils.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <assert.h>
@@ -156,7 +157,14 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     // write the new page's id to index
     page_t *index_page;
-    int new_index = (1 << (depth-1))+(((1 << (depth-1))-1) & hvalue);
+    //int new_index = (1 << (depth-1))+(((1 << (depth-1))-1) & hvalue);
+    int new_index = (1 << (depth-1)) + hvalue;
+#ifdef DEBUG
+    if(page_h->page_id == 11)
+    {
+        fprintf(stderr, "new index: %d, origin hv: %d\n", new_index, hvalue);
+    }
+#endif
     index_page = ehdb_get_index_page(new_index / Dictpair_per_page);
     ((int*)index_page->head)[new_index % Dictpair_per_page] = page_h->page_id;
     index_page->modified = 1;
@@ -194,6 +202,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     free(page_l->head);
     free(page_l);
+    ehdb_statistics();
 }
 
 int

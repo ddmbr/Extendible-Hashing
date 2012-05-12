@@ -1,5 +1,6 @@
 #include "ehdb_hash.h"
 #include "ehdb_buffer_mgr.h"
+#include "ehdb_utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
