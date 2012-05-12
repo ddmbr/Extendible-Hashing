@@ -5,4 +5,6 @@ src/bucket
 src/index
 src/print_bucket
 src/ehdb
-stc/lineitem*
+src/lineitem*
+src/out
+*.log

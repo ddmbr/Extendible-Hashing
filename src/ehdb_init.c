@@ -1,6 +1,7 @@
 #include "ehdb_init.h"
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_file_mgr.h"
+#include "ehdb_utils.h"
 
 int Global_depth;
 int Bucket_page_num;
@@ -13,4 +14,5 @@ ehdb_init()
     ehdb_buffer_init();
     ehdb_file_init();
     ehdb_file_buckets_init();
+    ehdb_statistics_init();
 }
