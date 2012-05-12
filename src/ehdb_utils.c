@@ -7,12 +7,21 @@
 # define BEGIN_POS 11
 
 int snapshot_num;
+int IO_count;
 FILE *snapshot;
 char faddr[20];
 
-void ehdb_statistics_init()
+void
+ehdb_statistics_init()
 {
     strcpy(faddr, "snapshot0000.log\0");
+    IO_count = 0;
+}
+
+void
+ehdb_inc_IO_record()
+{
+    IO_count++;
 }
 
 void
@@ -42,6 +51,7 @@ ehdb_statistics()
     faddr_inc();
     snapshot = fopen(faddr, "w");
     fprintf(snapshot, "Global_depth=%d\n", Global_depth);
+    fprintf(snapshot, "Total IO times=%d\n", IO_count);
     for(i = 0; i < n; i++)
     {
         index_page = ehdb_get_index_page(i / Dictpair_per_page);

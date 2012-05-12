@@ -1,0 +1,229 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BUCKET	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	e	enum:page_type_t
+Bucket_page_num	ehdb_init.c	/^int Bucket_page_num;$/;"	v
+Compiler	Makefile	/^Compiler=gcc$/;"	m
+Dictpair_per_page	ehdb_buffer_mgr.h	7;"	d
+Flags	Makefile	/^Flags=-g -DDEBUG -D$(HashFunc)$/;"	m
+Global_depth	ehdb_init.c	/^int Global_depth;$/;"	v
+HashFunc	Makefile	/^HashFunc=L_HASH$/;"	m
+INDEX	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	e	enum:page_type_t
+IncludePatt	check_make.py	/^IncludePatt = re.compile('# *include *"(.+)"')$/;"	v
+ItemPatt	check_make.py	/^ItemPatt = re.compile('([a-zA-z_0-9.]+):\\s*(.*?)\\n\\t(.+?)\\n\\n', re.M)$/;"	v
+LINE_SIZE	ehdb_parser.c	8;"	d	file:
+Objects	Makefile	/^Objects=ehdb_parser.o\\$/;"	m
+PAGE_NUM	ehdb_init.h	4;"	d
+PAGE_SIZE	ehdb_init.h	3;"	d
+RECORD_SIZE	ehdb_record.h	5;"	d
+TestObjects	Makefile	/^TestObjects=test_parser print_bucket$/;"	m
+WRITEMODE	ehdb_file_mgr.c	10;"	d	file:
+available_page_pos	ehdb_buffer_mgr.c	/^available_page_pos(){$/;"	f
+bucket_file	ehdb_file_mgr.c	/^FILE *bucket_file;$/;"	v
+buf	ehdb_parser.c	/^static char buf[PAGE_SIZE + 1];$/;"	v	file:
+buf	ehdb_query.c	/^char buf[500];$/;"	v
+buf_size	ehdb_parser.c	/^int buf_size;$/;"	v
+check	check_make.py	/^def check():$/;"	f	access:public
+clock_hand	ehdb_buffer_mgr.c	/^int clock_hand, $/;"	v
+clock_head	ehdb_buffer_mgr.c	/^    clock_head, $/;"	v
+clock_list	ehdb_buffer_mgr.c	/^clock_list_node_t clock_list[PAGE_NUM];$/;"	v
+clock_list_node_t	ehdb_buffer_mgr.c	/^struct clock_list_node_t{$/;"	s	file:
+clock_list_node_t	ehdb_buffer_mgr.c	/^typedef struct clock_list_node_t clock_list_node_t;$/;"	t	typeref:struct:clock_list_node_t	file:
+clock_list_node_t::page	ehdb_buffer_mgr.c	/^    page_t * page;$/;"	m	struct:clock_list_node_t	file:	access:public
+clock_list_node_t::refbit	ehdb_buffer_mgr.c	/^    int refbit;$/;"	m	struct:clock_list_node_t	file:	access:public
+clock_size	ehdb_buffer_mgr.c	/^    clock_size;$/;"	v
+cnt	cutlines.py	/^cnt = 0$/;"	v
+comment	ehdb_record.h	/^    char comment[44+1];$/;"	m	struct:record_t	access:public
+commitdate	ehdb_record.h	/^           commitdate,$/;"	m	struct:record_t	access:public
+current_pos	ehdb_parser.c	/^char * current_pos;$/;"	v
+date2ints	ehdb_record.c	/^void date2ints(date_t date, int ymds[3]){$/;"	f	signature:(date_t date, int ymds[3])
+date_t	ehdb_record.h	/^typedef int date_t;$/;"	t
+decimal_t	ehdb_record.h	/^typedef float decimal_t;$/;"	t
+discount	ehdb_record.h	/^            discount,$/;"	m	struct:record_t	access:public
+ehdb_bucket_grow	ehdb_file_mgr.c	/^ehdb_bucket_grow(struct page_t* page_ptr)$/;"	f	signature:(struct page_t* page_ptr)
+ehdb_bucket_grow	ehdb_file_mgr.h	/^ehdb_bucket_grow(page_t* page_ptr);$/;"	p	signature:(page_t* page_ptr)
+ehdb_buffer_init	ehdb_buffer_mgr.c	/^ehdb_buffer_init(){$/;"	f
+ehdb_buffer_init	ehdb_buffer_mgr.h	/^ehdb_buffer_init();$/;"	p	signature:()
+ehdb_bulk_insert	ehdb_parser.c	/^ehdb_bulk_insert(char * fileaddr)$/;"	f	signature:(char * fileaddr)
+ehdb_bulk_insert	ehdb_parser.h	/^ehdb_bulk_insert(char * fileaddr);$/;"	p	signature:(char * fileaddr)
+ehdb_bulk_query	ehdb_query.c	/^ehdb_bulk_query(char * faddr){$/;"	f	signature:(char * faddr)
+ehdb_copy_from_file	ehdb_file_mgr.c	/^ehdb_copy_from_file(struct page_t *page_ptr)$/;"	f	signature:(struct page_t *page_ptr)
+ehdb_copy_from_file	ehdb_file_mgr.h	/^ehdb_copy_from_file(struct page_t *page_ptr);$/;"	p	signature:(struct page_t *page_ptr)
+ehdb_double_index	ehdb_hash.c	/^ehdb_double_index(page_t *page_ptr)$/;"	f	signature:(page_t *page_ptr)
+ehdb_double_index	ehdb_hash.h	/^ehdb_double_index(page_t *page_ptr);$/;"	p	signature:(page_t *page_ptr)
+ehdb_file_buckets_init	ehdb_file_mgr.c	/^ehdb_file_buckets_init(){$/;"	f
+ehdb_file_buckets_init	ehdb_file_mgr.h	/^ehdb_file_buckets_init();$/;"	p	signature:()
+ehdb_file_close	ehdb_file_mgr.c	/^ehdb_file_close()$/;"	f
+ehdb_file_close	ehdb_file_mgr.h	/^ehdb_file_close();$/;"	p	signature:()
+ehdb_file_init	ehdb_file_mgr.c	/^ehdb_file_init()$/;"	f
+ehdb_file_init	ehdb_file_mgr.h	/^ehdb_file_init();$/;"	p	signature:()
+ehdb_free_begin	ehdb_page.c	/^ehdb_free_begin(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
+ehdb_free_begin	ehdb_page.h	/^ehdb_free_begin(struct page_t* page_ptr);$/;"	p	signature:(struct page_t* page_ptr)
+ehdb_free_end	ehdb_page.c	/^ehdb_free_end(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
+ehdb_free_end	ehdb_page.h	/^ehdb_free_end(struct page_t* page_ptr);$/;"	p	signature:(struct page_t* page_ptr)
+ehdb_get_bucket_page	ehdb_buffer_mgr.c	/^ehdb_get_bucket_page(int bucket_id){$/;"	f	signature:(int bucket_id)
+ehdb_get_bucket_page	ehdb_buffer_mgr.h	/^ehdb_get_bucket_page(int bucket_id);$/;"	p	signature:(int bucket_id)
+ehdb_get_bucket_page_by_hvalue	ehdb_buffer_mgr.c	/^ehdb_get_bucket_page_by_hvalue(int hash_value){$/;"	f	signature:(int hash_value)
+ehdb_get_bucket_page_by_hvalue	ehdb_buffer_mgr.h	/^ehdb_get_bucket_page_by_hvalue(int hash_value);$/;"	p	signature:(int hash_value)
+ehdb_get_depth	ehdb_page.c	/^ehdb_get_depth(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
+ehdb_get_depth	ehdb_page.h	/^ehdb_get_depth(struct page_t* page_ptr);$/;"	p	signature:(struct page_t* page_ptr)
+ehdb_get_index_page	ehdb_buffer_mgr.c	/^ehdb_get_index_page(int index_id){$/;"	f	signature:(int index_id)
+ehdb_get_index_page	ehdb_buffer_mgr.h	/^ehdb_get_index_page(int index_id);$/;"	p	signature:(int index_id)
+ehdb_get_key	ehdb_parser.c	/^ehdb_get_key(record_t* record){$/;"	f	signature:(record_t* record)
+ehdb_get_key	ehdb_parser.h	/^ehdb_get_key(record_t* record);$/;"	p	signature:(record_t* record)
+ehdb_get_next_bucket	ehdb_page.c	/^ehdb_get_next_bucket(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
+ehdb_get_next_bucket	ehdb_page.h	/^ehdb_get_next_bucket(page_t* page_ptr);$/;"	p	signature:(page_t* page_ptr)
+ehdb_get_record_num	ehdb_page.c	/^ehdb_get_record_num(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
+ehdb_get_record_num	ehdb_page.h	/^ehdb_get_record_num(page_t* page_ptr);$/;"	p	signature:(page_t* page_ptr)
+ehdb_get_record_string_len	ehdb_page.h	/^ehdb_get_record_string_len(page_t* page);$/;"	p	signature:(page_t* page)
+ehdb_hash_func	ehdb_hash.c	/^ehdb_hash_func(int key, int depth)$/;"	f	signature:(int key, int depth)
+ehdb_hash_func	ehdb_hash.h	/^ehdb_hash_func(int key, int depth);$/;"	p	signature:(int key, int depth)
+ehdb_hash_h	ehdb_hash.c	/^ehdb_hash_h(int key, int depth)$/;"	f	signature:(int key, int depth)
+ehdb_hash_h	ehdb_hash.h	/^ehdb_hash_h(int key, int depth);$/;"	p	signature:(int key, int depth)
+ehdb_hash_l	ehdb_hash.c	/^ehdb_hash_l(int key, int depth)$/;"	f	signature:(int key, int depth)
+ehdb_hash_l	ehdb_hash.h	/^ehdb_hash_l(int key, int depth);$/;"	p	signature:(int key, int depth)
+ehdb_init	ehdb_init.c	/^ehdb_init()$/;"	f
+ehdb_init	ehdb_init.h	/^ehdb_init();$/;"	p	signature:()
+ehdb_init_page_free_end	ehdb_page.c	/^ehdb_init_page_free_end(page_t *page_ptr)$/;"	f	signature:(page_t *page_ptr)
+ehdb_init_page_free_end	ehdb_page.h	/^ehdb_init_page_free_end(page_t *page_ptr);$/;"	p	signature:(page_t *page_ptr)
+ehdb_init_page_link	ehdb_page.c	/^ehdb_init_page_link(page_t *page_ptr)$/;"	f	signature:(page_t *page_ptr)
+ehdb_init_page_link	ehdb_page.h	/^ehdb_init_page_link(page_t *page_ptr);$/;"	p	signature:(page_t *page_ptr)
+ehdb_init_page_record_num	ehdb_page.c	/^ehdb_init_page_record_num(page_t *page_ptr)$/;"	f	signature:(page_t *page_ptr)
+ehdb_init_page_record_num	ehdb_page.h	/^ehdb_init_page_record_num(page_t *page_ptr);$/;"	p	signature:(page_t *page_ptr)
+ehdb_is_overflow	ehdb_hash.h	/^ehdb_is_overflow(page_t* page_ptr);$/;"	p	signature:(page_t* page_ptr)
+ehdb_make_available_page	ehdb_buffer_mgr.c	/^ehdb_make_available_page(){$/;"	f
+ehdb_make_available_page	ehdb_buffer_mgr.h	/^ehdb_make_available_page();$/;"	p	signature:()
+ehdb_new_page	ehdb_file_mgr.c	/^ehdb_new_page(page_type_t type, int depth)$/;"	f	signature:(page_type_t type, int depth)
+ehdb_new_page	ehdb_file_mgr.h	/^ehdb_new_page(page_type_t type, int depth);$/;"	p	signature:(page_type_t type, int depth)
+ehdb_next_line	ehdb_parser.c	/^ehdb_next_line(record_t * record){$/;"	f	signature:(record_t * record)
+ehdb_next_line	ehdb_parser.h	/^ehdb_next_line(record_t* record);$/;"	p	signature:(record_t* record)
+ehdb_page_record2record	ehdb_record.c	/^ehdb_page_record2record(page_t * page, int offset, record_t * record){$/;"	f	signature:(page_t * page, int offset, record_t * record)
+ehdb_page_record2record	ehdb_record.h	/^ehdb_page_record2record(page_t * page, int offset, record_t * record);$/;"	p	signature:(page_t * page, int offset, record_t * record)
+ehdb_parse_start	ehdb_parser.c	/^ehdb_parse_start(char * fileaddr){$/;"	f	signature:(char * fileaddr)
+ehdb_parse_start	ehdb_parser.h	/^ehdb_parse_start(char * fileaddr);$/;"	p	signature:(char * fileaddr)
+ehdb_query	ehdb_query.c	/^void ehdb_query(int key, FILE *fout){$/;"	f	signature:(int key, FILE *fout)
+ehdb_raw2record	ehdb_record.c	/^ehdb_raw2record(char * start, record_t * record){$/;"	f	signature:(char * start, record_t * record)
+ehdb_raw2record	ehdb_record.h	/^ehdb_raw2record(char * start, record_t * record);$/;"	p	signature:(char * start, record_t * record)
+ehdb_record2page_record	ehdb_record.c	/^ehdb_record2page_record(record_t * record, page_t * page){$/;"	f	signature:(record_t * record, page_t * page)
+ehdb_record2page_record	ehdb_record.h	/^ehdb_record2page_record(record_t * record, page_t * page);$/;"	p	signature:(record_t * record, page_t * page)
+ehdb_record2raw	ehdb_record.c	/^ehdb_record2raw(record_t * record, char * raw){$/;"	f	signature:(record_t * record, char * raw)
+ehdb_record2raw	ehdb_record.h	/^ehdb_record2raw(record_t * record, char * raw);$/;"	p	signature:(record_t * record, char * raw)
+ehdb_save_pages	ehdb_buffer_mgr.c	/^ehdb_save_pages(){$/;"	f
+ehdb_save_pages	ehdb_buffer_mgr.h	/^ehdb_save_pages();$/;"	p	signature:()
+ehdb_save_to_file	ehdb_file_mgr.c	/^ehdb_save_to_file(struct page_t *page_ptr)$/;"	f	signature:(struct page_t *page_ptr)
+ehdb_save_to_file	ehdb_file_mgr.h	/^ehdb_save_to_file(page_t *page_ptr);$/;"	p	signature:(page_t *page_ptr)
+ehdb_set_free_end	ehdb_page.c	/^ehdb_set_free_end(page_t *page_ptr, void* free_end)$/;"	f	signature:(page_t *page_ptr, void* free_end)
+ehdb_set_free_end	ehdb_page.h	/^ehdb_set_free_end(page_t *page_ptr, void* free_end);$/;"	p	signature:(page_t *page_ptr, void* free_end)
+ehdb_set_page_depth	ehdb_page.c	/^ehdb_set_page_depth(page_t *page_ptr, int depth)$/;"	f	signature:(page_t *page_ptr, int depth)
+ehdb_set_page_depth	ehdb_page.h	/^ehdb_set_page_depth(page_t *page_ptr, int depth);$/;"	p	signature:(page_t *page_ptr, int depth)
+ehdb_set_page_link	ehdb_page.c	/^ehdb_set_page_link(page_t* page_ptr, int page_id)$/;"	f	signature:(page_t* page_ptr, int page_id)
+ehdb_set_page_link	ehdb_page.h	/^ehdb_set_page_link(page_t* page_ptr, int page_id);$/;"	p	signature:(page_t* page_ptr, int page_id)
+ehdb_set_page_record_num	ehdb_page.c	/^ehdb_set_page_record_num(page_t *page_ptr, int record_num)$/;"	f	signature:(page_t *page_ptr, int record_num)
+ehdb_set_page_record_num	ehdb_page.h	/^ehdb_set_page_record_num(page_t *page_ptr, int record_num);$/;"	p	signature:(page_t *page_ptr, int record_num)
+ehdb_single_insert	ehdb_parser.c	/^void ehdb_single_insert(record_t *record)$/;"	f	signature:(record_t *record)
+ehdb_single_insert	ehdb_parser.h	/^ehdb_single_insert(record_t *record);$/;"	p	signature:(record_t *record)
+ehdb_split_bucket	ehdb_file_mgr.c	/^ehdb_split_bucket(struct page_t *page_ptr, int hvalue)$/;"	f	signature:(struct page_t *page_ptr, int hvalue)
+ehdb_split_bucket	ehdb_file_mgr.h	/^ehdb_split_bucket(page_t *page_ptr, int hvalue);$/;"	p	signature:(page_t *page_ptr, int hvalue)
+ehdb_test_eof	ehdb_parser.c	/^ehdb_test_eof(){$/;"	f
+ehdb_test_eof	ehdb_parser.h	/^ehdb_test_eof();$/;"	p	signature:()
+ehdb_test_record_size	ehdb_record.c	/^size_t ehdb_test_record_size(record_t * record){$/;"	f	signature:(record_t * record)
+ehdb_test_record_size	ehdb_record.h	/^size_t ehdb_test_record_size(record_t * record);$/;"	p	signature:(record_t * record)
+ehdb_write_record	ehdb_hash.c	/^ehdb_write_record(struct page_t* page_ptr, struct record_t *record)$/;"	f	signature:(struct page_t* page_ptr, struct record_t *record)
+ehdb_write_record	ehdb_hash.h	/^ehdb_write_record(page_t* page_ptr, record_t* record);$/;"	p	signature:(page_t* page_ptr, record_t* record)
+eof	ehdb_parser.c	/^int eof;$/;"	v
+equals	check_make.py	/^equals = re.findall('([a-zA-z_0-9.]+)=(.+)', s)$/;"	v
+extendedprice	ehdb_record.h	/^            extendedprice,$/;"	m	struct:record_t	access:public
+f	test/gen_buckets.c	/^FILE *f;$/;"	v
+f	test/gen_index.c	/^FILE *f;$/;"	v
+f	test/test_read_int.c	/^FILE *f;$/;"	v
+fin	ehdb_parser.c	/^FILE * fin;$/;"	v
+find_page	ehdb_buffer_mgr.c	/^find_page(page_type_t page_type, int page_id){$/;"	f	signature:(page_type_t page_type, int page_id)
+flag_t	ehdb_record.h	/^typedef char flag_t;$/;"	t
+head	ehdb_page.h	/^    void * head;$/;"	m	struct:page_t	access:public
+identifier_t	ehdb_record.h	/^typedef int identifier_t;$/;"	t
+index_file	ehdb_file_mgr.c	/^FILE *index_file;$/;"	v
+ints2date	ehdb_record.c	/^date_t ints2date(int y, int m, int d){$/;"	f	signature:(int y, int m, int d)
+is_overflow	ehdb_hash.c	/^is_overflow(page_t* page_ptr, record_t* record)$/;"	f	signature:(page_t* page_ptr, record_t* record)
+line	ehdb_parser.c	/^static char line[LINE_SIZE];$/;"	v	file:
+linenumber	ehdb_record.h	/^    int linenumber;$/;"	m	struct:record_t	access:public
+linestatus	ehdb_record.h	/^           linestatus;$/;"	m	struct:record_t	access:public
+load_page	ehdb_buffer_mgr.c	/^load_page(int page_id, page_type_t page_type){$/;"	f	signature:(int page_id, page_type_t page_type)
+main	main.c	/^main()$/;"	f
+main	print_bucket.c	/^int main(){$/;"	f
+main	test/gen_buckets.c	/^main()$/;"	f
+main	test/gen_index.c	/^main()$/;"	f
+main	test/test_read_int.c	/^main()$/;"	f
+main	test_parser.c	/^int main(){$/;"	f
+modified	ehdb_page.h	/^    short modified;$/;"	m	struct:page_t	access:public
+next_char	ehdb_record.c	/^next_char(void * start, char* f){$/;"	f	signature:(void * start, char* f)
+next_float	ehdb_record.c	/^next_float(void * start, float* f){$/;"	f	signature:(void * start, float* f)
+next_int	ehdb_record.c	/^next_int(void * start, int * i){$/;"	f	signature:(void * start, int * i)
+next_str	ehdb_record.c	/^next_str(page_t* page, void* start, char* s){$/;"	f	signature:(page_t* page, void* start, char* s)
+num	cutlines.py	/^num = int(sys.argv[1])$/;"	v
+orderkey	ehdb_record.h	/^    identifier_t orderkey, $/;"	m	struct:record_t	access:public
+page	ehdb_buffer_mgr.c	/^    page_t * page;$/;"	m	struct:clock_list_node_t	file:	access:public
+page	print_bucket.c	/^page_t page;$/;"	v
+page	test_parser.c	/^page_t page;$/;"	v
+page_id	ehdb_page.h	/^    int page_id;$/;"	m	struct:page_t	access:public
+page_t	ehdb_page.h	/^struct page_t{$/;"	s
+page_t	ehdb_page.h	/^typedef struct page_t page_t;$/;"	t	typeref:struct:page_t
+page_t::head	ehdb_page.h	/^    void * head;$/;"	m	struct:page_t	access:public
+page_t::modified	ehdb_page.h	/^    short modified;$/;"	m	struct:page_t	access:public
+page_t::page_id	ehdb_page.h	/^    int page_id;$/;"	m	struct:page_t	access:public
+page_t::page_type	ehdb_page.h	/^    page_type_t page_type;$/;"	m	struct:page_t	access:public
+page_type	ehdb_page.h	/^    page_type_t page_type;$/;"	m	struct:page_t	access:public
+page_type_t	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	g
+page_type_t	ehdb_page.h	/^typedef enum page_type_t page_type_t;$/;"	t	typeref:enum:page_type_t
+partkey	ehdb_record.h	/^               partkey, $/;"	m	struct:record_t	access:public
+print_clock_state	ehdb_buffer_mgr.c	/^void print_clock_state(){$/;"	f
+ptr	test/test_read_int.c	/^void *ptr;$/;"	v
+quantity	ehdb_record.h	/^    decimal_t quantity,$/;"	m	struct:record_t	access:public
+read_float	test/io_utils.h	/^read_float(char *ptr)$/;"	f	signature:(char *ptr)
+read_integer	test/io_utils.h	/^read_integer(char *ptr)$/;"	f	signature:(char *ptr)
+read_string	test/io_utils.h	/^read_string(char *ptr, char *free_start)$/;"	f	signature:(char *ptr, char *free_start)
+receiptdate	ehdb_record.h	/^           receiptdate;$/;"	m	struct:record_t	access:public
+record	print_bucket.c	/^record_t record;$/;"	v
+record	test_parser.c	/^record_t record;$/;"	v
+record_array	ehdb_query.c	/^record_t record_array[10];$/;"	v
+record_t	ehdb_record.h	/^struct record_t{$/;"	s
+record_t	ehdb_record.h	/^typedef struct record_t record_t;$/;"	t	typeref:struct:record_t
+record_t::comment	ehdb_record.h	/^    char comment[44+1];$/;"	m	struct:record_t	access:public
+record_t::commitdate	ehdb_record.h	/^           commitdate,$/;"	m	struct:record_t	access:public
+record_t::discount	ehdb_record.h	/^            discount,$/;"	m	struct:record_t	access:public
+record_t::extendedprice	ehdb_record.h	/^            extendedprice,$/;"	m	struct:record_t	access:public
+record_t::linenumber	ehdb_record.h	/^    int linenumber;$/;"	m	struct:record_t	access:public
+record_t::linestatus	ehdb_record.h	/^           linestatus;$/;"	m	struct:record_t	access:public
+record_t::orderkey	ehdb_record.h	/^    identifier_t orderkey, $/;"	m	struct:record_t	access:public
+record_t::partkey	ehdb_record.h	/^               partkey, $/;"	m	struct:record_t	access:public
+record_t::quantity	ehdb_record.h	/^    decimal_t quantity,$/;"	m	struct:record_t	access:public
+record_t::receiptdate	ehdb_record.h	/^           receiptdate;$/;"	m	struct:record_t	access:public
+record_t::returnflag	ehdb_record.h	/^    flag_t returnflag,$/;"	m	struct:record_t	access:public
+record_t::shipdate	ehdb_record.h	/^    date_t shipdate,$/;"	m	struct:record_t	access:public
+record_t::shipinstruct	ehdb_record.h	/^    char shipinstruct[25+1];$/;"	m	struct:record_t	access:public
+record_t::shipmode	ehdb_record.h	/^    char shipmode[10+1];$/;"	m	struct:record_t	access:public
+record_t::suppkey	ehdb_record.h	/^               suppkey;$/;"	m	struct:record_t	access:public
+record_t::tax	ehdb_record.h	/^            tax;$/;"	m	struct:record_t	access:public
+refbit	ehdb_buffer_mgr.c	/^    int refbit;$/;"	m	struct:clock_list_node_t	file:	access:public
+returnflag	ehdb_record.h	/^    flag_t returnflag,$/;"	m	struct:record_t	access:public
+s	check_make.py	/^    s = s.replace('$(%s)' % a, b)$/;"	v
+s	check_make.py	/^s = open('Makefile', 'r').read().replace('\\\\\\n\\t', ' ').replace('\\\\\\n','')$/;"	v
+s	print_bucket.c	/^char s[1000];$/;"	v
+search_file_dependents	check_make.py	/^def search_file_dependents(fname):$/;"	f	access:public
+select_sort	ehdb_query.c	/^void select_sort(record_t * a, int n){$/;"	f	signature:(record_t * a, int n)
+shipdate	ehdb_record.h	/^    date_t shipdate,$/;"	m	struct:record_t	access:public
+shipinstruct	ehdb_record.h	/^    char shipinstruct[25+1];$/;"	m	struct:record_t	access:public
+shipmode	ehdb_record.h	/^    char shipmode[10+1];$/;"	m	struct:record_t	access:public
+str	test_parser.c	/^char str[300];$/;"	v
+suppkey	ehdb_record.h	/^               suppkey;$/;"	m	struct:record_t	access:public
+swap_out_page	ehdb_buffer_mgr.c	/^swap_out_page(page_t* page){$/;"	f	signature:(page_t* page)
+tax	ehdb_record.h	/^            tax;$/;"	m	struct:record_t	access:public
+write_char	ehdb_record.c	/^write_char(void* p, char i){$/;"	f	signature:(void* p, char i)
+write_float	ehdb_record.c	/^write_float(void* p, float i){$/;"	f	signature:(void* p, float i)
+write_float	test/io_utils.h	/^write_float(char ch, FILE *f)$/;"	f	signature:(char ch, FILE *f)
+write_float	test/io_utils.h	/^write_float(unsigned double num, FILE *f)$/;"	f	signature:(unsigned double num, FILE *f)
+write_int	ehdb_record.c	/^write_int(void* p, int i){$/;"	f	signature:(void* p, int i)
+write_int	test/io_utils.h	/^write_int(unsigned int num, FILE *f)$/;"	f	signature:(unsigned int num, FILE *f)
+write_str	ehdb_record.c	/^write_str(page_t* page, void**begin, void**end, char*s){$/;"	f	signature:(page_t* page, void**begin, void**end, char*s)

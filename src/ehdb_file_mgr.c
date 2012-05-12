@@ -98,6 +98,7 @@ ehdb_copy_from_file(struct page_t *page_ptr)
         file = bucket_file;
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
+    ehdb_inc_IO_record();
     fread(page_ptr->head, PAGE_SIZE, 1, file);
     page_ptr->modified = 0;
 }
@@ -116,6 +117,7 @@ ehdb_save_to_file(struct page_t *page_ptr)
         file = bucket_file;
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
+    ehdb_inc_IO_record();
     fwrite(page_ptr->head, PAGE_SIZE, 1, file);
 }
 
