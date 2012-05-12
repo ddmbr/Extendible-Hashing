@@ -99,6 +99,7 @@ ehdb_copy_from_file(struct page_t *page_ptr)
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     fread(page_ptr->head, PAGE_SIZE, 1, file);
+    page_ptr->modified = 0;
 }
 
 /* this method will save the corresponding
@@ -125,16 +126,19 @@ ehdb_save_to_file(struct page_t *page_ptr)
  * TODO
  *
  */
-void
+void 
 ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 {
     int pid_h, depth;
+    int page_id = page_ptr->page_id;
     int offset;
     struct record_t record;
+    depth = ehdb_get_depth(page_ptr);
 #ifdef DEBUG
     fprintf(stderr, "2222222222222 now split a bucket(page{id=%d})\n", page_ptr->page_id);
+    if(depth == 0)
+        fprintf(stderr, "ZERO depth, bucket id = %d, hv = %d\n", page_ptr->page_id, hvalue);
 #endif
-    depth = ehdb_get_depth(page_ptr);
     //check if local depth = global depth
     if(depth == Global_depth)
     {
@@ -143,6 +147,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 #endif
         ehdb_double_index(page_ptr);
     }
+    page_ptr = ehdb_get_bucket_page(page_id);
     depth++;
     ehdb_set_page_depth(page_ptr, depth);
 
@@ -157,18 +162,15 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     // write the new page's id to index
     page_t *index_page;
-    //int new_index = (1 << (depth-1))+(((1 << (depth-1))-1) & hvalue);
-    int new_index = (1 << (depth-1)) + hvalue;
-#ifdef DEBUG
-    if(page_h->page_id == 11)
-    {
-        fprintf(stderr, "new index: %d, origin hv: %d\n", new_index, hvalue);
-    }
-#endif
+    int old_index = (((1 << (depth-1))-1) & hvalue);
+    int new_index = (1 << (depth-1))+ old_index;
+    /* int new_index = (1 << (depth-1)) + hvalue; */
+
     index_page = ehdb_get_index_page(new_index / Dictpair_per_page);
     ((int*)index_page->head)[new_index % Dictpair_per_page] = page_h->page_id;
     index_page->modified = 1;
 
+    page_ptr = ehdb_get_bucket_page(page_id);
     // page_l is temp page, it will write back to current page later
     page_l = (page_t*)malloc(sizeof(page_t));
     page_l->head = malloc(PAGE_SIZE);
@@ -179,14 +181,15 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     offset = 16;
     //loop through the page
+    page_h = ehdb_get_bucket_page(pid_h);
+    page_ptr = ehdb_get_bucket_page(page_id);
     while(offset != -1)
     {
 #ifdef DEBUG
         fprintf(stderr, "offset = %d\n", offset);
 #endif
         offset = ehdb_page_record2record(page_ptr, offset, &record);
-        if(ehdb_hash_func(record.orderkey, depth) 
-                != ehdb_hash_func(record.orderkey, depth - 1))
+        if(ehdb_hash_func(record.orderkey, depth) == new_index)
         {
             // this record need to move to new bucket
             ehdb_record2page_record(&record, page_h);
@@ -202,7 +205,9 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     free(page_l->head);
     free(page_l);
-    ehdb_statistics();
+#ifdef DEBUG
+    //ehdb_statistics();
+#endif
 }
 
 int

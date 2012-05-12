@@ -26,7 +26,7 @@ ehdb_hash_l(int key, int depth)
 {
     int result = key & ((1 << depth) - 1);
 #ifdef DEBUG
-    fprintf(stderr, "key: %d, depth: %d, hv: %d\n", key, depth, result);
+    fprintf(stderr, "ehdb_hash_l: key: %d, depth: %d, hv: %d\n", key, depth, result);
 #endif
     return result;
 }
@@ -37,11 +37,11 @@ short
 is_overflow(page_t* page_ptr, record_t* record)
 {
 #ifdef DEBUG
-    /* fprintf(stderr, "page:{begin=%d, end=%d, end-begin=%d, recordsize=%d\n", */
-    /*         (int)ehdb_free_begin(page_ptr) - (int)page_ptr->head */
-    /*         ,(int)ehdb_free_end(page_ptr)  - (int)page_ptr->head */
-    /*         ,(int)ehdb_free_end(page_ptr) - (int)ehdb_free_begin(page_ptr) */
-    /*         ,(int)ehdb_test_record_size(record)); */
+    fprintf(stderr, "page:{begin=%d, end=%d, end-begin=%d, recordsize=%d\n",
+            (int)ehdb_free_begin(page_ptr) - (int)page_ptr->head
+            ,(int)ehdb_free_end(page_ptr)  - (int)page_ptr->head
+            ,(int)ehdb_free_end(page_ptr) - (int)ehdb_free_begin(page_ptr)
+            ,(int)ehdb_test_record_size(record));
 
 #endif
     return ((int)ehdb_free_end(page_ptr)
@@ -60,6 +60,10 @@ ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
 #ifdef DEBUG
         fprintf(stderr, "!!!!!!!!!!!!!!!!!!!!page{id=%d, record_num=%d} will OVERFLOW!\n", page_ptr->page_id, ehdb_get_record_num(page_ptr));
 #endif
+#ifdef DEBUG
+    if(page_ptr == 0)
+        fprintf(stderr, "NULL POINTER! hv = %d\n", hv);
+#endif
         ehdb_split_bucket(page_ptr, 
                 ehdb_hash_func(ehdb_get_key(record), Global_depth));
         // address the new bucket 
@@ -68,7 +72,6 @@ ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
         page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
     }
     ehdb_record2page_record(record, page_ptr);
-    page_ptr->modified = 1;
 }
 
 void
@@ -78,7 +81,7 @@ ehdb_double_index(page_t *page_ptr)
     int i, j;
     int bucket_id;
 #ifdef DEBUG
-    fprintf(stderr, "INDEX DOUBLE! Global_depth = %d\n, n(index)=%d", Global_depth, n);
+    fprintf(stderr, "INDEX DOUBLE! Global_depth = %d, n(index)=%d\n", Global_depth, n);
 #endif
     page_t *src_index_page,
            *dest_index_page;

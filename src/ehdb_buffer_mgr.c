@@ -76,7 +76,7 @@ available_page_pos(){
                 clock_hand = (clock_hand + 1) % PAGE_SIZE;
             }
         }
-        swap_out_page(clock_list[clock_head].page);
+        swap_out_page(clock_list[clock_hand].page);
         pos = clock_hand;
     }
 #ifdef DEBUG
