@@ -1,5 +1,6 @@
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_file_mgr.h"
+#include "ehdb_hash.h"
 #include "ehdb_page.h"
 #include "ehdb_init.h"
 #include "stdio.h"
@@ -152,15 +153,11 @@ ehdb_get_index_page(int index_id){
 
 page_t*
 ehdb_get_bucket_page_by_hvalue(int hash_value){
-    int index_id, offset;
+    int index_id, offset, bucket_id;
     page_t * index_page, 
            * bucket_page;
 
-    index_id = hash_value / Dictpair_per_page;
-    offset = hash_value % Dictpair_per_page;
-
-    index_page = load_page(index_id, INDEX);
-    int bucket_id = ((int *)(index_page->head))[offset];
+    bucket_id = ehdb_get_bucket_id_by_hvalue(hash_value);
 
     bucket_page = load_page(bucket_id, BUCKET);
     return bucket_page;

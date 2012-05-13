@@ -3,7 +3,7 @@
 #include "ehdb_buffer_mgr.h"
 #include <stdio.h>
 
-char buf[500];
+char buf[300];
 record_t record_array[10];
 
 void select_sort(record_t * a, int n){
@@ -15,12 +15,6 @@ void select_sort(record_t * a, int n){
             if(a[j].partkey < a[k].partkey)
                 k = j;
         }
-        //DO NOT write code when you feel sleepy.
-        /*
-        temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-        */
         temp = a[i];
         a[i] = a[k];
         a[k] = temp;
@@ -77,47 +71,8 @@ ehdb_bulk_query(char * faddr){
     while(n--)
     {
         fscanf(fin, "%d", &key);
-        ehdb_query(key, stderr); //TODO
+        ehdb_query(key, stdout); //TODO: ouput to file
     }
     fclose(fin);
 }
-
-/* void quick_sorting(record_t *record_array, int left, int right, int record_length){ */
-/* 	//int right =record_length-1; */
-/* 	//int left =0; */
-/*  */
-/* 	if(left < right){ */
-/* 		int i =left; */
-/* 		int j =right +1; */
-/* 		int k =0; */
-/*  */
-/* 		while(1){ */
-/*  */
-/* 			while(i+1 < record_length && record_array[++i].partkey <record_array[left].partkey); */
-/* 			while(j-1 >-1 && record_array[--j].partkey >record_array[left].partkey); */
-/* 			if(i>=j) */
-/* 				break; */
-/* 			k =record_array[i].partykey; */
-/* 			record_array[i].partkey =record_array[j].partkey; */
-/* 			record_array[j].partkey =k; */
-/*  */
-/* 		} */
-/* 		k =record_array[i].partkey; */
-/* 		record_array[i].partkey =record_array[j].partkey; */
-/* 		record_array[j].partkey =k; */
-/*  */
-/* 		quick_sorting(record_array, left, j-1, record_length); */
-/* 		quick_sorting(record_array, j+1, right, record_length); */
-/* 	} */
-/* } */
-/*  */
-/*  */
-/*  */
-/*    int array_length(page_t *page_array[]){ */
-/*  */
-/*    return sizeof(page_array)/sizeof(page_t); */
-/*    } */
-/*   */
-
-
 

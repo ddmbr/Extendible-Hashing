@@ -68,16 +68,24 @@ class Bucket:
         depth = self.depth
         hvalue = hvalue & ((1 << (depth)) - 1)
         newHv = ((1 << depth)) + hvalue
-        print 'depth=%d, old,new(hv) = \n  %40s\n  %40s'%(depth, bin(hvalue), bin(newHv))
+        if DEBUG:  print 'depth=%d, old,new(hv) = \n  %40s\n  %40s'%(depth, bin(hvalue), bin(newHv))
         self.depth += 1
         depth = self.depth
+        # create new bucket
         newBucket = Bucket(Bucket.newBucketID[0], depth)
-        buckets.append(newBucket)
-        # link new bucket to the indexs
-        if DEBUG: print 'line bucket(%d) to index %d' %(newBucket.id, newHv)
-        indexs[newHv / Index.DictPerPage].d[newHv % Index.DictPerPage] = newBucket
-        tempBucket = Bucket(-1, depth)
         Bucket.newBucketID[0] += 1
+        buckets.append(newBucket)
+        # create temp bucket
+        tempBucket = Bucket(-1, depth)
+        # relink new bucket to the indexs
+        for i in xrange(0, 2**globalDepth):
+            if Bucket.get_by_hvalue(i) == self:
+                if hash_func(i, depth) == hvalue:
+                    set_dict(i, self)
+                else:
+                    set_dict(i, newBucket)
+                
+        # redistribute the buckets
         for record in self.get_records():
             if hash_func(record.orderkey, depth) == newHv:
                 newBucket.write_record(record)
@@ -86,11 +94,7 @@ class Bucket:
         self.page = tempBucket.page
         self.sumLen = tempBucket.sumLen
         GDB.update()
-        print 'after split bucket(id=%d), n1=%d, n2=%d' %(self.id, len(self.get_records()), len(newBucket.get_records()))
-        if len(newBucket.get_records()) == 0:
-            global PCONTENT
-            PCONTENT = 1
-            print self
+        if DEBUG: print 'after split bucket(id=%d), n1=%d, n2=%d' %(self.id, len(self.get_records()), len(newBucket.get_records()))
         if DEBUG: print 'split bucket %d end' % self.id
 
 class Index:
@@ -147,7 +151,8 @@ def parse(faddr):
             if DEBUG: print 'after insert'
             if DEBUG: print len(indexs), indexs 
             if DEBUG: print len(buckets), buckets
-            print '%30s %30s' %(len(indexs), len(buckets))
+            # print '%30s %30s usage: %.2f' %(len(indexs), len(buckets), 
+            #         sum(x.sumLen for x in buckets)*100./(len(buckets)*Bucket.MaxSize))
 
 def query(faddr):
     with open(faddr, 'r') as f:
@@ -170,15 +175,15 @@ def hash_func(key, depth):
 def double_index():
     global globalDepth
     n = 1 << globalDepth
-    if DEBUG: print 'double index from %d' % n
+    print 'double index from %d' % n
     for i in xrange(n):
         j = i + n
         indexID1 = i / Index.DictPerPage
         indexID2 = j / Index.DictPerPage
         if indexID2 >= len(indexs):
             indexs.append(Index(indexID2))
-        indexs[indexID2].d[j % Index.DictPerPage] = indexs[indexID1].d[i % Index.DictPerPage]
-
+        # indexs[indexID2].d[j % Index.DictPerPage] = indexs[indexID1].d[i % Index.DictPerPage]
+        set_dict(j, Bucket.get_by_hvalue(i))
     GDB.update()
     globalDepth += 1
     if DEBUG: print 'after double'
@@ -187,7 +192,7 @@ def double_index():
 
 class GDB(): # graphical debugger
     W, H = 1000, 500
-    FPS = 30
+    FPS = 10
 
     @staticmethod
     def init():
@@ -237,6 +242,9 @@ class GDB(): # graphical debugger
 
         pg.display.flip()
 
+def set_dict(index, bucket):
+    indexs[index / Index.DictPerPage].d[index % Index.DictPerPage] = bucket
+
 globalDepth = 0
 indexs = []
 buckets = []
@@ -244,6 +252,7 @@ buckets = []
 def main():
     init()
     GDB.init()
+    print indexs 
     print buckets
     parse('lineitemcut.tbl')
     query('testinput.in')

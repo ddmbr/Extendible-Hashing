@@ -74,9 +74,17 @@ ehdb_write_record(struct page_t* page_ptr, struct record_t *record)
     ehdb_record2page_record(record, page_ptr);
 }
 
+int
+ehdb_get_bucket_id_by_hvalue(int hvalue){
+    page_t * index_page = load_page(hvalue / Dictpair_per_page, INDEX);
+    int bucket_id = ((int *)(index_page->head))[hvalue % Dictpair_per_page];
+    return bucket_id;
+}
+
 void
 ehdb_double_index(page_t *page_ptr)
 {
+    // TODO: implement a fast version
     int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
@@ -104,10 +112,6 @@ ehdb_double_index(page_t *page_ptr)
         dest_index_page = ehdb_get_index_page(new_index_id);
         ((int*)(dest_index_page->head))[j % Dictpair_per_page] = bucket_id;
         dest_index_page->modified = 1;
-#ifdef DEBUG
-        fprintf(stderr, "copy value(%d) from index page(id=%d) to page(id=%d)\n",
-                bucket_id, src_index_page->page_id, dest_index_page->page_id);
-#endif
     }
     Global_depth++;
 }

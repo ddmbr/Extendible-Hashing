@@ -1,7 +1,7 @@
 Compiler=gcc
 HashFunc=L_HASH
-Flags=-g -DDEBUG1 -D$(HashFunc)
-# Flags=-O3 -D$(HashFunc)
+# Flags=-g -DDEBUG1 -D$(HashFunc)
+Flags=-O3 -D$(HashFunc)
 # Flags=-pg -g -D$(HashFunc)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
@@ -30,7 +30,9 @@ ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_buffer_mgr.h\
 	ehdb_page.h\
 	ehdb_init.h\
-	ehdb_file_mgr.h
+	ehdb_file_mgr.h\
+	ehdb_record.h\
+	ehdb_hash.h
 	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
 
 ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_utils.h
@@ -55,7 +57,8 @@ ehdb_file_mgr.o: ehdb_file_mgr.c\
 	ehdb_init.h\
 	ehdb_buffer_mgr.h\
 	ehdb_utils.h\
-	ehdb_record.h
+	ehdb_record.h\
+	ehdb_hash.h
 	$(Compiler) $(Flags) -c ehdb_file_mgr.c
 
 ehdb_parser.o: ehdb_parser.c\

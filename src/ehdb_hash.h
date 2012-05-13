@@ -27,3 +27,6 @@ ehdb_write_record(page_t* page_ptr, record_t* record);
 
 void
 ehdb_double_index(page_t *page_ptr);
+
+int
+ehdb_get_bucket_id_by_hvalue(int hvalue);
