@@ -48,6 +48,12 @@ void ehdb_query(int key, FILE *fout){
             if(offset == -1) break;
         } 
     }
+
+/* #ifdef DEBUG */
+    else{
+        fprintf(stderr, "Record key=%d not found \n", key);
+    }
+/* #endif */
     /* quick_sorting(record_array, 0, while_count-1, record_length); */
     select_sort(record_array, while_count);
     for(i=0; i < while_count; i++){
@@ -62,6 +68,7 @@ void ehdb_query(int key, FILE *fout){
 void
 ehdb_bulk_query(char * faddr){
     FILE *fin = fopen(faddr, "r");
+    /* FILE *fin = stdin; */
     int n, key;
     fscanf(fin, "%d", &n);
 #ifdef DEBUG

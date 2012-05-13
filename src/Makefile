@@ -1,7 +1,7 @@
 Compiler=gcc
 HashFunc=L_HASH
-# Flags=-g -DDEBUG -D$(HashFunc)
-Flags=-O3 -D$(HashFunc)
+Flags=-g -DDEBUG1 -D$(HashFunc)
+# Flags=-O3 -D$(HashFunc)
 # Flags=-pg -g -D$(HashFunc)
 Objects=ehdb_parser.o\
 		ehdb_record.o\

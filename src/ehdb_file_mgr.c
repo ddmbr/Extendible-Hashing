@@ -30,6 +30,7 @@ ehdb_file_buckets_init(){
     page_t *index_page;
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
+    ehdb_new_page(INDEX, -1);
     index_page = ehdb_get_index_page(0);
     ((int*)index_page->head)[0] = bucket_0;
     ((int*)index_page->head)[1] = bucket_1;
@@ -65,10 +66,12 @@ ehdb_new_page(page_type_t type, int depth)
     page_ptr->page_type = type;
     page_ptr->page_id = *page_num - 1;
     page_ptr->modified = 0;
-    ehdb_init_page_free_end(page_ptr);
-    ehdb_init_page_record_num(page_ptr);
-    ehdb_init_page_link(page_ptr);
-    ehdb_set_page_depth(page_ptr, depth);
+    if(type == BUCKET){
+        ehdb_init_page_free_end(page_ptr);
+        ehdb_init_page_record_num(page_ptr);
+        ehdb_init_page_link(page_ptr);
+        ehdb_set_page_depth(page_ptr, depth);
+    }
     page_ptr->modified = 1;
 
 #ifdef DEBUG
@@ -96,6 +99,14 @@ ehdb_copy_from_file(struct page_t *page_ptr)
         file = index_file;
     else if(page_ptr->page_type == BUCKET)
         file = bucket_file;
+#ifdef DEBUG
+    assert(page_ptr->page_type == INDEX || page_ptr->page_type == BUCKET);
+    int id, pos;
+    id = (page_ptr->page_id);
+    pos = (page_ptr->page_id) * PAGE_SIZE;
+    fprintf(stderr, "fseek id=%d, pos=%d\n", id, pos);
+    assert(page_ptr->page_type != INDEX || id <= 64);
+#endif
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
@@ -169,7 +180,8 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
     /* int new_index = (1 << (depth-1)) + hvalue; */
 
     index_page = ehdb_get_index_page(new_index / Dictpair_per_page);
-    ((int*)index_page->head)[new_index % Dictpair_per_page] = page_h->page_id;
+    ((int*)index_page->head)[new_index % Dictpair_per_page] 
+        = page_h->page_id;
     index_page->modified = 1;
 
     page_ptr = ehdb_get_bucket_page(page_id);

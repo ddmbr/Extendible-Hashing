@@ -45,7 +45,9 @@ ehdb_statistics()
 {
     int i;
     int n = (1 << Global_depth);
+    int size;
     page_t *index_page;
+    page_t *bucket_page;
     int bucket_id;
 
     faddr_inc();
@@ -56,7 +58,9 @@ ehdb_statistics()
     {
         index_page = ehdb_get_index_page(i / Dictpair_per_page);
         bucket_id = ((int*)(index_page->head))[i % Dictpair_per_page];
-        fprintf(snapshot, "%d %d\n", i, bucket_id);
+        bucket_page = ehdb_get_bucket_page(bucket_id);
+        size = ehdb_get_record_num(bucket_page);
+        fprintf(snapshot, "%d -> %d, record_num: %d\n", i, bucket_id, size);
     }
     fclose(snapshot);
 }

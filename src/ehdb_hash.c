@@ -80,6 +80,8 @@ ehdb_double_index(page_t *page_ptr)
     int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
+    int old_index_id, new_index_id;
+    int n1 = n;
 #ifdef DEBUG
     fprintf(stderr, "INDEX DOUBLE! Global_depth = %d, n(index)=%d\n", Global_depth, n);
 #endif
@@ -89,10 +91,17 @@ ehdb_double_index(page_t *page_ptr)
     for(i = 0; i < n; i++){
         // i is the index to be duplicated
         j = n + i;
-        src_index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        old_index_id = i / Dictpair_per_page;
+        src_index_page = ehdb_get_index_page(old_index_id);
         bucket_id = ((int*)(src_index_page->head))[i % Dictpair_per_page];
 
-        dest_index_page = ehdb_get_index_page(j / Dictpair_per_page);
+        new_index_id = j / Dictpair_per_page;
+        if(new_index_id >= n1){
+            // create new index page on disk
+            ehdb_new_page(INDEX, new_index_id);
+            n1 ++;
+        }
+        dest_index_page = ehdb_get_index_page(new_index_id);
         ((int*)(dest_index_page->head))[j % Dictpair_per_page] = bucket_id;
         dest_index_page->modified = 1;
 #ifdef DEBUG
