@@ -171,9 +171,10 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
     int old_index = (((1 << (depth-1))-1) & hvalue);
     int new_index = (1 << (depth-1))+ old_index;
 
-    int i, n;
+    int i, n, inc;
     n = 1 << Global_depth;
-    for(i = 0; i < n; i++){
+    inc = 1 << (depth-1);
+    for(i = old_index; i < n; i += inc){
         //TODO: wrap the set index procedure
         if(ehdb_get_bucket_id_by_hvalue(i) == page_id){
             index_page = ehdb_get_index_page(i / Dictpair_per_page);

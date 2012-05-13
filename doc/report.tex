@@ -3,7 +3,7 @@
 \linespread{1.1}
 \setCJKmainfont{WenQuanYi Micro Hei}
 \title{Extendible Hashing项目实验报告}
-\author{10389048杨帆 \\ 10389084梁展瑞 \\ 12xxxxxx古宣佑}
+\author{10389048杨帆 \\ 10389084梁展瑞 \\ 12924901古宣佑}
 \begin{document}
 \maketitle
 \section{摘要}
@@ -77,7 +77,14 @@ While not reach the end of the query,
         \begin{enumerate}
             \item 时钟页面算法
                 \paragraph{}
-                    TODO
+                    用于进行页面置换的调度。是FIFO算法的一个改良。该算法将所有管理的页面用一个最大长度循环列表放置, 每个页面附加一个标志位R, 另外有一个“时钟指针”, 指向其中一个页面 。页面放满且有新页面调入时, 按以下步骤决定换出的页面.
+                    \begin{enumerate}
+                        \item 如果指针指向的页面的R位是0, 则换出这个页面;
+                        \item 否则，将指针所指页面R位置0，将指针指向列表中下一个页面(注意列表是循环的)
+                        \item 重复直到找到R位为0的页面。
+                    \end{enumerate}
+                \paragraph{}
+                    对于换入的新页面，R位置1.
             \item 哈希算法
                 \paragraph{}
                     TODO
