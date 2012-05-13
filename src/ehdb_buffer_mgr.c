@@ -15,6 +15,14 @@ struct clock_list_node_t{
 typedef struct clock_list_node_t clock_list_node_t;
 
 clock_list_node_t clock_list[PAGE_NUM];
+#define CACHE_SIZE 2
+#ifdef CACHE
+int cache_id[CACHE_SIZE];
+page_type_t cache_type[CACHE_SIZE];
+page_type_t cache_pos[CACHE_SIZE];
+int cache_hand;
+#endif
+
 
 /* clock_hand: the index of hand of the Clock page replacement algorithm
  * clock_head: the head index of the list. The available items are 
@@ -33,6 +41,10 @@ ehdb_buffer_init(){
 #endif
     clock_head = clock_size = 0;
     clock_hand = 0;
+#ifdef CACHE
+    cache_pos[0] = cache_pos[1] = -1;
+    cache_hand = 0;
+#endif
 }
 
 void
@@ -40,6 +52,12 @@ swap_out_page(page_t* page){
 #ifdef DEBUG
     char * ffk[2] = {"INDEX", "BUCKET"};
     fprintf(stderr, "swap out page(id=%d, type=%s)\n", page->page_id, ffk[page->page_type]);
+#endif
+#ifdef CACHE
+    int i;
+    for(i = 0; i < CACHE_SIZE; i++)
+        if(cache_pos[i] != -1 && cache_id[i] == page->page_id && cache_type[i] == page->page_type)
+            cache_pos[i] = -1;
 #endif
     if(page->modified){
 #ifdef DEBUG
@@ -97,6 +115,12 @@ load_page(int page_id, page_type_t page_type){
     if(page_pos != -1){
         // if found page on mem
         clock_list[page_pos].refbit = 1;
+#ifdef CACHE
+        cache_type[cache_hand] = page_type;
+        cache_id[cache_hand] = page_id;
+        cache_pos[cache_hand] = page_pos;
+        cache_hand = (cache_hand + 1) % CACHE_SIZE;
+#endif
 #ifdef DEBUG
         if(page_type == INDEX)
             fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "INDEX");
@@ -131,6 +155,15 @@ load_page(int page_id, page_type_t page_type){
 int 
 find_page(page_type_t page_type, int page_id){
     int i, j;
+#ifdef CACHE
+    // find in the cache first
+    for(i = 0; i < CACHE_SIZE; i++)
+        if(cache_pos[i] != -1){
+            if(cache_id[i] == page_id && cache_type[i] == page_type){
+                return cache_pos[i];
+            }
+        }
+#endif
     for(i = clock_head; i < clock_head + clock_size; i++){
         j = i % PAGE_NUM;
         if(clock_list[j].page->page_id == page_id 
