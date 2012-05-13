@@ -169,17 +169,22 @@ def query(faddr):
                 print record.data
             print -1
 
+def mybin(x):
+    return bin(x)[2:]
+
 def hash_func(key, depth):
     # return key & ((1 << depth) - 1)
-    j = 1 << (depth - 1)
+    ans = int(mybin(key)[:depth][::-1], 2)
+
+    # j = 1 << (depth - 1)
     # for i in xrange(29):
     #     if key & (1 << i):
     #         j = (1 << i)
-    ans = 0
-    for i in xrange(depth):
-        if (key & j) : ans += 1 << i
-        j >>= 1
-    # print bin(key), bin(ans), depth
+    # ans = 0
+    # for i in xrange(depth):
+    #     if (key & j) : ans += 1 << i
+    #     j >>= 1
+    print bin(key), bin(ans), depth
     return ans
 
 def double_index():

@@ -168,8 +168,13 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     // write the new page's id to index
     page_t *index_page;
+/* #ifdef L_HASH */
     int old_index = (((1 << (depth-1))-1) & hvalue);
     int new_index = (1 << (depth-1))+ old_index;
+/* #elif H_HASH */
+/*     int old_index = (hvalue << 1); */
+/*     int new_index = (hvalue << 1) + 1; */
+/* #endif */
 
     int i, n, inc;
     n = 1 << Global_depth;
@@ -179,7 +184,11 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
         if(ehdb_get_bucket_id_by_hvalue(i) == page_id){
             index_page = ehdb_get_index_page(i / Dictpair_per_page);
             index_page->modified = 1;
-            if((i >> (depth-1)) & 1 == 1){
+/* #ifdef L_HASH */
+            if(((i >> (depth-1)) & 1) == 1){
+/* #elif H_HASH */
+/*             if((i & 1) == 1){ */
+/* #endif */
                 ((int*)index_page->head)[i % Dictpair_per_page] = pid_h;
             }else{
                 ((int*)index_page->head)[i % Dictpair_per_page] = page_id;

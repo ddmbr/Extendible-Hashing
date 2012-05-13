@@ -18,7 +18,18 @@ ehdb_hash_func(int key, int depth)
 int
 ehdb_hash_h(int key, int depth)
 {
-    //TODO
+    int i, j, ans;
+    j = 1 << (depth - 1);
+    ans = 0;
+    for(i = 0; i < depth; i++){
+        if(key & j)
+            ans += 1 << i;
+        j >>= 1;
+    }
+#ifndef DEBUG
+    fprintf(stderr, "ehdb_hash_h: key: %d, depth: %d, hv: %d\n", key, depth, ans);
+#endif
+    return ans;
 }
 
 int

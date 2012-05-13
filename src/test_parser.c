@@ -12,6 +12,7 @@ record_t record;
 int main(){
     ehdb_file_init();
     page.head = malloc(PAGE_SIZE);
+    page.page_type = BUCKET;
     ehdb_init_page_free_end(&page);
     ehdb_init_page_record_num(&page);
     ehdb_init_page_link(&page);
