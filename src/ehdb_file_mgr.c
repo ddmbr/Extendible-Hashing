@@ -140,7 +140,7 @@ ehdb_save_to_file(struct page_t *page_ptr)
  * TODO
  *
  */
-static void buffer[PAGE_SIZE];
+static char buffer[PAGE_SIZE];
 page_t temp_page;
 void 
 ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
