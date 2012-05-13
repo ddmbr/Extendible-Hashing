@@ -170,7 +170,17 @@ def query(faddr):
             print -1
 
 def hash_func(key, depth):
-    return key & ((1 << depth) - 1)
+    # return key & ((1 << depth) - 1)
+    j = 1 << (depth - 1)
+    # for i in xrange(29):
+    #     if key & (1 << i):
+    #         j = (1 << i)
+    ans = 0
+    for i in xrange(depth):
+        if (key & j) : ans += 1 << i
+        j >>= 1
+    # print bin(key), bin(ans), depth
+    return ans
 
 def double_index():
     global globalDepth
@@ -203,12 +213,12 @@ class GDB(): # graphical debugger
 
     @staticmethod
     def update():
-        GDB.t += GDB.timer.tick()
-        if GDB.t >= 1000/GDB.FPS:
-            GDB.t = 0
-        else:
-            return
-        # sleep(0.02)
+        # GDB.t += GDB.timer.tick()
+        # if GDB.t >= 1000/GDB.FPS:
+        #     GDB.t = 0
+        # else:
+        #     return
+        sleep(0.02)
         if DEBUG: print 'update screen'
         bg = (0xff, 0xff, 0xff, 0xff)
         idxColor = (0x00, 0x2f, 0x00, 0xff)
