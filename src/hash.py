@@ -289,5 +289,22 @@ def main():
                 GDB.update()
         sleep(0.1)
 
+def watch():
+    while 1:
+        for e in pg.event.get():
+            if e.type == pg.QUIT:
+                exit(0)
+            elif e.type == pg.KEYDOWN:
+                GDB.update()
+        sleep(0.5)
+
+
 if __name__ == '__main__':
-    main()
+    import sys
+    mode = 's'
+    if len(sys.argv) > 1:
+        mode = sys.argv[1]
+    if mode == 's':
+        main()
+    elif mode == 'w':
+        watch()

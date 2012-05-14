@@ -34,6 +34,11 @@ int clock_hand,
     clock_head, 
     clock_size;
 
+int total_count, 
+    total_hit,
+    cache_hit,
+    io_count;
+
 void
 ehdb_buffer_init(){
 #ifdef DEBUG
@@ -41,6 +46,8 @@ ehdb_buffer_init(){
 #endif
     clock_head = clock_size = 0;
     clock_hand = 0;
+    total_count = total_hit = cache_hit = 0;
+    io_count = 0;
 #ifdef CACHE
     cache_pos[0] = cache_pos[1] = -1;
     cache_hand = 0;
@@ -49,7 +56,7 @@ ehdb_buffer_init(){
 
 void
 swap_out_page(page_t* page){
-#ifdef DEBUG
+#ifdef TRACKIO
     char * ffk[2] = {"INDEX", "BUCKET"};
     fprintf(stderr, "swap out page(id=%d, type=%s)\n", page->page_id, ffk[page->page_type]);
 #endif
@@ -60,7 +67,7 @@ swap_out_page(page_t* page){
             cache_pos[i] = -1;
 #endif
     if(page->modified){
-#ifdef DEBUG
+#ifdef TRACKIO
         fprintf(stderr, "need write back to file\n");
 #endif
         ehdb_save_to_file(page);
@@ -98,7 +105,7 @@ available_page_pos(){
         swap_out_page(clock_list[clock_hand].page);
         pos = clock_hand;
     }
-#ifdef DEBUG
+#ifdef TRACKIO
     fprintf(stderr, "available_page_pos = %d\n", pos);
 #endif
     return pos;
@@ -112,7 +119,9 @@ load_page(int page_id, page_type_t page_type){
     clock_list_node_t * node;
     // find page in mem
     page_pos = find_page(page_type, page_id);
+    total_count += 1;
     if(page_pos != -1){
+        total_hit += 1;
         // if found page on mem
         clock_list[page_pos].refbit = 1;
 #ifdef CACHE
@@ -121,16 +130,17 @@ load_page(int page_id, page_type_t page_type){
         cache_pos[cache_hand] = page_pos;
         cache_hand = (cache_hand + 1) % CACHE_SIZE;
 #endif
-#ifdef DEBUG
-        if(page_type == INDEX)
-            fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "INDEX");
-        else if(page_type == BUCKET)
-            fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "BUCKET");
+#ifdef TRACKIO
+    if(page_type == INDEX)
+        fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "INDEX");
+    else if(page_type == BUCKET)
+        fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "BUCKET");
+    fprintf(stderr, "hit rate: %.4f\n", (double)total_hit*100/total_count);
 #endif
         return clock_list[page_pos].page;
     }
     // if can not found
-#ifdef DEBUG
+#ifdef TRACKIO
     fprintf(stderr, "I can not found page(id=%d)\n", page_id);
 #endif
     page_pos = available_page_pos();
@@ -138,11 +148,14 @@ load_page(int page_id, page_type_t page_type){
     node->page->page_type = page_type;
     node->page->page_id = page_id;
     ehdb_copy_from_file(node->page);
-#ifdef DEBUG
+    io_count ++;
+#ifdef TRACKIO
     if(page_type == INDEX)
-        fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "INDEX");
+        fprintf(stderr, "page{id:%d, type:%s} loaded into %d\n", page_id, "INDEX", page_pos);
     else if(page_type == BUCKET)
-        fprintf(stderr, "page{id:%d, type:%s} loaded\n", page_id, "BUCKET");
+        fprintf(stderr, "page{id:%d, type:%s} loaded into %d\n", page_id, "BUCKET", page_pos);
+    fprintf(stderr, "hit rate: %.4f\n", (double)total_hit*100/total_count);
+
 #endif
     node->refbit = 1;
     return node->page;
@@ -160,6 +173,7 @@ find_page(page_type_t page_type, int page_id){
     for(i = 0; i < CACHE_SIZE; i++)
         if(cache_pos[i] != -1){
             if(cache_id[i] == page_id && cache_type[i] == page_type){
+                cache_hit ++;
                 return cache_pos[i];
             }
         }
@@ -210,4 +224,8 @@ ehdb_save_pages(){
         j = i % PAGE_NUM;
         swap_out_page(clock_list[j].page);
     }
+    fprintf(stderr, "hit rate: %.4f\n", (double)total_hit*100/total_count);
+    fprintf(stderr, "cache hit rate: %.4f\n", (double)cache_hit*100/total_count);
+    fprintf(stderr, "cache/hit : %.4f\n", (double)cache_hit*100/total_hit);
+    fprintf(stderr, "I/O count: %d\n", io_count);
 }

@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "ehdb_page.h"
+#include "ehdb_init.h"
 
 // convert ints to date_t
 date_t ints2date(int y, int m, int d){
@@ -185,7 +186,12 @@ ehdb_record2page_record(record_t * record, page_t * page){
     page->modified = 1;
 
 #ifdef DEBUG
-    fprintf(stderr, "insert record into bucket page(id=%d), begin %d, end %d\n", page->page_id, (begin - page->head), (end - page->head));
+    fprintf(stderr, "insert record (key=%d, hv=%d, into bucket page(id=%d), begin %d, end %d\n",
+            record->orderkey, ehdb_hash_func(record->orderkey, Global_depth),
+            page->page_id, (begin - page->head), (end - page->head));
+    FILE * logf = fopen("insert.log", "a");
+    fprintf(logf, "rid(%d) -> (%d, %d)\n", record->orderkey, page->page_type, page->page_id);
+    fclose(logf);
 #endif
 
     begin = write_int(begin, record->orderkey);
@@ -212,7 +218,7 @@ ehdb_record2page_record(record_t * record, page_t * page){
     ehdb_set_page_record_num(page, ehdb_get_record_num(page)+1);
     ehdb_set_free_end(page, end);
 #ifdef DEBUG
-    fprintf(stderr, "after insert, begin %d, end %d\n\n",(begin - page->head), (end - page->head));
+    /* fprintf(stderr, "after insert, begin %d, end %d\n\n",(begin - page->head), (end - page->head)); */
 #endif
 }
 

@@ -17,9 +17,3 @@ ehdb_test_eof();
 
 int
 ehdb_get_key(record_t* record);
-
-void
-ehdb_bulk_insert(char * fileaddr);
-
-void
-ehdb_single_insert(record_t *record);
