@@ -82,8 +82,10 @@ class Bucket:
             if Bucket.get_by_hvalue(i) == self:
                 if hash_func(i, depth) == hvalue:
                     set_dict(i, self)
-                else:
+                elif hash_func(i, depth) == newHv:
                     set_dict(i, newBucket)
+                else:
+                    exit(1)
                 
         # redistribute the buckets
         for record in self.get_records():
