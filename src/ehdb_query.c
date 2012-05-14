@@ -29,9 +29,6 @@ void ehdb_query(int key, FILE *fout){
 	hash_value = ehdb_hash_func(key, Global_depth);
 	hash_bucket = ehdb_get_bucket_page_by_hvalue(hash_value); 
 
-    //DO NOT write code when you feel sleepy.
-	//while(offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count) && offset != -1){ *Notice PIORITY!*
-	//while((offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count)) && offset != -1){
 	if(ehdb_get_record_num(hash_bucket) != 0)
     {
         offset = 16;
@@ -43,26 +40,23 @@ void ehdb_query(int key, FILE *fout){
         } 
     }
 
-/* #ifdef DEBUG */
+#ifdef DEBUG
     else{
         fprintf(stderr, "Record key=%d not found \n", key);
     }
-/* #endif */
-    /* quick_sorting(record_array, 0, while_count-1, record_length); */
+#endif
     select_sort(record_array, while_count);
     for(i=0; i < while_count; i++){
-        //DO NOT write code when you feel sleepy.
-        //ehdb_record2raw(record_array+while_count, buf);
         ehdb_record2raw(record_array + i, buf);
-        fprintf(fout, "record: %s\n", buf);
+        fprintf(fout, "%s", buf);
     }
     fprintf(fout, "-1\n");
 }
 
 void
-ehdb_bulk_query(char * faddr){
-    FILE *fin = fopen(faddr, "r");
-    /* FILE *fin = stdin; */
+ehdb_bulk_query(char * fin_addr, char * fout_addr){
+    FILE *fin = fopen(fin_addr, "r");
+    FILE *fout = fopen(fout_addr, "w");
     int n, key;
     fscanf(fin, "%d", &n);
 #ifdef DEBUG
@@ -71,8 +65,9 @@ ehdb_bulk_query(char * faddr){
     while(n--)
     {
         fscanf(fin, "%d", &key);
-        ehdb_query(key, stdout); //TODO: ouput to file
+        ehdb_query(key, fout); 
     }
     fclose(fin);
+    fclose(fout);
 }
 

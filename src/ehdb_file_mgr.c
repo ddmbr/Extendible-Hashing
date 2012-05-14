@@ -28,6 +28,8 @@ ehdb_file_init()
 
 void
 ehdb_file_buckets_init(){
+    Index_page_num = 0;
+    Bucket_page_num = 0;
     page_t *index_page;
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
@@ -51,8 +53,7 @@ ehdb_new_page(page_type_t type, int depth)
 
     if(type == INDEX)
     {
-        //page_num = &Index_page_num;
-        //Necessary?
+        page_num = &Index_page_num;
     }
     else if(type == BUCKET)
     {
@@ -148,6 +149,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
     int pid_h, depth;
     int page_id = page_ptr->page_id;
     int offset;
+    int i, n, inc;
     struct record_t record;
     depth = ehdb_get_depth(page_ptr);
     //check if local depth = global depth
@@ -168,27 +170,27 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 
     // write the new page's id to index
     page_t *index_page;
-/* #ifdef L_HASH */
+#ifdef L_HASH
     int old_index = (((1 << (depth-1))-1) & hvalue);
     int new_index = (1 << (depth-1))+ old_index;
-/* #elif H_HASH */
-/*     int old_index = (hvalue << 1); */
-/*     int new_index = (hvalue << 1) + 1; */
-/* #endif */
-
-    int i, n, inc;
-    n = 1 << Global_depth;
     inc = 1 << (depth-1);
+#elif H_HASH
+    int old_index = ehdb_hash_func(hvalue, depth-1) << 1;
+    int new_index = old_index + 1;
+    inc = 1;
+#endif
+
+    n = 1 << Global_depth;
     for(i = old_index; i < n; i += inc){
         //TODO: wrap the set index procedure
         if(ehdb_get_bucket_id_by_hvalue(i) == page_id){
             index_page = ehdb_get_index_page(i / Dictpair_per_page);
             index_page->modified = 1;
-/* #ifdef L_HASH */
+#ifdef L_HASH
             if(((i >> (depth-1)) & 1) == 1){
-/* #elif H_HASH */
-/*             if((i & 1) == 1){ */
-/* #endif */
+#elif H_HASH
+            if(ehdb_hash_func(i, depth) == new_index){
+#endif
                 ((int*)index_page->head)[i % Dictpair_per_page] = pid_h;
             }else{
                 ((int*)index_page->head)[i % Dictpair_per_page] = page_id;

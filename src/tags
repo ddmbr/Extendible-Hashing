@@ -3,29 +3,342 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
+AQtimeParser	gprof2dot.py	/^class AQtimeParser(XmlParser):$/;"	c	inherits:XmlParser
+AQtimeTable	gprof2dot.py	/^class AQtimeTable:$/;"	c	inherits:
+Animation	xdot.py	/^class Animation(object):$/;"	c	inherits:object
+BEGIN_POS	ehdb_utils.c	7;"	d	file:
 BUCKET	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	e	enum:page_type_t
+BW_COLORMAP	gprof2dot.py	/^BW_COLORMAP = Theme($/;"	v
+BezierShape	xdot.py	/^class BezierShape(Shape):$/;"	c	inherits:Shape
+Bucket	hash.py	/^class Bucket:$/;"	c	inherits:
+Bucket	hashtest/hash.py	/^class Bucket:$/;"	c	inherits:
+Bucket	hhash.py	/^class Bucket:$/;"	c	inherits:
 Bucket_page_num	ehdb_init.c	/^int Bucket_page_num;$/;"	v
+BufSize	cnt_max.py	/^BufSize = 4 * 2**10$/;"	v
+CACHE_SIZE	ehdb_buffer_mgr.c	18;"	d	file:
+CALLS	gprof2dot.py	/^CALLS = Event("Calls", 0, add, times)$/;"	v
+COLON	xdot.py	/^COLON = 9$/;"	v
+COMMA	xdot.py	/^COMMA = 8$/;"	v
+Call	gprof2dot.py	/^class Call(Object):$/;"	c	inherits:Object
+CallgrindParser	gprof2dot.py	/^class CallgrindParser(LineParser):$/;"	c	inherits:LineParser
 Compiler	Makefile	/^Compiler=gcc$/;"	m
+CompoundShape	xdot.py	/^class CompoundShape(Shape):$/;"	c	inherits:Shape
+Cycle	gprof2dot.py	/^class Cycle(Object):$/;"	c	inherits:Object
+DEBUG	hash.py	/^DEBUG = 0$/;"	v
+DEBUG	hhash.py	/^DEBUG = 0$/;"	v
+DIGRAPH	xdot.py	/^DIGRAPH = 15$/;"	v
+DictPerPage	hash.py	/^    DictPerPage = 2 * 1024$/;"	v	class:Index
+DictPerPage	hashtest/hash.py	/^    DictPerPage = 2 * 1024$/;"	v	class:Index
+DictPerPage	hhash.py	/^    DictPerPage = 2 * 1024$/;"	v	class:Index
 Dictpair_per_page	ehdb_buffer_mgr.h	7;"	d
-Flags	Makefile	/^Flags=-g -DDEBUG -D$(HashFunc)$/;"	m
+DotLexer	xdot.py	/^class DotLexer(Lexer):$/;"	c	inherits:Lexer
+DotParser	xdot.py	/^class DotParser(Parser):$/;"	c	inherits:Parser
+DotScanner	xdot.py	/^class DotScanner(Scanner):$/;"	c	inherits:Scanner
+DotWidget	xdot.py	/^class DotWidget(gtk.DrawingArea):$/;"	c	inherits:gtk.DrawingArea
+DotWindow	xdot.py	/^class DotWindow(gtk.Window):$/;"	c	inherits:gtk.Window
+DotWriter	gprof2dot.py	/^class DotWriter:$/;"	c	inherits:
+DragAction	xdot.py	/^class DragAction(object):$/;"	c	inherits:object
+EDGE	xdot.py	/^EDGE = 17$/;"	v
+EDGE_OP	xdot.py	/^EDGE_OP = 3$/;"	v
+EOF	xdot.py	/^EOF = -1$/;"	v
+EQUAL	xdot.py	/^EQUAL = 11$/;"	v
+Edge	xdot.py	/^class Edge(Element):$/;"	c	inherits:Element
+Element	xdot.py	/^class Element(CompoundShape):$/;"	c	inherits:CompoundShape
+EllipseShape	xdot.py	/^class EllipseShape(Shape):$/;"	c	inherits:Shape
+Event	gprof2dot.py	/^class Event(object):$/;"	c	inherits:object
+FPS	hash.py	/^    FPS = 10$/;"	v	class:GDB
+FPS	hhash.py	/^    FPS = 10$/;"	v	class:GDB
+Flags	Makefile	/^Flags=-O3 -D$(HashFunc)$/;"	m
+FormatPatt	hash.py	/^    FormatPatt = re.compile(r'(\\d+)\\|(\\d+)\\|')$/;"	v	class:Record
+FormatPatt	hashtest/hash.py	/^    FormatPatt = re.compile(r'(\\d+)|(\\d+)(|.+?)|')$/;"	v	class:Record
+FormatPatt	hhash.py	/^    FormatPatt = re.compile(r'(\\d+)\\|(\\d+)\\|')$/;"	v	class:Record
+Function	gprof2dot.py	/^class Function(Object):$/;"	c	inherits:Object
+GDB	hash.py	/^class GDB(): # graphical debugger$/;"	c	inherits:
+GDB	hhash.py	/^class GDB(): # graphical debugger$/;"	c	inherits:
+GRAPH	xdot.py	/^GRAPH = 14$/;"	v
+GRAY_COLORMAP	gprof2dot.py	/^GRAY_COLORMAP = Theme($/;"	v
 Global_depth	ehdb_init.c	/^int Global_depth;$/;"	v
+GprofParser	gprof2dot.py	/^class GprofParser(Parser):$/;"	c	inherits:Parser
+Graph	xdot.py	/^class Graph(Shape):$/;"	c	inherits:Shape
+HProfParser	gprof2dot.py	/^class HProfParser(LineParser):$/;"	c	inherits:LineParser
+HTML_ID	xdot.py	/^HTML_ID = 2$/;"	v
 HashFunc	Makefile	/^HashFunc=L_HASH$/;"	m
+ID	xdot.py	/^ID = 0$/;"	v
 INDEX	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	e	enum:page_type_t
+IO_count	ehdb_utils.c	/^int IO_count;$/;"	v
+ImageShape	xdot.py	/^class ImageShape(Shape):$/;"	c	inherits:Shape
 IncludePatt	check_make.py	/^IncludePatt = re.compile('# *include *"(.+)"')$/;"	v
+Index	hash.py	/^class Index:$/;"	c	inherits:
+Index	hashtest/hash.py	/^class Index:$/;"	c	inherits:
+Index	hhash.py	/^class Index:$/;"	c	inherits:
+Index_page_num	ehdb_init.c	/^int Index_page_num; $/;"	v
 ItemPatt	check_make.py	/^ItemPatt = re.compile('([a-zA-z_0-9.]+):\\s*(.*?)\\n\\t(.+?)\\n\\n', re.M)$/;"	v
+Jump	xdot.py	/^class Jump(object):$/;"	c	inherits:object
+LCURLY	xdot.py	/^LCURLY = 6$/;"	v
 LINE_SIZE	ehdb_parser.c	8;"	d	file:
+LSQUARE	xdot.py	/^LSQUARE = 4$/;"	v
+Lexer	xdot.py	/^class Lexer:$/;"	c	inherits:
+LineParser	gprof2dot.py	/^class LineParser(Parser):$/;"	c	inherits:Parser
+LineShape	xdot.py	/^class LineShape(Shape):$/;"	c	inherits:Shape
+LinearAnimation	xdot.py	/^class LinearAnimation(Animation):$/;"	c	inherits:Animation
+MAX_DEPTH	ehdb_hash.c	6;"	d	file:
+Main	gprof2dot.py	/^class Main:$/;"	c	inherits:
+MaxSize	hash.py	/^    MaxSize = 8 * 1024$/;"	v	class:Bucket
+MaxSize	hashtest/hash.py	/^    MaxSize = 8 * 1024$/;"	v	class:Bucket
+MaxSize	hhash.py	/^    MaxSize = 8 * 1024$/;"	v	class:Bucket
+MoveToAnimation	xdot.py	/^class MoveToAnimation(LinearAnimation):$/;"	c	inherits:LinearAnimation
+NODE	xdot.py	/^NODE = 16$/;"	v
+NoAnimation	xdot.py	/^class NoAnimation(Animation):$/;"	c	inherits:Animation
+Node	xdot.py	/^class Node(Element):$/;"	c	inherits:Element
+NullAction	xdot.py	/^class NullAction(DragAction):$/;"	c	inherits:DragAction
+Object	gprof2dot.py	/^class Object(object):$/;"	c	inherits:object
 Objects	Makefile	/^Objects=ehdb_parser.o\\$/;"	m
+OprofileParser	gprof2dot.py	/^class OprofileParser(LineParser):$/;"	c	inherits:LineParser
 PAGE_NUM	ehdb_init.h	4;"	d
 PAGE_SIZE	ehdb_init.h	3;"	d
+PCONTENT	hash.py	/^PCONTENT = 0$/;"	v
+PCONTENT	hhash.py	/^PCONTENT = 0$/;"	v
+PINK_COLORMAP	gprof2dot.py	/^PINK_COLORMAP = Theme($/;"	v
+PLUS	xdot.py	/^PLUS = 12$/;"	v
+POS_INCREMENT	xdot.py	/^    POS_INCREMENT = 100$/;"	v	class:DotWidget
+PanAction	xdot.py	/^class PanAction(DragAction):$/;"	c	inherits:DragAction
+ParseError	gprof2dot.py	/^class ParseError(Exception):$/;"	c	inherits:Exception
+ParseError	xdot.py	/^class ParseError(Exception):$/;"	c	inherits:Exception
+Parser	gprof2dot.py	/^class Parser:$/;"	c	inherits:
+Parser	xdot.py	/^class Parser:$/;"	c	inherits:
+Pen	xdot.py	/^class Pen:$/;"	c	inherits:
+PerfParser	gprof2dot.py	/^class PerfParser(LineParser):$/;"	c	inherits:LineParser
+PolygonShape	xdot.py	/^class PolygonShape(Shape):$/;"	c	inherits:Shape
+Profile	gprof2dot.py	/^class Profile(Object):$/;"	c	inherits:Object
+PstatsParser	gprof2dot.py	/^class PstatsParser:$/;"	c	inherits:
+RADIUS	xdot.py	/^    RADIUS = 10$/;"	v	class:Edge
+RCURLY	xdot.py	/^RCURLY = 7$/;"	v
 RECORD_SIZE	ehdb_record.h	5;"	d
+RSQUARE	xdot.py	/^RSQUARE = 5$/;"	v
+Record	hash.py	/^class Record:$/;"	c	inherits:
+Record	hashtest/hash.py	/^class Record:$/;"	c	inherits:
+Record	hhash.py	/^class Record:$/;"	c	inherits:
+Rect	hash.py	/^from pygame import Rect$/;"	i
+Rect	hhash.py	/^from pygame import Rect$/;"	i
+SAMPLES	gprof2dot.py	/^SAMPLES = Event("Samples", 0, add)$/;"	v
+SAMPLES2	gprof2dot.py	/^SAMPLES2 = Event("Samples", 0, add)$/;"	v
+SEMI	xdot.py	/^SEMI = 10$/;"	v
+SKIP	xdot.py	/^SKIP = -2$/;"	v
+STRICT	xdot.py	/^STRICT = 13$/;"	v
+STR_ID	xdot.py	/^STR_ID = 1$/;"	v
+SUBGRAPH	xdot.py	/^SUBGRAPH = 18$/;"	v
+Scanner	xdot.py	/^class Scanner:$/;"	c	inherits:
+Shape	xdot.py	/^class Shape:$/;"	c	inherits:
+SharkParser	gprof2dot.py	/^class SharkParser(LineParser):$/;"	c	inherits:LineParser
+SleepyParser	gprof2dot.py	/^class SleepyParser(Parser):$/;"	c	inherits:Parser
+StringIO	cnt_max.py	/^from StringIO import StringIO$/;"	i
+Struct	gprof2dot.py	/^class Struct:$/;"	c	inherits:
+SysprofParser	gprof2dot.py	/^class SysprofParser(XmlParser):$/;"	c	inherits:XmlParser
+TEMPERATURE_COLORMAP	gprof2dot.py	/^TEMPERATURE_COLORMAP = Theme($/;"	v
+TIME	gprof2dot.py	/^TIME = Event("Time", 0.0, add, lambda x: '(' + str(x) + ')')$/;"	v
+TIME_RATIO	gprof2dot.py	/^TIME_RATIO = Event("Time ratio", 0.0, add, lambda x: '(' + percentage(x) + ')')$/;"	v
+TOTAL_TIME	gprof2dot.py	/^TOTAL_TIME = Event("Total time", 0.0, fail)$/;"	v
+TOTAL_TIME_RATIO	gprof2dot.py	/^TOTAL_TIME_RATIO = Event("Total time ratio", 0.0, fail, percentage)$/;"	v
 TestObjects	Makefile	/^TestObjects=test_parser print_bucket$/;"	m
-WRITEMODE	ehdb_file_mgr.c	10;"	d	file:
+TextShape	xdot.py	/^class TextShape(Shape):$/;"	c	inherits:Shape
+Theme	gprof2dot.py	/^class Theme:$/;"	c	inherits:
+Token	xdot.py	/^class Token:$/;"	c	inherits:
+UndefinedEvent	gprof2dot.py	/^class UndefinedEvent(Exception):$/;"	c	inherits:Exception
+Url	xdot.py	/^class Url(object):$/;"	c	inherits:object
+WRITEMODE	ehdb_file_mgr.c	12;"	d	file:
+XDotAttrParser	xdot.py	/^class XDotAttrParser:$/;"	c	inherits:
+XDotParser	xdot.py	/^class XDotParser(DotParser):$/;"	c	inherits:DotParser
+XPerfParser	gprof2dot.py	/^class XPerfParser(Parser):$/;"	c	inherits:Parser
+XmlParser	gprof2dot.py	/^class XmlParser(Parser):$/;"	c	inherits:Parser
+XmlToken	gprof2dot.py	/^class XmlToken:$/;"	c	inherits:
+XmlTokenMismatch	gprof2dot.py	/^class XmlTokenMismatch(Exception):$/;"	c	inherits:Exception
+XmlTokenizer	gprof2dot.py	/^class XmlTokenizer:$/;"	c	inherits:
+ZOOM_INCREMENT	xdot.py	/^    ZOOM_INCREMENT = 1.25$/;"	v	class:DotWidget
+ZOOM_TO_FIT_MARGIN	xdot.py	/^    ZOOM_TO_FIT_MARGIN = 12$/;"	v	class:DotWidget
+ZipFile	gprof2dot.py	/^        from zipfile import ZipFile$/;"	i
+ZoomAction	xdot.py	/^class ZoomAction(DragAction):$/;"	c	inherits:DragAction
+ZoomAreaAction	xdot.py	/^class ZoomAreaAction(DragAction):$/;"	c	inherits:DragAction
+ZoomToAnimation	xdot.py	/^class ZoomToAnimation(MoveToAnimation):$/;"	c	inherits:MoveToAnimation
+__author__	gprof2dot.py	/^__author__ = "Jose Fonseca"$/;"	v
+__author__	xdot.py	/^__author__ = "Jose Fonseca"$/;"	v
+__cmp__	hash.py	/^    def __cmp__(self, other):$/;"	m	class:Record	file:	access:private
+__cmp__	hashtest/hash.py	/^    def __cmp__(self, other):$/;"	m	class:Record	file:	access:private
+__cmp__	hhash.py	/^    def __cmp__(self, other):$/;"	m	class:Record	file:	access:private
+__contains__	gprof2dot.py	/^    def __contains__(self, event):$/;"	m	class:Object	file:	access:private
+__eq__	gprof2dot.py	/^    def __eq__(self, other):$/;"	m	class:Event	file:	access:private
+__eq__	gprof2dot.py	/^    def __eq__(self, other):$/;"	m	class:Object	file:	access:private
+__getattr__	gprof2dot.py	/^    def __getattr__(self, name):$/;"	m	class:Struct	file:	access:private
+__getitem__	gprof2dot.py	/^    def __getitem__(self, event):$/;"	m	class:Object	file:	access:private
+__gsignals__	xdot.py	/^    __gsignals__ = {$/;"	v	class:DotWidget
+__hash__	gprof2dot.py	/^    def __hash__(self):$/;"	m	class:Event	file:	access:private
+__hash__	gprof2dot.py	/^    def __hash__(self):$/;"	m	class:Object	file:	access:private
+__init__	gprof2dot.py	/^    def __init__(self):$/;"	m	class:Cycle	access:public
+__init__	gprof2dot.py	/^    def __init__(self):$/;"	m	class:Parser	access:public
+__init__	gprof2dot.py	/^    def __init__(self):$/;"	m	class:Profile	access:public
+__init__	gprof2dot.py	/^    def __init__(self, $/;"	m	class:Theme	access:public
+__init__	gprof2dot.py	/^    def __init__(self, *filename):$/;"	m	class:PstatsParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, attrs = None):$/;"	m	class:Struct	access:public
+__init__	gprof2dot.py	/^    def __init__(self, callee_id):$/;"	m	class:Call	access:public
+__init__	gprof2dot.py	/^    def __init__(self, event):$/;"	m	class:UndefinedEvent	access:public
+__init__	gprof2dot.py	/^    def __init__(self, events=None):$/;"	m	class:Object	access:public
+__init__	gprof2dot.py	/^    def __init__(self, expected, found):$/;"	m	class:XmlTokenMismatch	access:public
+__init__	gprof2dot.py	/^    def __init__(self, file):$/;"	m	class:LineParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, filename):$/;"	m	class:SleepyParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, fp):$/;"	m	class:DotWriter	access:public
+__init__	gprof2dot.py	/^    def __init__(self, fp):$/;"	m	class:GprofParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, fp):$/;"	m	class:XmlParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, fp, skip_ws = True):$/;"	m	class:XmlTokenizer	access:public
+__init__	gprof2dot.py	/^    def __init__(self, id, name):$/;"	m	class:Function	access:public
+__init__	gprof2dot.py	/^    def __init__(self, infile):$/;"	m	class:CallgrindParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, infile):$/;"	m	class:HProfParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, infile):$/;"	m	class:OprofileParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, infile):$/;"	m	class:PerfParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, infile):$/;"	m	class:SharkParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, msg, line):$/;"	m	class:ParseError	access:public
+__init__	gprof2dot.py	/^    def __init__(self, name, fields):$/;"	m	class:AQtimeTable	access:public
+__init__	gprof2dot.py	/^    def __init__(self, name, null, aggregator, formatter = str):$/;"	m	class:Event	access:public
+__init__	gprof2dot.py	/^    def __init__(self, stream):$/;"	m	class:AQtimeParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, stream):$/;"	m	class:SysprofParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, stream):$/;"	m	class:XPerfParser	access:public
+__init__	gprof2dot.py	/^    def __init__(self, type, name_or_data, attrs = None, line = None, column = None):$/;"	m	class:XmlToken	access:public
+__init__	hash.py	/^    def __init__(self, id):$/;"	m	class:Index	access:public
+__init__	hash.py	/^    def __init__(self, id, depth):$/;"	m	class:Bucket	access:public
+__init__	hash.py	/^    def __init__(self, rawstr):$/;"	m	class:Record	access:public
+__init__	hashtest/hash.py	/^    def __init__(self, id):$/;"	m	class:Index	access:public
+__init__	hashtest/hash.py	/^    def __init__(self, id, depth):$/;"	m	class:Bucket	access:public
+__init__	hashtest/hash.py	/^    def __init__(self, rawstr):$/;"	m	class:Record	access:public
+__init__	hhash.py	/^    def __init__(self, id):$/;"	m	class:Index	access:public
+__init__	hhash.py	/^    def __init__(self, id, depth):$/;"	m	class:Bucket	access:public
+__init__	hhash.py	/^    def __init__(self, rawstr):$/;"	m	class:Record	access:public
+__init__	xdot.py	/^    def __init__(self):$/;"	m	class:DotWidget	access:public
+__init__	xdot.py	/^    def __init__(self):$/;"	m	class:DotWindow	access:public
+__init__	xdot.py	/^    def __init__(self):$/;"	m	class:Pen	access:public
+__init__	xdot.py	/^    def __init__(self):$/;"	m	class:Scanner	access:public
+__init__	xdot.py	/^    def __init__(self):$/;"	m	class:Shape	access:public
+__init__	xdot.py	/^    def __init__(self, buf = None, pos = 0, filename = None, fp = None):$/;"	m	class:Lexer	access:public
+__init__	xdot.py	/^    def __init__(self, dot_widget):$/;"	m	class:Animation	access:public
+__init__	xdot.py	/^    def __init__(self, dot_widget):$/;"	m	class:DragAction	access:public
+__init__	xdot.py	/^    def __init__(self, dot_widget, target_x, target_y):$/;"	m	class:MoveToAnimation	access:public
+__init__	xdot.py	/^    def __init__(self, dot_widget, target_x, target_y):$/;"	m	class:ZoomToAnimation	access:public
+__init__	xdot.py	/^    def __init__(self, item, url, highlight=None):$/;"	m	class:Url	access:public
+__init__	xdot.py	/^    def __init__(self, item, x, y, highlight=None):$/;"	m	class:Jump	access:public
+__init__	xdot.py	/^    def __init__(self, lexer):$/;"	m	class:DotParser	access:public
+__init__	xdot.py	/^    def __init__(self, lexer):$/;"	m	class:Parser	access:public
+__init__	xdot.py	/^    def __init__(self, msg=None, filename=None, line=None, col=None):$/;"	m	class:ParseError	access:public
+__init__	xdot.py	/^    def __init__(self, parser, buf):$/;"	m	class:XDotAttrParser	access:public
+__init__	xdot.py	/^    def __init__(self, pen, points):$/;"	m	class:LineShape	access:public
+__init__	xdot.py	/^    def __init__(self, pen, points, filled=False):$/;"	m	class:BezierShape	access:public
+__init__	xdot.py	/^    def __init__(self, pen, points, filled=False):$/;"	m	class:PolygonShape	access:public
+__init__	xdot.py	/^    def __init__(self, pen, x, y, j, w, t):$/;"	m	class:TextShape	access:public
+__init__	xdot.py	/^    def __init__(self, pen, x0, y0, w, h, filled=False):$/;"	m	class:EllipseShape	access:public
+__init__	xdot.py	/^    def __init__(self, pen, x0, y0, w, h, path):$/;"	m	class:ImageShape	access:public
+__init__	xdot.py	/^    def __init__(self, shapes):$/;"	m	class:CompoundShape	access:public
+__init__	xdot.py	/^    def __init__(self, shapes):$/;"	m	class:Element	access:public
+__init__	xdot.py	/^    def __init__(self, src, dst, points, shapes):$/;"	m	class:Edge	access:public
+__init__	xdot.py	/^    def __init__(self, type, text, line, col):$/;"	m	class:Token	access:public
+__init__	xdot.py	/^    def __init__(self, width=1, height=1, shapes=(), nodes=(), edges=()):$/;"	m	class:Graph	access:public
+__init__	xdot.py	/^    def __init__(self, x, y, w, h, shapes, url):$/;"	m	class:Node	access:public
+__init__	xdot.py	/^    def __init__(self, xdotcode):$/;"	m	class:XDotParser	access:public
+__iter__	gprof2dot.py	/^    def __iter__(self):$/;"	m	class:AQtimeTable	file:	access:private
+__len__	gprof2dot.py	/^    def __len__(self):$/;"	m	class:AQtimeTable	file:	access:private
+__nonzero__	xdot.py	/^    def __nonzero__(self):$/;"	m	class:XDotAttrParser	file:	access:private
+__repr__	gprof2dot.py	/^    def __repr__(self):$/;"	m	class:Function	file:	access:private
+__repr__	gprof2dot.py	/^    def __repr__(self):$/;"	m	class:Struct	file:	access:private
+__repr__	hash.py	/^    def __repr__(self):$/;"	m	class:Bucket	file:	access:private
+__repr__	hash.py	/^    def __repr__(self):$/;"	m	class:Index	file:	access:private
+__repr__	hash.py	/^    def __repr__(self):$/;"	m	class:Record	file:	access:private
+__repr__	hhash.py	/^    def __repr__(self):$/;"	m	class:Bucket	file:	access:private
+__repr__	hhash.py	/^    def __repr__(self):$/;"	m	class:Index	file:	access:private
+__repr__	hhash.py	/^    def __repr__(self):$/;"	m	class:Record	file:	access:private
+__setattr__	gprof2dot.py	/^    def __setattr__(self, name, value):$/;"	m	class:Struct	file:	access:private
+__setitem__	gprof2dot.py	/^    def __setitem__(self, event, value):$/;"	m	class:Object	file:	access:private
+__str__	gprof2dot.py	/^    def __str__(self):$/;"	m	class:ParseError	file:	access:private
+__str__	gprof2dot.py	/^    def __str__(self):$/;"	m	class:Struct	file:	access:private
+__str__	gprof2dot.py	/^    def __str__(self):$/;"	m	class:UndefinedEvent	file:	access:private
+__str__	gprof2dot.py	/^    def __str__(self):$/;"	m	class:XmlToken	file:	access:private
+__str__	gprof2dot.py	/^    def __str__(self):$/;"	m	class:XmlTokenMismatch	file:	access:private
+__str__	xdot.py	/^    def __str__(self):$/;"	m	class:ParseError	file:	access:private
+__subpos_re	gprof2dot.py	/^    __subpos_re = r'(0x[0-9a-fA-F]+|\\d+|\\+\\d+|-\\d+|\\*)'$/;"	v	class:CallgrindParser
+__version__	gprof2dot.py	/^__version__ = "1.0"$/;"	v
+__version__	xdot.py	/^__version__ = "0.4"$/;"	v
+_angles_re	gprof2dot.py	/^    _angles_re = re.compile(r'<[^<>]*>')$/;"	v	class:Function
+_call_ratios_cycle	gprof2dot.py	/^    def _call_ratios_cycle(self, cycle, function, ranks, call_ratios, visited):$/;"	m	class:Profile	access:public
+_call_re	gprof2dot.py	/^    _call_re = re.compile('^calls=\\s*(\\d+)\\s+((\\d+|\\+\\d+|-\\d+|\\*)\\s+)+$')$/;"	v	class:CallgrindParser
+_cg_child_re	gprof2dot.py	/^    _cg_child_re = _cg_parent_re$/;"	v	class:GprofParser
+_cg_cycle_header_re	gprof2dot.py	/^    _cg_cycle_header_re = re.compile($/;"	v	class:GprofParser
+_cg_cycle_member_re	gprof2dot.py	/^    _cg_cycle_member_re = re.compile($/;"	v	class:GprofParser
+_cg_header_re	gprof2dot.py	/^    _cg_header_re = re.compile($/;"	v	class:GprofParser
+_cg_ignore_re	gprof2dot.py	/^    _cg_ignore_re = re.compile($/;"	v	class:GprofParser
+_cg_parent_re	gprof2dot.py	/^    _cg_parent_re = re.compile($/;"	v	class:GprofParser
+_cg_primary_re	gprof2dot.py	/^    _cg_primary_re = re.compile($/;"	v	class:GprofParser
+_cg_sep_re	gprof2dot.py	/^    _cg_sep_re = re.compile(r'^--+$')$/;"	v	class:GprofParser
+_const_re	gprof2dot.py	/^    _const_re = re.compile(r'\\s+const$')$/;"	v	class:Function
+_cost_re	gprof2dot.py	/^    _cost_re = re.compile(r'^' + $/;"	v	class:CallgrindParser
+_detail_keys	gprof2dot.py	/^    _detail_keys = set(('cmd', 'pid', 'thread', 'part'))$/;"	v	class:CallgrindParser
+_dump_events	gprof2dot.py	/^    def _dump_events(self, events):$/;"	m	class:Profile	access:public
+_fields_re	gprof2dot.py	/^    _fields_re = {$/;"	v	class:OprofileParser
+_float_re	gprof2dot.py	/^    _float_re = re.compile(r'^\\d+\\.\\d+$')$/;"	v	class:GprofParser
+_hue_to_rgb	gprof2dot.py	/^    def _hue_to_rgb(self, m1, m2, h):$/;"	m	class:Theme	access:public
+_int_re	gprof2dot.py	/^    _int_re = re.compile(r'^\\d+$')$/;"	v	class:GprofParser
+_integrate_call	gprof2dot.py	/^    def _integrate_call(self, call, outevent, inevent):$/;"	m	class:Profile	access:public
+_integrate_cycle	gprof2dot.py	/^    def _integrate_cycle(self, cycle, outevent, inevent):$/;"	m	class:Profile	access:public
+_integrate_cycle_function	gprof2dot.py	/^    def _integrate_cycle_function(self, cycle, function, partial_ratio, partials, ranks, call_ratios, outevent, inevent):$/;"	m	class:Profile	access:public
+_integrate_function	gprof2dot.py	/^    def _integrate_function(self, function, outevent, inevent):$/;"	m	class:Profile	access:public
+_key_re	gprof2dot.py	/^    _key_re = re.compile(r'^(\\w+):')$/;"	v	class:CallgrindParser
+_parenthesis_re	gprof2dot.py	/^    _parenthesis_re = re.compile(r'\\([^()]*\\)')$/;"	v	class:Function
+_position_map	gprof2dot.py	/^    _position_map = {$/;"	v	class:CallgrindParser
+_position_re	gprof2dot.py	/^    _position_re = re.compile('^(?P<position>[cj]?(?:ob|fl|fi|fe|fn))=\\s*(?:\\((?P<id>\\d+)\\))?(?:\\s*(?P<name>.+))?')$/;"	v	class:CallgrindParser
+_position_table_map	gprof2dot.py	/^    _position_table_map = {$/;"	v	class:CallgrindParser
+_rank_cycle_function	gprof2dot.py	/^    def _rank_cycle_function(self, cycle, function, rank, ranks):$/;"	m	class:Profile	access:public
+_symbol_re	gprof2dot.py	/^    _symbol_re = re.compile($/;"	v	class:SleepyParser
+_tarjan	gprof2dot.py	/^    def _tarjan(self, function, order, stack, orders, lowlinks, visited):$/;"	m	class:Profile	access:public
+abort	xdot.py	/^    abort = stop$/;"	v	class:PanAction
+abort	xdot.py	/^    def abort(self):$/;"	m	class:DragAction	access:public
+abort	xdot.py	/^    def abort(self):$/;"	m	class:ZoomAreaAction	access:public
+add	gprof2dot.py	/^def add(a, b):$/;"	f	access:public
+add_call	gprof2dot.py	/^    def add_call(self, call):$/;"	m	class:Function	access:public
+add_callee	gprof2dot.py	/^    def add_callee(self, function, callee):$/;"	m	class:SharkParser	access:public
+add_cycle	gprof2dot.py	/^    def add_cycle(self, cycle):$/;"	m	class:Profile	access:public
+add_entry	gprof2dot.py	/^    def add_entry(self, callers, function, callees):$/;"	m	class:OprofileParser	access:public
+add_entry	gprof2dot.py	/^    def add_entry(self, function):$/;"	m	class:SharkParser	access:public
+add_function	gprof2dot.py	/^    def add_function(self, function):$/;"	m	class:Cycle	access:public
+add_function	gprof2dot.py	/^    def add_function(self, function):$/;"	m	class:Profile	access:public
+add_row	gprof2dot.py	/^    def add_row(self, values, children=()):$/;"	m	class:AQtimeTable	access:public
+aggregate	gprof2dot.py	/^    def aggregate(self, event):$/;"	m	class:Profile	access:public
+aggregate	gprof2dot.py	/^    def aggregate(self, val1, val2):$/;"	m	class:Event	access:public
+animate	xdot.py	/^    def animate(self, t):$/;"	m	class:LinearAnimation	access:public
+animate	xdot.py	/^    def animate(self, t):$/;"	m	class:MoveToAnimation	access:public
+animate	xdot.py	/^    def animate(self, t):$/;"	m	class:ZoomToAnimation	access:public
+animate_to	xdot.py	/^    def animate_to(self, x, y):$/;"	m	class:DotWidget	access:public
+attr	gprof2dot.py	/^    def attr(self, what, **attrs):$/;"	m	class:DotWriter	access:public
+attr_list	gprof2dot.py	/^    def attr_list(self, attrs):$/;"	m	class:DotWriter	access:public
 available_page_pos	ehdb_buffer_mgr.c	/^available_page_pos(){$/;"	f
+base_title	xdot.py	/^    base_title = 'Dot Viewer'$/;"	v	class:DotWindow
+begin_graph	gprof2dot.py	/^    def begin_graph(self):$/;"	m	class:DotWriter	access:public
+brewer_colors	xdot.py	/^brewer_colors = {$/;"	v
 bucket_file	ehdb_file_mgr.c	/^FILE *bucket_file;$/;"	v
+buckets	hash.py	/^buckets = []$/;"	v
+buckets	hashtest/hash.py	/^buckets = []$/;"	v
+buckets	hhash.py	/^buckets = []$/;"	v
 buf	ehdb_parser.c	/^static char buf[PAGE_SIZE + 1];$/;"	v	file:
-buf	ehdb_query.c	/^char buf[500];$/;"	v
+buf	ehdb_query.c	/^char buf[300];$/;"	v
 buf_size	ehdb_parser.c	/^int buf_size;$/;"	v
+buffer	ehdb_file_mgr.c	/^static char buffer[PAGE_SIZE];$/;"	v	file:
+build_call	gprof2dot.py	/^    def build_call(self, fields):$/;"	m	class:AQtimeParser	access:public
+build_function	gprof2dot.py	/^    def build_function(self, fields):$/;"	m	class:AQtimeParser	access:public
+build_id	gprof2dot.py	/^    def build_id(self, fields):$/;"	m	class:AQtimeParser	access:public
+build_name	gprof2dot.py	/^    def build_name(self, fields):$/;"	m	class:AQtimeParser	access:public
+build_profile	gprof2dot.py	/^    def build_profile(self, objects, nodes):$/;"	m	class:SysprofParser	access:public
+build_profile	gprof2dot.py	/^    def build_profile(self, results):$/;"	m	class:AQtimeParser	access:public
+cache_hand	ehdb_buffer_mgr.c	/^int cache_hand;$/;"	v
+cache_id	ehdb_buffer_mgr.c	/^int cache_id[CACHE_SIZE];$/;"	v
+cache_pos	ehdb_buffer_mgr.c	/^page_type_t cache_pos[CACHE_SIZE];$/;"	v
+cache_type	ehdb_buffer_mgr.c	/^page_type_t cache_type[CACHE_SIZE];$/;"	v
+cairo	xdot.py	/^import cairo$/;"	i
+call_ratios	gprof2dot.py	/^    def call_ratios(self, event):$/;"	m	class:Profile	access:public
+call_re	gprof2dot.py	/^    call_re = re.compile(r'^\\s+(?P<address>[0-9a-fA-F]+)\\s+(?P<symbol>.*)\\s+\\((?P<module>[^)]*)\\)$')$/;"	v	class:PerfParser
+character_data	gprof2dot.py	/^    def character_data(self, strip = True):$/;"	m	class:XmlParser	access:public
 check	check_make.py	/^def check():$/;"	f	access:public
 clock_hand	ehdb_buffer_mgr.c	/^int clock_hand, $/;"	v
 clock_head	ehdb_buffer_mgr.c	/^    clock_head, $/;"	v
@@ -35,14 +348,52 @@ clock_list_node_t	ehdb_buffer_mgr.c	/^typedef struct clock_list_node_t clock_lis
 clock_list_node_t::page	ehdb_buffer_mgr.c	/^    page_t * page;$/;"	m	struct:clock_list_node_t	file:	access:public
 clock_list_node_t::refbit	ehdb_buffer_mgr.c	/^    int refbit;$/;"	m	struct:clock_list_node_t	file:	access:public
 clock_size	ehdb_buffer_mgr.c	/^    clock_size;$/;"	v
+cnt	cnt_max.py	/^cnt = 0$/;"	v
 cnt	cutlines.py	/^cnt = 0$/;"	v
+coll	cnt_max.py	/^coll = {}$/;"	v
+color	gprof2dot.py	/^    def color(self, (r, g, b)):$/;"	m	class:DotWriter	access:public
+color	gprof2dot.py	/^    def color(self, weight):$/;"	m	class:Theme	access:public
+colorsys	xdot.py	/^import colorsys$/;"	i
 comment	ehdb_record.h	/^    char comment[44+1];$/;"	m	struct:record_t	access:public
 commitdate	ehdb_record.h	/^           commitdate,$/;"	m	struct:record_t	access:public
+consume	gprof2dot.py	/^    def consume(self):$/;"	m	class:LineParser	access:public
+consume	gprof2dot.py	/^    def consume(self):$/;"	m	class:XmlParser	access:public
+consume	xdot.py	/^    def consume(self):$/;"	m	class:Parser	access:public
+consume	xdot.py	/^    def consume(self, text):$/;"	m	class:Lexer	access:public
+copy	xdot.py	/^    def copy(self):$/;"	m	class:Pen	access:public
+csv	gprof2dot.py	/^        import csv$/;"	i
 current_pos	ehdb_parser.c	/^char * current_pos;$/;"	v
 date2ints	ehdb_record.c	/^void date2ints(date_t date, int ymds[3]){$/;"	f	signature:(date_t date, int ymds[3])
 date_t	ehdb_record.h	/^typedef int date_t;$/;"	t
+debug	gprof2dot.py	/^    import debug$/;"	i
 decimal_t	ehdb_record.h	/^typedef float decimal_t;$/;"	t
 discount	ehdb_record.h	/^            discount,$/;"	m	struct:record_t	access:public
+do_expose_event	xdot.py	/^    def do_expose_event(self, event):$/;"	m	class:DotWidget	access:public
+double_index	hash.py	/^def double_index():$/;"	f	access:public
+double_index	hashtest/hash.py	/^def double_index():$/;"	f	access:public
+double_index	hhash.py	/^def double_index():$/;"	f	access:public
+drag	xdot.py	/^    def drag(self, deltax, deltay):$/;"	m	class:DragAction	access:public
+drag	xdot.py	/^    def drag(self, deltax, deltay):$/;"	m	class:PanAction	access:public
+drag	xdot.py	/^    def drag(self, deltax, deltay):$/;"	m	class:ZoomAction	access:public
+drag	xdot.py	/^    def drag(self, deltax, deltay):$/;"	m	class:ZoomAreaAction	access:public
+draw	xdot.py	/^    def draw(self, cr):$/;"	m	class:DragAction	access:public
+draw	xdot.py	/^    def draw(self, cr):$/;"	m	class:ZoomAreaAction	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:BezierShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:CompoundShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:EllipseShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:ImageShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:LineShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:PolygonShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:Shape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight=False):$/;"	m	class:TextShape	access:public
+draw	xdot.py	/^    def draw(self, cr, highlight_items=None):$/;"	m	class:Graph	access:public
+dump	gprof2dot.py	/^    def dump(self):$/;"	m	class:Profile	access:public
+duration	xdot.py	/^    duration = 0.6$/;"	v	class:LinearAnimation
+edge	gprof2dot.py	/^    def edge(self, src, dst, **attrs):$/;"	m	class:DotWriter	access:public
+edge_arrowsize	gprof2dot.py	/^    def edge_arrowsize(self, weight):$/;"	m	class:Theme	access:public
+edge_color	gprof2dot.py	/^    def edge_color(self, weight):$/;"	m	class:Theme	access:public
+edge_fontsize	gprof2dot.py	/^    def edge_fontsize(self, weight):$/;"	m	class:Theme	access:public
+edge_penwidth	gprof2dot.py	/^    def edge_penwidth(self, weight):$/;"	m	class:Theme	access:public
 ehdb_bucket_grow	ehdb_file_mgr.c	/^ehdb_bucket_grow(struct page_t* page_ptr)$/;"	f	signature:(struct page_t* page_ptr)
 ehdb_bucket_grow	ehdb_file_mgr.h	/^ehdb_bucket_grow(page_t* page_ptr);$/;"	p	signature:(page_t* page_ptr)
 ehdb_buffer_init	ehdb_buffer_mgr.c	/^ehdb_buffer_init(){$/;"	f
@@ -64,6 +415,8 @@ ehdb_free_begin	ehdb_page.c	/^ehdb_free_begin(page_t* page_ptr)$/;"	f	signature:
 ehdb_free_begin	ehdb_page.h	/^ehdb_free_begin(struct page_t* page_ptr);$/;"	p	signature:(struct page_t* page_ptr)
 ehdb_free_end	ehdb_page.c	/^ehdb_free_end(page_t* page_ptr)$/;"	f	signature:(page_t* page_ptr)
 ehdb_free_end	ehdb_page.h	/^ehdb_free_end(struct page_t* page_ptr);$/;"	p	signature:(struct page_t* page_ptr)
+ehdb_get_bucket_id_by_hvalue	ehdb_hash.c	/^ehdb_get_bucket_id_by_hvalue(int hvalue){$/;"	f	signature:(int hvalue)
+ehdb_get_bucket_id_by_hvalue	ehdb_hash.h	/^ehdb_get_bucket_id_by_hvalue(int hvalue);$/;"	p	signature:(int hvalue)
 ehdb_get_bucket_page	ehdb_buffer_mgr.c	/^ehdb_get_bucket_page(int bucket_id){$/;"	f	signature:(int bucket_id)
 ehdb_get_bucket_page	ehdb_buffer_mgr.h	/^ehdb_get_bucket_page(int bucket_id);$/;"	p	signature:(int bucket_id)
 ehdb_get_bucket_page_by_hvalue	ehdb_buffer_mgr.c	/^ehdb_get_bucket_page_by_hvalue(int hash_value){$/;"	f	signature:(int hash_value)
@@ -85,6 +438,8 @@ ehdb_hash_h	ehdb_hash.c	/^ehdb_hash_h(int key, int depth)$/;"	f	signature:(int k
 ehdb_hash_h	ehdb_hash.h	/^ehdb_hash_h(int key, int depth);$/;"	p	signature:(int key, int depth)
 ehdb_hash_l	ehdb_hash.c	/^ehdb_hash_l(int key, int depth)$/;"	f	signature:(int key, int depth)
 ehdb_hash_l	ehdb_hash.h	/^ehdb_hash_l(int key, int depth);$/;"	p	signature:(int key, int depth)
+ehdb_inc_IO_record	ehdb_utils.c	/^ehdb_inc_IO_record()$/;"	f
+ehdb_inc_IO_record	ehdb_utils.h	/^ehdb_inc_IO_record();$/;"	p	signature:()
 ehdb_init	ehdb_init.c	/^ehdb_init()$/;"	f
 ehdb_init	ehdb_init.h	/^ehdb_init();$/;"	p	signature:()
 ehdb_init_page_free_end	ehdb_page.c	/^ehdb_init_page_free_end(page_t *page_ptr)$/;"	f	signature:(page_t *page_ptr)
@@ -127,43 +482,221 @@ ehdb_single_insert	ehdb_parser.c	/^void ehdb_single_insert(record_t *record)$/;"
 ehdb_single_insert	ehdb_parser.h	/^ehdb_single_insert(record_t *record);$/;"	p	signature:(record_t *record)
 ehdb_split_bucket	ehdb_file_mgr.c	/^ehdb_split_bucket(struct page_t *page_ptr, int hvalue)$/;"	f	signature:(struct page_t *page_ptr, int hvalue)
 ehdb_split_bucket	ehdb_file_mgr.h	/^ehdb_split_bucket(page_t *page_ptr, int hvalue);$/;"	p	signature:(page_t *page_ptr, int hvalue)
+ehdb_statistics	ehdb_utils.c	/^ehdb_statistics()$/;"	f
+ehdb_statistics	ehdb_utils.h	/^ehdb_statistics();$/;"	p	signature:()
+ehdb_statistics_init	ehdb_utils.c	/^ehdb_statistics_init()$/;"	f
+ehdb_statistics_init	ehdb_utils.h	/^ehdb_statistics_init();$/;"	p	signature:()
 ehdb_test_eof	ehdb_parser.c	/^ehdb_test_eof(){$/;"	f
 ehdb_test_eof	ehdb_parser.h	/^ehdb_test_eof();$/;"	p	signature:()
 ehdb_test_record_size	ehdb_record.c	/^size_t ehdb_test_record_size(record_t * record){$/;"	f	signature:(record_t * record)
 ehdb_test_record_size	ehdb_record.h	/^size_t ehdb_test_record_size(record_t * record);$/;"	p	signature:(record_t * record)
 ehdb_write_record	ehdb_hash.c	/^ehdb_write_record(struct page_t* page_ptr, struct record_t *record)$/;"	f	signature:(struct page_t* page_ptr, struct record_t *record)
 ehdb_write_record	ehdb_hash.h	/^ehdb_write_record(page_t* page_ptr, record_t* record);$/;"	p	signature:(page_t* page_ptr, record_t* record)
+element_end	gprof2dot.py	/^    def element_end(self, name):$/;"	m	class:XmlParser	access:public
+element_start	gprof2dot.py	/^    def element_start(self, name):$/;"	m	class:XmlParser	access:public
+end_graph	gprof2dot.py	/^    def end_graph(self):$/;"	m	class:DotWriter	access:public
 eof	ehdb_parser.c	/^int eof;$/;"	v
+eof	gprof2dot.py	/^    def eof(self):$/;"	m	class:LineParser	access:public
+equal	gprof2dot.py	/^def equal(a, b):$/;"	f	access:public
 equals	check_make.py	/^equals = re.findall('([a-zA-z_0-9.]+)=(.+)', s)$/;"	v
+escape	gprof2dot.py	/^    def escape(self, s):$/;"	m	class:DotWriter	access:public
+expat	gprof2dot.py	/^import xml.parsers.expat$/;"	i
 extendedprice	ehdb_record.h	/^            extendedprice,$/;"	m	struct:record_t	access:public
 f	test/gen_buckets.c	/^FILE *f;$/;"	v
 f	test/gen_index.c	/^FILE *f;$/;"	v
 f	test/test_read_int.c	/^FILE *f;$/;"	v
+faddr	cnt_max.py	/^faddr = sys.argv[1]$/;"	v
+faddr	ehdb_utils.c	/^char faddr[20];$/;"	v
+faddr_inc	ehdb_utils.c	/^faddr_inc()$/;"	f
+faddr_inc	ehdb_utils.h	/^faddr_inc();$/;"	p	signature:()
+fail	gprof2dot.py	/^def fail(a, b):$/;"	f	access:public
+filter	xdot.py	/^    def filter(self, type, text):$/;"	m	class:DotLexer	access:public
+filter	xdot.py	/^    filter = 'dot'$/;"	v	class:DotWidget
 fin	ehdb_parser.c	/^FILE * fin;$/;"	v
+find_cycles	gprof2dot.py	/^    def find_cycles(self):$/;"	m	class:Profile	access:public
 find_page	ehdb_buffer_mgr.c	/^find_page(page_type_t page_type, int page_id){$/;"	f	signature:(page_type_t page_type, int page_id)
+finish_character_data	gprof2dot.py	/^    def finish_character_data(self):$/;"	m	class:XmlTokenizer	access:public
 flag_t	ehdb_record.h	/^typedef char flag_t;$/;"	t
+float2int	gprof2dot.py	/^        def float2int(f):$/;"	f	function:DotWriter.color	access:public
+fontsize	gprof2dot.py	/^    def fontsize(self, weight):$/;"	m	class:Theme	access:public
+format	gprof2dot.py	/^    def format(self, val):$/;"	m	class:Event	access:public
+gamma	gprof2dot.py	/^    gamma = 1.0$/;"	v
+gdk	xdot.py	/^import gtk.gdk$/;"	i
+get_by_hvalue	hash.py	/^    def get_by_hvalue(hvalue):$/;"	m	class:Bucket	access:public
+get_by_hvalue	hashtest/hash.py	/^    def get_by_hvalue(hvalue):$/;"	m	class:Bucket	access:public
+get_by_hvalue	hhash.py	/^    def get_by_hvalue(hvalue):$/;"	m	class:Bucket	access:public
+get_call	gprof2dot.py	/^    def get_call(self, callee_id):$/;"	m	class:Function	access:public
+get_callee	gprof2dot.py	/^    def get_callee(self):$/;"	m	class:CallgrindParser	access:public
+get_current_pos	xdot.py	/^    def get_current_pos(self):$/;"	m	class:DotWidget	access:public
+get_drag_action	xdot.py	/^    def get_drag_action(self, event):$/;"	m	class:DotWidget	access:public
+get_function	gprof2dot.py	/^    def get_function(self):$/;"	m	class:CallgrindParser	access:public
+get_function	gprof2dot.py	/^    def get_function(self, key):$/;"	m	class:PstatsParser	access:public
+get_function	gprof2dot.py	/^    def get_function(self, process, symbol):$/;"	m	class:XPerfParser	access:public
+get_function_name	gprof2dot.py	/^    def get_function_name(self, (filename, line, name)):$/;"	m	class:PstatsParser	access:public
+get_jump	xdot.py	/^    def get_jump(self, x, y):$/;"	m	class:DotWidget	access:public
+get_jump	xdot.py	/^    def get_jump(self, x, y):$/;"	m	class:Edge	access:public
+get_jump	xdot.py	/^    def get_jump(self, x, y):$/;"	m	class:Element	access:public
+get_jump	xdot.py	/^    def get_jump(self, x, y):$/;"	m	class:Graph	access:public
+get_jump	xdot.py	/^    def get_jump(self, x, y):$/;"	m	class:Node	access:public
+get_records	hash.py	/^    def get_records(self):$/;"	m	class:Bucket	access:public
+get_records	hashtest/hash.py	/^    def get_records(self):$/;"	m	class:Bucket	access:public
+get_records	hhash.py	/^    def get_records(self):$/;"	m	class:Bucket	access:public
+get_size	xdot.py	/^    def get_size(self):$/;"	m	class:Graph	access:public
+get_url	xdot.py	/^    def get_url(self, x, y):$/;"	m	class:DotWidget	access:public
+get_url	xdot.py	/^    def get_url(self, x, y):$/;"	m	class:Element	access:public
+get_url	xdot.py	/^    def get_url(self, x, y):$/;"	m	class:Graph	access:public
+get_url	xdot.py	/^    def get_url(self, x, y):$/;"	m	class:Node	access:public
+globalDepth	hash.py	/^globalDepth = 0$/;"	v
+globalDepth	hashtest/hash.py	/^globalDepth = 0$/;"	v
+globalDepth	hhash.py	/^globalDepth = 0$/;"	v
+gobject	xdot.py	/^import gobject$/;"	i
+graph	gprof2dot.py	/^    def graph(self, profile, theme):$/;"	m	class:DotWriter	access:public
+graph_bgcolor	gprof2dot.py	/^    def graph_bgcolor(self):$/;"	m	class:Theme	access:public
+graph_fontname	gprof2dot.py	/^    def graph_fontname(self):$/;"	m	class:Theme	access:public
+graph_fontsize	gprof2dot.py	/^    def graph_fontsize(self):$/;"	m	class:Theme	access:public
+gtk	xdot.py	/^import gtk$/;"	i
+gtk	xdot.py	/^import gtk.gdk$/;"	i
+gtk	xdot.py	/^import gtk.keysyms$/;"	i
+handle_bezier	xdot.py	/^    def handle_bezier(self, points, filled=False):$/;"	m	class:XDotAttrParser	access:public
+handle_character_data	gprof2dot.py	/^    def handle_character_data(self, data):$/;"	m	class:XmlTokenizer	access:public
+handle_color	xdot.py	/^    def handle_color(self, color, filled=False):$/;"	m	class:XDotAttrParser	access:public
+handle_edge	xdot.py	/^    def handle_edge(self, src_id, dst_id, attrs):$/;"	m	class:DotParser	access:public
+handle_edge	xdot.py	/^    def handle_edge(self, src_id, dst_id, attrs):$/;"	m	class:XDotParser	access:public
+handle_element_end	gprof2dot.py	/^    def handle_element_end(self, name):$/;"	m	class:XmlTokenizer	access:public
+handle_element_start	gprof2dot.py	/^    def handle_element_start(self, name, attributes):$/;"	m	class:XmlTokenizer	access:public
+handle_ellipse	xdot.py	/^    def handle_ellipse(self, x0, y0, w, h, filled=False):$/;"	m	class:XDotAttrParser	access:public
+handle_font	xdot.py	/^    def handle_font(self, size, name):$/;"	m	class:XDotAttrParser	access:public
+handle_graph	xdot.py	/^    def handle_graph(self, attrs):$/;"	m	class:DotParser	access:public
+handle_graph	xdot.py	/^    def handle_graph(self, attrs):$/;"	m	class:XDotParser	access:public
+handle_image	xdot.py	/^    def handle_image(self, x0, y0, w, h, path):$/;"	m	class:XDotAttrParser	access:public
+handle_line	xdot.py	/^    def handle_line(self, points):$/;"	m	class:XDotAttrParser	access:public
+handle_linestyle	xdot.py	/^    def handle_linestyle(self, style):$/;"	m	class:XDotAttrParser	access:public
+handle_linewidth	xdot.py	/^    def handle_linewidth(self, linewidth):$/;"	m	class:XDotAttrParser	access:public
+handle_node	xdot.py	/^    def handle_node(self, id, attrs):$/;"	m	class:DotParser	access:public
+handle_node	xdot.py	/^    def handle_node(self, id, attrs):$/;"	m	class:XDotParser	access:public
+handle_polygon	xdot.py	/^    def handle_polygon(self, points, filled=False):$/;"	m	class:XDotAttrParser	access:public
+handle_text	xdot.py	/^    def handle_text(self, x, y, j, w, t):$/;"	m	class:XDotAttrParser	access:public
+hash_func	hash.py	/^def hash_func(key, depth):$/;"	f	access:public
+hash_func	hashtest/hash.py	/^def hash_func(key, depth):$/;"	f	access:public
+hash_func	hhash.py	/^def hash_func(key, depth):$/;"	f	access:public
 head	ehdb_page.h	/^    void * head;$/;"	m	struct:page_t	access:public
+highlighted	xdot.py	/^    def highlighted(self):$/;"	m	class:Pen	access:public
+hotshot	gprof2dot.py	/^            import hotshot.stats$/;"	i
+hsl_to_rgb	gprof2dot.py	/^    def hsl_to_rgb(self, h, s, l):$/;"	m	class:Theme	access:public
+id	gprof2dot.py	/^    def id(self, id):$/;"	m	class:DotWriter	access:public
 identifier_t	ehdb_record.h	/^typedef int identifier_t;$/;"	t
+ignorecase	xdot.py	/^    ignorecase = False$/;"	v	class:Scanner
+ignorecase	xdot.py	/^    ignorecase = True$/;"	v	class:DotScanner
 index_file	ehdb_file_mgr.c	/^FILE *index_file;$/;"	v
+indexs	hash.py	/^indexs = []$/;"	v
+indexs	hashtest/hash.py	/^indexs = []$/;"	v
+indexs	hhash.py	/^indexs = []$/;"	v
+init	hash.py	/^    def init():$/;"	m	class:GDB	access:public
+init	hash.py	/^def init():$/;"	f	access:public
+init	hashtest/hash.py	/^def init():$/;"	f	access:public
+init	hhash.py	/^    def init():$/;"	m	class:GDB	access:public
+init	hhash.py	/^def init():$/;"	f	access:public
+insert	hash.py	/^    def insert(self, record):$/;"	m	class:Bucket	access:public
+insert	hashtest/hash.py	/^    def insert(self, record):$/;"	m	class:Bucket	access:public
+insert	hhash.py	/^    def insert(self, record):$/;"	m	class:Bucket	access:public
+integrate	gprof2dot.py	/^    def integrate(self, outevent, inevent):$/;"	m	class:Profile	access:public
 ints2date	ehdb_record.c	/^date_t ints2date(int y, int m, int d){$/;"	f	signature:(int y, int m, int d)
+is_click	xdot.py	/^    def is_click(self, event, click_fuzz=4, click_timeout=1.0):$/;"	m	class:DotWidget	access:public
+is_inside	xdot.py	/^    def is_inside(self, x, y):$/;"	m	class:Node	access:public
 is_overflow	ehdb_hash.c	/^is_overflow(page_t* page_ptr, record_t* record)$/;"	f	signature:(page_t* page_ptr, record_t* record)
+is_overflow	hash.py	/^    def is_overflow(self, record):$/;"	m	class:Bucket	access:public
+is_overflow	hashtest/hash.py	/^    def is_overflow(self, record):$/;"	m	class:Bucket	access:public
+is_overflow	hhash.py	/^    def is_overflow(self, record):$/;"	m	class:Bucket	access:public
+key	cnt_max.py	/^        key = int(line[:line.find('|')])$/;"	v
+key	maketestinput.py	/^        key = int(line[:line.find('|')])$/;"	v
+keys	maketestinput.py	/^keys = []$/;"	v
+keysyms	xdot.py	/^import gtk.keysyms$/;"	i
 line	ehdb_parser.c	/^static char line[LINE_SIZE];$/;"	v	file:
 linenumber	ehdb_record.h	/^    int linenumber;$/;"	m	struct:record_t	access:public
 linestatus	ehdb_record.h	/^           linestatus;$/;"	m	struct:record_t	access:public
+literals	xdot.py	/^    literals = {$/;"	v	class:DotScanner
+literals	xdot.py	/^    literals = {}$/;"	v	class:Scanner
 load_page	ehdb_buffer_mgr.c	/^load_page(int page_id, page_type_t page_type){$/;"	f	signature:(int page_id, page_type_t page_type)
+lookahead	gprof2dot.py	/^    def lookahead(self):$/;"	m	class:LineParser	access:public
+lookup_color	xdot.py	/^    def lookup_color(self, c):$/;"	m	class:XDotAttrParser	access:public
+main	gprof2dot.py	/^    def main(self):$/;"	m	class:Main	access:public
+main	hash.py	/^def main():$/;"	f	access:public
+main	hashtest/hash.py	/^def main():$/;"	f	access:public
+main	hhash.py	/^def main():$/;"	f	access:public
 main	main.c	/^main()$/;"	f
 main	print_bucket.c	/^int main(){$/;"	f
 main	test/gen_buckets.c	/^main()$/;"	f
 main	test/gen_index.c	/^main()$/;"	f
 main	test/test_read_int.c	/^main()$/;"	f
 main	test_parser.c	/^int main(){$/;"	f
+main	xdot.py	/^def main():$/;"	f	access:public
+make_function	gprof2dot.py	/^    def make_function(self, module, filename, name):$/;"	m	class:CallgrindParser	access:public
+match	xdot.py	/^    def match(self, type):$/;"	m	class:Parser	access:public
+match_element_end	gprof2dot.py	/^    def match_element_end(self, name):$/;"	m	class:XmlParser	access:public
+match_element_start	gprof2dot.py	/^    def match_element_start(self, name):$/;"	m	class:XmlParser	access:public
+match_header	gprof2dot.py	/^    def match_header(self):$/;"	m	class:OprofileParser	access:public
+match_primary	gprof2dot.py	/^    def match_primary(self):$/;"	m	class:OprofileParser	access:public
+match_secondary	gprof2dot.py	/^    def match_secondary(self):$/;"	m	class:OprofileParser	access:public
+match_separator	gprof2dot.py	/^    def match_separator(self):$/;"	m	class:OprofileParser	access:public
+math	gprof2dot.py	/^import math$/;"	i
+math	xdot.py	/^import math$/;"	i
+maxcolor	gprof2dot.py	/^    maxcolor = (0.0, 0.0, 0.0), # black$/;"	v
+maxcolor	gprof2dot.py	/^    maxcolor = (0.0, 1.0, 0.5), # satured red$/;"	v
+maxfontsize	gprof2dot.py	/^    maxfontsize = 24.0,$/;"	v
+maxpenwidth	gprof2dot.py	/^    maxpenwidth = 8.0,$/;"	v
+mincolor	gprof2dot.py	/^    mincolor = (0.0, 0.0, 0.0), # black$/;"	v
+mincolor	gprof2dot.py	/^    mincolor = (0.0, 0.0, 0.85), # light gray$/;"	v
+mincolor	gprof2dot.py	/^    mincolor = (0.0, 1.0, 0.90), # pink$/;"	v
+mincolor	gprof2dot.py	/^    mincolor = (2.0\/3.0, 0.80, 0.25), # dark blue$/;"	v
+minfontsize	gprof2dot.py	/^    minfontsize = 8.0,$/;"	v
+minpenwidth	gprof2dot.py	/^    minpenwidth = 0.1,$/;"	v
+mmap	xdot.py	/^                import mmap$/;"	i
 modified	ehdb_page.h	/^    short modified;$/;"	m	struct:page_t	access:public
+mybin	hash.py	/^def mybin(x):$/;"	f	access:public
+mybin	hhash.py	/^def mybin(x):$/;"	f	access:public
+n	maketestinput.py	/^    n = 0$/;"	v
+newBucketID	hash.py	/^    newBucketID = [2]$/;"	v	class:Bucket
+newBucketID	hashtest/hash.py	/^    newBucketID = [0]$/;"	v	class:Bucket
+newBucketID	hhash.py	/^    newBucketID = [2]$/;"	v	class:Bucket
+newline_re	xdot.py	/^    newline_re = re.compile(r'\\r\\n?|\\n')$/;"	v	class:Lexer
+next	gprof2dot.py	/^    def next(self):$/;"	m	class:XmlTokenizer	access:public
+next	xdot.py	/^    def next(self):$/;"	m	class:Lexer	access:public
+next	xdot.py	/^    def next(self, buf, pos):$/;"	m	class:Scanner	access:public
 next_char	ehdb_record.c	/^next_char(void * start, char* f){$/;"	f	signature:(void * start, char* f)
 next_float	ehdb_record.c	/^next_float(void * start, float* f){$/;"	f	signature:(void * start, float* f)
 next_int	ehdb_record.c	/^next_int(void * start, int * i){$/;"	f	signature:(void * start, int * i)
 next_str	ehdb_record.c	/^next_str(page_t* page, void* start, char* s){$/;"	f	signature:(page_t* page, void* start, char* s)
+node	gprof2dot.py	/^    def node(self, node, **attrs):$/;"	m	class:DotWriter	access:public
+node_bgcolor	gprof2dot.py	/^    def node_bgcolor(self, weight):$/;"	m	class:Theme	access:public
+node_fgcolor	gprof2dot.py	/^    def node_fgcolor(self, weight):$/;"	m	class:Theme	access:public
+node_fontsize	gprof2dot.py	/^    def node_fontsize(self, weight):$/;"	m	class:Theme	access:public
+null	gprof2dot.py	/^    def null(self):$/;"	m	class:Event	access:public
 num	cutlines.py	/^num = int(sys.argv[1])$/;"	v
+on_area_button_press	xdot.py	/^    def on_area_button_press(self, area, event):$/;"	m	class:DotWidget	access:public
+on_area_button_release	xdot.py	/^    def on_area_button_release(self, area, event):$/;"	m	class:DotWidget	access:public
+on_area_motion_notify	xdot.py	/^    def on_area_motion_notify(self, area, event):$/;"	m	class:DotWidget	access:public
+on_area_scroll_event	xdot.py	/^    def on_area_scroll_event(self, area, event):$/;"	m	class:DotWidget	access:public
+on_area_size_allocate	xdot.py	/^    def on_area_size_allocate(self, area, allocation):$/;"	m	class:DotWidget	access:public
+on_button_press	xdot.py	/^    def on_button_press(self, event):$/;"	m	class:DragAction	access:public
+on_button_release	xdot.py	/^    def on_button_release(self, event):$/;"	m	class:DragAction	access:public
+on_key_press_event	xdot.py	/^    def on_key_press_event(self, widget, event):$/;"	m	class:DotWidget	access:public
+on_motion_notify	xdot.py	/^    def on_motion_notify(self, event):$/;"	m	class:DragAction	access:public
+on_motion_notify	xdot.py	/^    def on_motion_notify(self, event):$/;"	m	class:NullAction	access:public
+on_open	xdot.py	/^    def on_open(self, action):$/;"	m	class:DotWindow	access:public
+on_reload	xdot.py	/^    def on_reload(self, action):$/;"	m	class:DotWindow	access:public
+on_zoom_100	xdot.py	/^    def on_zoom_100(self, action):$/;"	m	class:DotWidget	access:public
+on_zoom_fit	xdot.py	/^    def on_zoom_fit(self, action):$/;"	m	class:DotWidget	access:public
+on_zoom_in	xdot.py	/^    def on_zoom_in(self, action):$/;"	m	class:DotWidget	access:public
+on_zoom_out	xdot.py	/^    def on_zoom_out(self, action):$/;"	m	class:DotWidget	access:public
+open_file	xdot.py	/^    def open_file(self, filename):$/;"	m	class:DotWindow	access:public
+optparse	gprof2dot.py	/^import optparse$/;"	i
+optparse	xdot.py	/^    import optparse$/;"	i
 orderkey	ehdb_record.h	/^    identifier_t orderkey, $/;"	m	struct:record_t	access:public
+os	check_make.py	/^import sys, os$/;"	i
+os	cnt_max.py	/^import os, sys$/;"	i
+os	gprof2dot.py	/^import os.path$/;"	i
+os	seeksize.py	/^import os$/;"	i
+os	xdot.py	/^import os$/;"	i
 page	ehdb_buffer_mgr.c	/^    page_t * page;$/;"	m	struct:clock_list_node_t	file:	access:public
 page	print_bucket.c	/^page_t page;$/;"	v
 page	test_parser.c	/^page_t page;$/;"	v
@@ -177,13 +710,117 @@ page_t::page_type	ehdb_page.h	/^    page_type_t page_type;$/;"	m	struct:page_t	a
 page_type	ehdb_page.h	/^    page_type_t page_type;$/;"	m	struct:page_t	access:public
 page_type_t	ehdb_page.h	/^enum page_type_t{INDEX, BUCKET};$/;"	g
 page_type_t	ehdb_page.h	/^typedef enum page_type_t page_type_t;$/;"	t	typeref:enum:page_type_t
+pango	xdot.py	/^import pango$/;"	i
+pangocairo	xdot.py	/^import pangocairo$/;"	i
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:AQtimeParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:CallgrindParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:GprofParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:HProfParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:OprofileParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:Parser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:PerfParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:PstatsParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:SharkParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:SleepyParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:SysprofParser	access:public
+parse	gprof2dot.py	/^    def parse(self):$/;"	m	class:XPerfParser	access:public
+parse	hash.py	/^def parse(faddr):$/;"	f	access:public
+parse	hashtest/hash.py	/^def parse(faddr):$/;"	f	access:public
+parse	hhash.py	/^def parse(faddr):$/;"	f	access:public
+parse	xdot.py	/^    def parse(self):$/;"	m	class:DotParser	access:public
+parse	xdot.py	/^    def parse(self):$/;"	m	class:XDotAttrParser	access:public
+parse	xdot.py	/^    def parse(self):$/;"	m	class:XDotParser	access:public
+parse_association_spec	gprof2dot.py	/^    def parse_association_spec(self):$/;"	m	class:CallgrindParser	access:public
+parse_attr	xdot.py	/^    def parse_attr(self):$/;"	m	class:DotParser	access:public
+parse_attrs	xdot.py	/^    def parse_attrs(self):$/;"	m	class:DotParser	access:public
+parse_body_line	gprof2dot.py	/^    def parse_body_line(self):$/;"	m	class:CallgrindParser	access:public
+parse_call	gprof2dot.py	/^    def parse_call(self):$/;"	m	class:PerfParser	access:public
+parse_callchain	gprof2dot.py	/^    def parse_callchain(self):$/;"	m	class:PerfParser	access:public
+parse_callstacks	gprof2dot.py	/^    def parse_callstacks(self):$/;"	m	class:SleepyParser	access:public
+parse_cg	gprof2dot.py	/^    def parse_cg(self):$/;"	m	class:GprofParser	access:public
+parse_cg_entry	gprof2dot.py	/^    def parse_cg_entry(self, lines):$/;"	m	class:GprofParser	access:public
+parse_children	gprof2dot.py	/^    def parse_children(self):$/;"	m	class:AQtimeParser	access:public
+parse_comment	gprof2dot.py	/^    def parse_comment(self):$/;"	m	class:CallgrindParser	access:public
+parse_cost_line	gprof2dot.py	/^    def parse_cost_line(self, calls=None):$/;"	m	class:CallgrindParser	access:public
+parse_cost_line_def	gprof2dot.py	/^    def parse_cost_line_def(self):$/;"	m	class:CallgrindParser	access:public
+parse_cost_summary	gprof2dot.py	/^    def parse_cost_summary(self):$/;"	m	class:CallgrindParser	access:public
+parse_cycle_entry	gprof2dot.py	/^    def parse_cycle_entry(self, lines):$/;"	m	class:GprofParser	access:public
+parse_data	gprof2dot.py	/^    def parse_data(self):$/;"	m	class:AQtimeParser	access:public
+parse_description	gprof2dot.py	/^    def parse_description(self):$/;"	m	class:CallgrindParser	access:public
+parse_edge_pos	xdot.py	/^    def parse_edge_pos(self, pos):$/;"	m	class:XDotParser	access:public
+parse_empty	gprof2dot.py	/^    def parse_empty(self):$/;"	m	class:CallgrindParser	access:public
+parse_entry	gprof2dot.py	/^    def parse_entry(self):$/;"	m	class:OprofileParser	access:public
+parse_event	gprof2dot.py	/^    def parse_event(self):$/;"	m	class:PerfParser	access:public
+parse_event_specification	gprof2dot.py	/^    def parse_event_specification(self):$/;"	m	class:CallgrindParser	access:public
+parse_field	gprof2dot.py	/^    def parse_field(self, field_types):$/;"	m	class:AQtimeParser	access:public
+parse_function_entry	gprof2dot.py	/^    def parse_function_entry(self, lines):$/;"	m	class:GprofParser	access:public
+parse_graph	xdot.py	/^    def parse_graph(self):$/;"	m	class:DotParser	access:public
+parse_header	gprof2dot.py	/^    def parse_header(self):$/;"	m	class:OprofileParser	access:public
+parse_header	gprof2dot.py	/^    def parse_header(self, row):$/;"	m	class:XPerfParser	access:public
+parse_header_line	gprof2dot.py	/^    def parse_header_line(self):$/;"	m	class:CallgrindParser	access:public
+parse_headers	gprof2dot.py	/^    def parse_headers(self):$/;"	m	class:AQtimeParser	access:public
+parse_id	xdot.py	/^    def parse_id(self):$/;"	m	class:DotParser	access:public
+parse_item	gprof2dot.py	/^    def parse_item(self, name):$/;"	m	class:SysprofParser	access:public
+parse_items	gprof2dot.py	/^    def parse_items(self, name):$/;"	m	class:SysprofParser	access:public
+parse_key	gprof2dot.py	/^    def parse_key(self, key):$/;"	m	class:CallgrindParser	access:public
+parse_keys	gprof2dot.py	/^    def parse_keys(self, keys):$/;"	m	class:CallgrindParser	access:public
+parse_node_id	xdot.py	/^    def parse_node_id(self):$/;"	m	class:DotParser	access:public
+parse_node_pos	xdot.py	/^    def parse_node_pos(self, pos):$/;"	m	class:XDotParser	access:public
+parse_part	gprof2dot.py	/^    def parse_part(self):$/;"	m	class:CallgrindParser	access:public
+parse_part_detail	gprof2dot.py	/^    def parse_part_detail(self):$/;"	m	class:CallgrindParser	access:public
+parse_position_spec	gprof2dot.py	/^    def parse_position_spec(self):$/;"	m	class:CallgrindParser	access:public
+parse_results	gprof2dot.py	/^    def parse_results(self):$/;"	m	class:AQtimeParser	access:public
+parse_row	gprof2dot.py	/^    def parse_row(self, field_types):$/;"	m	class:AQtimeParser	access:public
+parse_row	gprof2dot.py	/^    def parse_row(self, row):$/;"	m	class:XPerfParser	access:public
+parse_samples	gprof2dot.py	/^    def parse_samples(self):$/;"	m	class:HProfParser	access:public
+parse_stmt	xdot.py	/^    def parse_stmt(self):$/;"	m	class:DotParser	access:public
+parse_subentries	gprof2dot.py	/^    def parse_subentries(self):$/;"	m	class:OprofileParser	access:public
+parse_subentry	gprof2dot.py	/^    def parse_subentry(self):$/;"	m	class:OprofileParser	access:public
+parse_subgraph	xdot.py	/^    def parse_subgraph(self):$/;"	m	class:DotParser	access:public
+parse_symbols	gprof2dot.py	/^    def parse_symbols(self):$/;"	m	class:SleepyParser	access:public
+parse_table_field	gprof2dot.py	/^    def parse_table_field(self):$/;"	m	class:AQtimeParser	access:public
+parse_table_header	gprof2dot.py	/^    def parse_table_header(self):$/;"	m	class:AQtimeParser	access:public
+parse_trace	gprof2dot.py	/^    def parse_trace(self):$/;"	m	class:HProfParser	access:public
+parse_traces	gprof2dot.py	/^    def parse_traces(self):$/;"	m	class:HProfParser	access:public
+parse_value	gprof2dot.py	/^    def parse_value(self, tag):$/;"	m	class:SysprofParser	access:public
+parse_values	gprof2dot.py	/^    def parse_values(self):$/;"	m	class:SysprofParser	access:public
+parsers	gprof2dot.py	/^import xml.parsers.expat$/;"	i
 partkey	ehdb_record.h	/^               partkey, $/;"	m	struct:record_t	access:public
+path	gprof2dot.py	/^import os.path$/;"	i
+percentage	gprof2dot.py	/^def percentage(p):$/;"	f	access:public
+pg	hash.py	/^import pygame as pg$/;"	i
+pg	hhash.py	/^import pygame as pg$/;"	i
+pos	gprof2dot.py	/^    def pos(self):$/;"	m	class:XmlTokenizer	access:public
 print_clock_state	ehdb_buffer_mgr.c	/^void print_clock_state(){$/;"	f
+prune	gprof2dot.py	/^    def prune(self, node_thres, edge_thres):$/;"	m	class:Profile	access:public
+pstats	gprof2dot.py	/^        import pstats$/;"	i
 ptr	test/test_read_int.c	/^void *ptr;$/;"	v
 quantity	ehdb_record.h	/^    decimal_t quantity,$/;"	m	struct:record_t	access:public
+query	hash.py	/^def query(faddr):$/;"	f	access:public
+query	hashtest/hash.py	/^def query(faddr):$/;"	f	access:public
+query	hhash.py	/^def query(faddr):$/;"	f	access:public
+ratio	gprof2dot.py	/^    def ratio(self, outevent, inevent):$/;"	m	class:Profile	access:public
+ratio	gprof2dot.py	/^def ratio(numerator, denominator):$/;"	f	access:public
+re	check_make.py	/^import re$/;"	i
+re	gprof2dot.py	/^import re$/;"	i
+re	hash.py	/^import re$/;"	i
+re	hashtest/hash.py	/^import re$/;"	i
+re	hhash.py	/^import re$/;"	i
+re	maketestinput.py	/^import re$/;"	i
+re	xdot.py	/^import re$/;"	i
+read_code	xdot.py	/^    def read_code(self):$/;"	m	class:XDotAttrParser	access:public
+read_color	xdot.py	/^    def read_color(self):$/;"	m	class:XDotAttrParser	access:public
 read_float	test/io_utils.h	/^read_float(char *ptr)$/;"	f	signature:(char *ptr)
+read_float	xdot.py	/^    def read_float(self):$/;"	m	class:XDotAttrParser	access:public
 read_integer	test/io_utils.h	/^read_integer(char *ptr)$/;"	f	signature:(char *ptr)
+read_number	xdot.py	/^    def read_number(self):$/;"	m	class:XDotAttrParser	access:public
+read_point	xdot.py	/^    def read_point(self):$/;"	m	class:XDotAttrParser	access:public
+read_polygon	xdot.py	/^    def read_polygon(self):$/;"	m	class:XDotAttrParser	access:public
 read_string	test/io_utils.h	/^read_string(char *ptr, char *free_start)$/;"	f	signature:(char *ptr, char *free_start)
+read_text	xdot.py	/^    def read_text(self):$/;"	m	class:XDotAttrParser	access:public
+readline	gprof2dot.py	/^    def readline(self):$/;"	m	class:GprofParser	access:public
+readline	gprof2dot.py	/^    def readline(self):$/;"	m	class:LineParser	access:public
+readline	gprof2dot.py	/^    def readline(self):$/;"	m	class:PerfParser	access:public
 receiptdate	ehdb_record.h	/^           receiptdate;$/;"	m	struct:record_t	access:public
 record	print_bucket.c	/^record_t record;$/;"	v
 record	test_parser.c	/^record_t record;$/;"	v
@@ -207,23 +844,108 @@ record_t::shipmode	ehdb_record.h	/^    char shipmode[10+1];$/;"	m	struct:record_
 record_t::suppkey	ehdb_record.h	/^               suppkey;$/;"	m	struct:record_t	access:public
 record_t::tax	ehdb_record.h	/^            tax;$/;"	m	struct:record_t	access:public
 refbit	ehdb_buffer_mgr.c	/^    int refbit;$/;"	m	struct:clock_list_node_t	file:	access:public
+reload	xdot.py	/^    def reload(self):$/;"	m	class:DotWidget	access:public
 returnflag	ehdb_record.h	/^    flag_t returnflag,$/;"	m	struct:record_t	access:public
+run_filter	xdot.py	/^    def run_filter(self, dotcode):$/;"	m	class:DotWidget	access:public
 s	check_make.py	/^    s = s.replace('$(%s)' % a, b)$/;"	v
 s	check_make.py	/^s = open('Makefile', 'r').read().replace('\\\\\\n\\t', ' ').replace('\\\\\\n','')$/;"	v
 s	print_bucket.c	/^char s[1000];$/;"	v
+scanner	xdot.py	/^    scanner = DotScanner()$/;"	v	class:DotLexer
+scanner	xdot.py	/^    scanner = None$/;"	v	class:Lexer
 search_file_dependents	check_make.py	/^def search_file_dependents(fname):$/;"	f	access:public
+select_pen	xdot.py	/^    def select_pen(self, highlight):$/;"	m	class:Shape	access:public
 select_sort	ehdb_query.c	/^void select_sort(record_t * a, int n){$/;"	f	signature:(record_t * a, int n)
+set_current_pos	xdot.py	/^    def set_current_pos(self, x, y):$/;"	m	class:DotWidget	access:public
+set_dict	hash.py	/^def set_dict(index, bucket):$/;"	f	access:public
+set_dict	hhash.py	/^def set_dict(index, bucket):$/;"	f	access:public
+set_dotcode	xdot.py	/^    def set_dotcode(self, dotcode, filename=None):$/;"	m	class:DotWidget	access:public
+set_dotcode	xdot.py	/^    def set_dotcode(self, dotcode, filename=None):$/;"	m	class:DotWindow	access:public
+set_filter	xdot.py	/^    def set_filter(self, filter):$/;"	m	class:DotWidget	access:public
+set_filter	xdot.py	/^    def set_filter(self, filter):$/;"	m	class:DotWindow	access:public
+set_highlight	xdot.py	/^    def set_highlight(self, items):$/;"	m	class:DotWidget	access:public
+set_xdotcode	xdot.py	/^    def set_xdotcode(self, xdotcode):$/;"	m	class:DotWidget	access:public
+set_xdotcode	xdot.py	/^    def set_xdotcode(self, xdotcode, filename=None):$/;"	m	class:DotWindow	access:public
 shipdate	ehdb_record.h	/^    date_t shipdate,$/;"	m	struct:record_t	access:public
 shipinstruct	ehdb_record.h	/^    char shipinstruct[25+1];$/;"	m	struct:record_t	access:public
 shipmode	ehdb_record.h	/^    char shipmode[10+1];$/;"	m	struct:record_t	access:public
+skip	xdot.py	/^    def skip(self, type):$/;"	m	class:Parser	access:public
+skip_separator	gprof2dot.py	/^    def skip_separator(self):$/;"	m	class:OprofileParser	access:public
+sleep	hash.py	/^from time import sleep$/;"	i
+sleep	hhash.py	/^from time import sleep$/;"	i
+sleep	seeksize.py	/^from time import sleep$/;"	i
+snapshot	ehdb_utils.c	/^FILE *snapshot;$/;"	v
+snapshot_num	ehdb_utils.c	/^int snapshot_num;$/;"	v
+split	hash.py	/^    def split(self, hvalue):$/;"	m	class:Bucket	access:public
+split	hashtest/hash.py	/^    def split(self, hvalue):$/;"	m	class:Bucket	access:public
+split	hhash.py	/^    def split(self, hvalue):$/;"	m	class:Bucket	access:public
+square_distance	xdot.py	/^def square_distance(x1, y1, x2, y2):$/;"	f	access:public
+start	xdot.py	/^    def start(self):$/;"	m	class:Animation	access:public
+start	xdot.py	/^    def start(self):$/;"	m	class:DragAction	access:public
+start	xdot.py	/^    def start(self):$/;"	m	class:LinearAnimation	access:public
+start	xdot.py	/^    def start(self):$/;"	m	class:NoAnimation	access:public
+start	xdot.py	/^    def start(self):$/;"	m	class:PanAction	access:public
+stats	gprof2dot.py	/^            import hotshot.stats$/;"	i
+step	xdot.py	/^    step = 0.03 # seconds$/;"	v	class:Animation
+stop	xdot.py	/^    def stop(self):$/;"	m	class:Animation	access:public
+stop	xdot.py	/^    def stop(self):$/;"	m	class:DragAction	access:public
+stop	xdot.py	/^    def stop(self):$/;"	m	class:NoAnimation	access:public
+stop	xdot.py	/^    def stop(self):$/;"	m	class:PanAction	access:public
+stop	xdot.py	/^    def stop(self):$/;"	m	class:ZoomAction	access:public
+stop	xdot.py	/^    def stop(self):$/;"	m	class:ZoomAreaAction	access:public
 str	test_parser.c	/^char str[300];$/;"	v
+strip	gprof2dot.py	/^    strip = False$/;"	v	class:DotWriter
+stripped_name	gprof2dot.py	/^    def stripped_name(self):$/;"	m	class:Function	access:public
+subprocess	xdot.py	/^import subprocess$/;"	i
 suppkey	ehdb_record.h	/^               suppkey;$/;"	m	struct:record_t	access:public
 swap_out_page	ehdb_buffer_mgr.c	/^swap_out_page(page_t* page){$/;"	f	signature:(page_t* page)
+symbols	xdot.py	/^    symbols = {$/;"	v	class:DotScanner
+symbols	xdot.py	/^    symbols = {}$/;"	v	class:Scanner
+sys	check_make.py	/^import sys, os$/;"	i
+sys	cnt_max.py	/^import os, sys$/;"	i
+sys	cutlines.py	/^import sys$/;"	i
+sys	gprof2dot.py	/^import sys$/;"	i
+sys	hash.py	/^import sys$/;"	i
+sys	hhash.py	/^import sys$/;"	i
+sys	xdot.py	/^import sys$/;"	i
+tabsize	xdot.py	/^    tabsize = 8$/;"	v	class:Lexer
 tax	ehdb_record.h	/^            tax;$/;"	m	struct:record_t	access:public
+temp_page	ehdb_file_mgr.c	/^page_t temp_page;$/;"	v
+textwrap	gprof2dot.py	/^import textwrap$/;"	i
+themes	gprof2dot.py	/^    themes = {$/;"	v	class:Main
+tick	xdot.py	/^    def tick(self):$/;"	m	class:Animation	access:public
+tick	xdot.py	/^    def tick(self):$/;"	m	class:LinearAnimation	access:public
+time	xdot.py	/^import time$/;"	i
+times	gprof2dot.py	/^def times(x):$/;"	f	access:public
+tokens	xdot.py	/^    tokens = [$/;"	v	class:DotScanner
+tokens	xdot.py	/^    tokens = []$/;"	v	class:Scanner
+tol	gprof2dot.py	/^tol = 2 ** -23$/;"	v
+trace_id_re	gprof2dot.py	/^    trace_id_re = re.compile(r'^TRACE (\\d+):$')$/;"	v	class:HProfParser
+trace_re	gprof2dot.py	/^    trace_re = re.compile(r'\\t(.*)\\((.*):(.*)\\)')$/;"	v	class:HProfParser
+transform	xdot.py	/^    def transform(self, x, y):$/;"	m	class:XDotAttrParser	access:public
+transform	xdot.py	/^    def transform(self, x, y):$/;"	m	class:XDotParser	access:public
+translate	gprof2dot.py	/^    def translate(self, mo):$/;"	m	class:GprofParser	access:public
+update	hash.py	/^    def update():$/;"	m	class:GDB	access:public
+update	hhash.py	/^    def update():$/;"	m	class:GDB	access:public
+update	xdot.py	/^    def update(self):$/;"	m	class:DotWidget	access:public
+update_subentries_dict	gprof2dot.py	/^    def update_subentries_dict(self, totals, partials):$/;"	m	class:OprofileParser	access:public
+update_title	xdot.py	/^    def update_title(self, filename=None):$/;"	m	class:DotWindow	access:public
+validate	gprof2dot.py	/^    def validate(self):$/;"	m	class:Profile	access:public
+window2graph	xdot.py	/^    def window2graph(self, x, y):$/;"	m	class:DotWidget	access:public
+wrap	gprof2dot.py	/^    wrap = False$/;"	v	class:DotWriter
+wrap_function_name	gprof2dot.py	/^    def wrap_function_name(self, name):$/;"	m	class:DotWriter	access:public
+write	gprof2dot.py	/^    def write(self, s):$/;"	m	class:DotWriter	access:public
 write_char	ehdb_record.c	/^write_char(void* p, char i){$/;"	f	signature:(void* p, char i)
 write_float	ehdb_record.c	/^write_float(void* p, float i){$/;"	f	signature:(void* p, float i)
 write_float	test/io_utils.h	/^write_float(char ch, FILE *f)$/;"	f	signature:(char ch, FILE *f)
 write_float	test/io_utils.h	/^write_float(unsigned double num, FILE *f)$/;"	f	signature:(unsigned double num, FILE *f)
+write_graph	gprof2dot.py	/^    def write_graph(self):$/;"	m	class:Main	access:public
 write_int	ehdb_record.c	/^write_int(void* p, int i){$/;"	f	signature:(void* p, int i)
 write_int	test/io_utils.h	/^write_int(unsigned int num, FILE *f)$/;"	f	signature:(unsigned int num, FILE *f)
+write_record	hash.py	/^    def write_record(self, record):$/;"	m	class:Bucket	access:public
+write_record	hashtest/hash.py	/^    def write_record(self, record):$/;"	m	class:Bucket	access:public
+write_record	hhash.py	/^    def write_record(self, record):$/;"	m	class:Bucket	access:public
 write_str	ehdb_record.c	/^write_str(page_t* page, void**begin, void**end, char*s){$/;"	f	signature:(page_t* page, void**begin, void**end, char*s)
+xml	gprof2dot.py	/^import xml.parsers.expat$/;"	i
+zoom_image	xdot.py	/^    def zoom_image(self, zoom_ratio, center=False, pos=None):$/;"	m	class:DotWidget	access:public
+zoom_to_area	xdot.py	/^    def zoom_to_area(self, x1, y1, x2, y2):$/;"	m	class:DotWidget	access:public
+zoom_to_fit	xdot.py	/^    def zoom_to_fit(self):$/;"	m	class:DotWidget	access:public
