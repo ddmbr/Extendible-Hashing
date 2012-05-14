@@ -105,10 +105,12 @@ ehdb_copy_from_file(struct page_t *page_ptr)
     else if(page_ptr->page_type == BUCKET)
         file = bucket_file;
 #ifdef TRACKIO
+    {
     int id, pos;
     id = (page_ptr->page_id);
     pos = (page_ptr->page_id) * PAGE_SIZE;
     fprintf(stderr, "fseek id=%d, pos=%d\n", id, pos);
+    }
 #endif
 #ifdef DEBUG
     int id, pos;
@@ -190,10 +192,18 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 #endif
 
     n = 1 << Global_depth;
-    for(i = 0; i < n; i += inc){
+#ifdef H_HASH
+    int j, rlen;
+    for(rlen = 1; rlen + depth - 1 <= Global_depth; rlen++)
+        for(j = 0; j < (1 << rlen); j++){
+            i = (old_index << (rlen-1)) + j;
+#elif L_HASH
+    for(i = old_index; i < n; i += inc){
+#endif
         //TODO: wrap the set index procedure
-        if(ehdb_get_bucket_id_by_hvalue(i) == page_id){
-            index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        if(((int*)index_page->head)[i % Dictpair_per_page] == page_id){
+            assert(i >= old_index);
             index_page->modified = 1;
 
             new_key = ehdb_hash_func(i, depth);
@@ -202,7 +212,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
             }else if(new_key == old_index){
                 ((int*)index_page->head)[i % Dictpair_per_page] = page_id;
             }else{
-                fprintf(stderr, "key error");
+                fprintf(stderr, "key error when relink");
                 exit(EXIT_FAILURE);
             }
         }

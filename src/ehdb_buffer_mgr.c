@@ -90,8 +90,8 @@ available_page_pos(){
         clock_size++;
         // allocate the page space for the page
         clock_list[pos].page = (page_t*)malloc(sizeof(page_t));
-        /* clock_list[pos].page->head = malloc(PAGE_SIZE); */
-        clock_list[pos].page->head = NULL;
+        clock_list[pos].page->head = malloc(PAGE_SIZE);
+        /* clock_list[pos].page->head = NULL; */
         /* clock_hand = pos; */
     }else{
         while(clock_list[clock_hand].refbit == 1){
