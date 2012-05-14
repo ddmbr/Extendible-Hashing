@@ -26,12 +26,11 @@ int cache_hand;
 
 /* clock_hand: the index of hand of the Clock page replacement algorithm
  * clock_head: the head index of the list. The available items are 
- *      [clock_head, clock_head + clock_size - 1]. 
+ *      [clock_head, clock_head + clock_size - 1]. Here clock_head = 0
  *      At any time, keep clock_head between [0, Page_num)
  * clock_size: the list's size
  */
 int clock_hand, 
-    clock_head, 
     clock_size;
 
 int total_count, 
@@ -44,7 +43,7 @@ ehdb_buffer_init(){
 #ifdef DEBUG
     fprintf(stderr, "buffer mgr initing...\n");
 #endif
-    clock_head = clock_size = 0;
+    clock_size = 0;
     clock_hand = 0;
     total_count = total_hit = cache_hit = 0;
     io_count = 0;
@@ -54,7 +53,7 @@ ehdb_buffer_init(){
 #endif
 }
 
-void
+static void
 swap_out_page(page_t* page){
 #ifdef TRACKIO
     char * ffk[2] = {"INDEX", "BUCKET"};
@@ -66,7 +65,7 @@ swap_out_page(page_t* page){
         if(cache_pos[i] != -1 && cache_id[i] == page->page_id && cache_type[i] == page->page_type)
             cache_pos[i] = -1;
 #endif
-    if(page->modified){
+    if(1 || page->modified){
 #ifdef TRACKIO
         fprintf(stderr, "need write back to file\n");
 #endif
@@ -76,7 +75,7 @@ swap_out_page(page_t* page){
 
 #ifdef DEBUG
 void print_clock_state(){
-    fprintf(stderr, "clock{start:%d, size:%d, hand:%d}\n", clock_head, clock_size, clock_hand);
+    fprintf(stderr, "clock{start:%d, size:%d, hand:%d}\n", 0, clock_size, clock_hand);
 }
 #endif
 
@@ -87,20 +86,22 @@ int
 available_page_pos(){
     int pos;
     if(clock_size < PAGE_NUM){
-        pos = (clock_head + clock_size) % PAGE_SIZE;
+        pos = clock_size ;
         clock_size++;
         // allocate the page space for the page
         clock_list[pos].page = (page_t*)malloc(sizeof(page_t));
-        clock_list[pos].page->head = malloc(PAGE_SIZE);
+        /* clock_list[pos].page->head = malloc(PAGE_SIZE); */
+        clock_list[pos].page->head = NULL;
+        /* clock_hand = pos; */
     }else{
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
             // increace clock_hand
-            if(clock_hand == (clock_head + clock_size - 1) % PAGE_SIZE){
-                clock_hand = clock_head;
-            }else{
-                clock_hand = (clock_hand + 1) % PAGE_SIZE;
-            }
+            // I'm a stupid. Don't write code when you are sleeping, please.
+            /* if(clock_hand == (clock_head + PAGE_NUM - 1) % ***PAGE_SIZE***){ */
+                // I'm a stupid. 
+                /* clock_hand = (clock_hand + 1) % ****PAGE_SIZE***; */
+            clock_hand = (clock_hand + 1) % PAGE_NUM;
         }
         swap_out_page(clock_list[clock_hand].page);
         pos = clock_hand;
@@ -131,11 +132,11 @@ load_page(int page_id, page_type_t page_type){
         cache_hand = (cache_hand + 1) % CACHE_SIZE;
 #endif
 #ifdef TRACKIO
-    if(page_type == INDEX)
-        fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "INDEX");
-    else if(page_type == BUCKET)
-        fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "BUCKET");
-    fprintf(stderr, "hit rate: %.4f\n", (double)total_hit*100/total_count);
+        if(page_type == INDEX)
+            fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "INDEX");
+        else if(page_type == BUCKET)
+            fprintf(stderr, "fetch page{id:%d, type:%s} in mem\n", page_id, "BUCKET");
+        fprintf(stderr, "hit rate: %.4f\n", (double)total_hit*100/total_count);
 #endif
         return clock_list[page_pos].page;
     }
@@ -178,8 +179,8 @@ find_page(page_type_t page_type, int page_id){
             }
         }
 #endif
-    for(i = clock_head; i < clock_head + clock_size; i++){
-        j = i % PAGE_NUM;
+    for(i = 0; i < clock_size; i++){
+        j = (clock_hand + i) % clock_size;
         if(clock_list[j].page->page_id == page_id 
                 && clock_list[j].page->page_type == page_type){
             return j;
@@ -220,7 +221,7 @@ ehdb_make_available_page(){
 void
 ehdb_save_pages(){
     int i, j;
-    for(i = clock_head; i < clock_head + clock_size; i++){
+    for(i = 0; i < clock_size; i++){
         j = i % PAGE_NUM;
         swap_out_page(clock_list[j].page);
     }
