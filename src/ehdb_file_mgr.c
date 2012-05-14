@@ -7,24 +7,43 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <assert.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 /* #define WRITEMODE ("r+") */
 #define WRITEMODE ("w+")
 
-FILE *bucket_file;
-FILE *index_file;
+int fd_bucket, 
+    fd_index;
 page_t temp_page;
 /* This will generate a new page
  * the provided page_t will be modified.
  */
+
+int static
+get_fd(char * faddr){
+    int fd;
+    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+    fd = open(faddr, O_RDWR|O_CREAT|O_TRUNC, mode);
+    if(fd == -1){
+        perror("Can not open/create data file");
+    }
+    posix_fadvise(fd, 0, 0, POSIX_FADV_WILLNEED|POSIX_FADV_RANDOM);
+    return fd;
+}
+
 void
 ehdb_file_init()
 {
 #ifdef DEBUG
     fprintf(stderr, "file mgr initing...\n");
 #endif
-    bucket_file = fopen("bucket", WRITEMODE);
-    index_file = fopen("index", WRITEMODE);
+    fd_bucket = get_fd("./bucket");
+    fd_index = get_fd("./index");
+    if(fd_bucket == -1 || fd_index == -1){
+        perror("Can not open/create data file.");
+        exit(EXIT_FAILURE);
+    }
 
     temp_page.head = malloc(PAGE_SIZE);
 }
@@ -95,15 +114,15 @@ ehdb_new_page(page_type_t type, int depth)
 void
 ehdb_copy_from_file(struct page_t *page_ptr)
 {
-    FILE *file;
+    int fd;
 #ifdef TRACKIO
     fprintf(stderr, "ehdb_copy_from_file: page id:%d\n", page_ptr->page_id);
 #endif
 
     if(page_ptr->page_type == INDEX)
-        file = index_file;
+        fd = fd_index;
     else if(page_ptr->page_type == BUCKET)
-        file = bucket_file;
+        fd = fd_bucket;
 #ifdef TRACKIO
     int id, pos;
     id = (page_ptr->page_id);
@@ -117,9 +136,8 @@ ehdb_copy_from_file(struct page_t *page_ptr)
     assert(page_ptr->page_type != INDEX || id <= 640);
 #endif
 
-    fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
-    fread(page_ptr->head, PAGE_SIZE, 1, file);
+    pread(fd, page_ptr->head, PAGE_SIZE, (page_ptr->page_id) * PAGE_SIZE);
     page_ptr->modified = 0;
 }
 
@@ -129,16 +147,15 @@ ehdb_copy_from_file(struct page_t *page_ptr)
 void
 ehdb_save_to_file(struct page_t *page_ptr)
 {
-    FILE *file;
+    int fd;
 
     if(page_ptr->page_type == INDEX)
-        file = index_file;
+        fd = fd_index;
     else if(page_ptr->page_type == BUCKET)
-        file = bucket_file;
+        fd = fd_bucket;
 
-    fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
-    fwrite(page_ptr->head, PAGE_SIZE, 1, file);
+    pwrite(fd, page_ptr->head, PAGE_SIZE, (page_ptr->page_id) * PAGE_SIZE);
 }
 
 /* split the bucket and
@@ -289,6 +306,6 @@ ehdb_bucket_grow(struct page_t* page_ptr)
 void
 ehdb_file_close()
 {
-    fclose(bucket_file);
-    fclose(index_file);
+    close(fd_bucket);
+    close(fd_index);
 }
