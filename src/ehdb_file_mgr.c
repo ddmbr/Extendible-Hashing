@@ -186,14 +186,26 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
     int new_key;
 
 #ifdef DEBUG
-    fprintf(stderr, "relink index\n");
+    fprintf(stderr, "relink index, depth = %d\n", depth);
 #endif
 
     n = 1 << Global_depth;
-    for(i = 0; i < n; i += inc){
+#ifdef H_HASH
+    int j, rlen;
+    for(rlen = 1; rlen + depth - 1 <= Global_depth; rlen++)
+        for(j = 0; j < (1 << rlen); j++){
+            i = (old_index << (rlen-1)) + j;
+    /* for(i = 0; i < n; i ++){ */
+    /*     j = ehdb_hash_func(i, depth); */
+    /*     if(!(j == new_index || j == old_index)) */
+    /*         continue; */
+#elif L_HASH
+    for(i = old_index; i < n; i += inc){
+#endif
         //TODO: wrap the set index procedure
-        if(ehdb_get_bucket_id_by_hvalue(i) == page_id){
-            index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        if(((int*)index_page->head)[i % Dictpair_per_page] == page_id){
+            assert(i >= old_index);
             index_page->modified = 1;
 
             new_key = ehdb_hash_func(i, depth);
@@ -202,7 +214,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
             }else if(new_key == old_index){
                 ((int*)index_page->head)[i % Dictpair_per_page] = page_id;
             }else{
-                fprintf(stderr, "key error");
+                fprintf(stderr, "key error when relink");
                 exit(EXIT_FAILURE);
             }
         }
@@ -230,7 +242,7 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
     {
         offset = ehdb_page_record2record(page_ptr, offset, &record);
 #ifdef DEBUG
-        fprintf(stderr, "key = %d, hv=%d", record.orderkey,ehdb_hash_func(record.orderkey, depth));
+        fprintf(stderr, "key = %d, hv=%d \n", record.orderkey,ehdb_hash_func(record.orderkey, depth));
 #endif
         new_key = ehdb_hash_func(record.orderkey, depth);
         if(new_key == new_index)
@@ -246,11 +258,12 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
         {
             ehdb_record2page_record(&record, page_l);
 #ifdef DEBUG
-            fprintf(stderr, " => old page(id=%d)\n", page_id);
+            fprintf(stderr, "============ => old page(id=%d)\n", page_id);
             cnt2++;
 #endif
         }else{
             fprintf(stderr, "key error");
+            ehdb_print_hashindex();
             exit(EXIT_FAILURE);
         }
     }

@@ -4,7 +4,7 @@ HashFunc=L_HASH
 Flags=-pg -g \
 	  -DCACHE \
 	  -D$(HashFunc)\
-	  # -DDEBUG \
+	  -DDEBUG \
 	  # -DTRACKIO\
 
 Objects=ehdb_parser.o\

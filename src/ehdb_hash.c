@@ -11,8 +11,7 @@ ehdb_hash_func(int key, int depth)
 {
     #ifdef H_HASH
         return ehdb_hash_h(key, depth);
-    #endif
-    #ifdef L_HASH
+    #elif L_HASH
         return ehdb_hash_l(key, depth);
     #endif
 }
@@ -22,7 +21,7 @@ ehdb_hash_h(int key, int depth)
 {
     int i, j, ans;
     j = 0;
-#ifndef DEBUG
+#ifdef DEBUG
     if(key == 0)
         fprintf(stderr, "ehdb_hash_h: key: %d, depth: %d, hv: %d\n", key, depth, 0);
 #endif
