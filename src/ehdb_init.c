@@ -14,5 +14,4 @@ ehdb_init()
     ehdb_buffer_init();
     ehdb_file_init();
     ehdb_file_buckets_init();
-    ehdb_statistics_init();
 }

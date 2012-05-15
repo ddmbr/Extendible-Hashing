@@ -1,5 +1,6 @@
 #include "ehdb_record.h"
 #include "stdio.h"
+#include "ehdb_buffer_mgr.h"
 #include "string.h"
 #include "ehdb_page.h"
 #include "ehdb_init.h"

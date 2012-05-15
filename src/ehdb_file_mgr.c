@@ -28,8 +28,6 @@ ehdb_file_init()
 #endif
     bucket_file = fopen("bucket", WRITEMODE);
     index_file = fopen("index", WRITEMODE);
-
-    temp_page.head = malloc(PAGE_SIZE);
 }
 
 void
@@ -106,7 +104,6 @@ ehdb_copy_from_file(struct page_t *page_ptr)
 #endif
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
-    ehdb_inc_IO_record();
     fread(page_ptr->head, PAGE_SIZE, 1, file);
     page_ptr->modified = 0;
 }
@@ -130,7 +127,6 @@ ehdb_save_to_file(struct page_t *page_ptr)
         assert((page_ptr->page_id) < Bucket_page_num);
     }
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
-    ehdb_inc_IO_record();
     fwrite(page_ptr->head, PAGE_SIZE, 1, file);
 }
 
@@ -160,7 +156,6 @@ ehdb_split_bucket(int page_id, int hvalue)
     page_id_h = ehdb_new_page(BUCKET, local_depth);
 
     // write the new page's id to index
-    page_t *index_page;
     int old_index = (((1 << (local_depth-1))-1) & hvalue);
     int new_index = (1 << (local_depth-1))+ old_index;
 
@@ -189,11 +184,8 @@ ehdb_split_bucket(int page_id, int hvalue)
 
     offset = 16;
     //loop through the page
-#ifdef DEBUG
-    int cnt1 = 0;
-    int cnt2 = 0;
-    fprintf(stderr, "start redistribution of records, depth= %d\n", depth);
-#endif
+    int cnt_new = 0;
+    int cnt_old = 0;
     while(offset != -1)
     {
         page_ptr = ehdb_get_bucket_page(Temp_bucket); //DEBUG purpose
@@ -203,11 +195,13 @@ ehdb_split_bucket(int page_id, int hvalue)
         {
             // this record need to move to new bucket
             ehdb_record2page_record(&record, page_id_h);
+            cnt_new ++;
         }
         else if(ehdb_hash_func(record.orderkey, local_depth) 
             == old_index)
         {
             ehdb_record2page_record(&record, page_id);
+            cnt_old ++;
         }
     }
 }

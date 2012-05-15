@@ -23,10 +23,17 @@ ehdb_is_overflow(int bucket_id, record_t* record);
 /* write a record into a bucket
  */
 void
-ehdb_write_record(record_t* record);
+ehdb_single_insert(record_t* record);
 
 void
 ehdb_double_index();
 
 int
 ehdb_get_bucket_id_by_hvalue(int hvalue);
+
+/* split the bucket and
+ * return a bucket id
+ */
+void
+ehdb_split_bucket(int page_id, int hvalue);
+

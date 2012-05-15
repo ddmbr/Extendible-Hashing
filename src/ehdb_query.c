@@ -1,5 +1,7 @@
 #include "ehdb_page.h"
+#include "ehdb_hash.h"
 #include "ehdb_record.h"
+#include "ehdb_query.h"
 #include "ehdb_buffer_mgr.h"
 #include <stdio.h>
 
@@ -67,19 +69,17 @@ void ehdb_query(int key, FILE *fout){
 }
 
 void
-ehdb_bulk_query(char * faddr){
-    FILE *fin = fopen(faddr, "r");
-    /* FILE *fin = stdin; */
+ehdb_bulk_query(char * faddr_in, char* faddr_out){
+    FILE *fin = fopen(faddr_in, "r");
+    FILE *fout = fopen(faddr_out, "w");
     int n, key;
     fscanf(fin, "%d", &n);
-#ifdef DEBUG
-    fprintf(stderr, "Barking!!!!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-#endif
     while(n--)
     {
         fscanf(fin, "%d", &key);
-        ehdb_query(key, stdout); //TODO: ouput to file
+        ehdb_query(key, fout); 
     }
     fclose(fin);
+    fclose(fout);
 }
 
