@@ -1,5 +1,5 @@
 Compiler=gcc
-HashFunc=H_HASH
+HashFunc=L_HASH
 Flags=-g -DDEBUG1 -D$(HashFunc)
 #Flags=-O3 -D$(HashFunc)
 #Flags=-pg -g -D$(HashFunc) -DCACHE
