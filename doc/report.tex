@@ -85,10 +85,78 @@ While not reach the end of the query,
                     \end{enumerate}
                 \paragraph{}
                     对于换入的新页面，R位置1.
-            \item 哈希算法
+            \item 桶分裂/目录翻倍
                 \paragraph{}
-                    TODO
+                    一个桶分裂之后，一个很重要的细节是，要把相关的那些索引正确地分指到两个桶。
+                \paragraph{}
+                    一个朴素的做法是，从头到尾地扫描记录，提取出与原桶相关的记录并修改。但这样效率很低，原因是换页率高。假设Local Depth为k，扫描的时候按(1 << k)的步长扫，则速度会快很多。不同做法效率如下
+                \begin{itemize}
+                    \item 优化前，导入lineitem.tbl全部花7分钟左右
+                    \item 优化后，导入lineitem.tbl全部花4分钟左右，其中，IO在300万次左右。
+                \end{itemize}
+            \item 记录压缩
+                \paragraph{}
+                    记录的存储一个非常方便的方式是，整个当作大字串存起来，需要的时候往里面提取并分析。然而这样非常耗空间，因为把数字当作了字符串存。假设一个数字有11位，按字符串存需要11 byte，假设按int存的话，只需4 byte，压缩比例为11:4，相当客观。
+                \paragraph{}
+                    另外，对于日期我们单独处理，连同年月日一起当做int存储。以下是完整的格式
+\begin{verbatim}
+struct record_t{
+    identifier_t orderkey, 
+               partkey, 
+               suppkey;
+    int linenumber;
+    decimal_t quantity,
+            extendedprice,
+            discount,
+            tax;
+    flag_t returnflag,
+           linestatus;
+    date_t shipdate,
+           commitdate,
+           receiptdate;
+
+    char shipinstruct[25+1];
+    char shipmode[10+1];
+    char comment[44+1];
+};
+\end{verbatim}
+                \paragraph{}
+                    压缩存储能节省空间，这样能省下IO时间。经测试少了大概5/1的硬盘存储空间，节省了约2分钟。
         \end{enumerate}
 \section{结果与分析}
+    \subsection{Profile}
+        \paragraph{}
+            以下是不同模块耗时的分析，以便于优化。
+        \paragraph{}\includegraphics[scale=0.5]{proff_big_record_perf.png}
+        \paragraph{}\includegraphics[scale=0.5]{proff_big_record.png}
+    \subsection{记录分布情况}
+        \paragraph{}
+            低位哈希时，5000条记录在所有桶上的分布情况
+        \paragraph{}\includegraphics[scale=0.5]{pic5000_l.png}
+        \paragraph{}
+            高位哈希时，5000条记录在所有桶上的分布情况
+        \paragraph{}\includegraphics[scale=0.5]{pic5000_h.png}
+        \paragraph{}
+            低位哈希时，20000条记录在所有桶上的分布情况
+        \paragraph{}\includegraphics[scale=0.5]{pic20000_l.png}
+        \paragraph{}
+            高位哈希时，20000条记录在所有桶上的分布情况
+        \paragraph{}\includegraphics[scale=0.5]{pic20000_h.png}
+    \subsection{IO次数}
+        \paragraph{}
+            为了省时起见，我们用脚本截取了20万条记录进行测试，对于同样的数据四种版本的对比如下:
+        \begin{itemize}
+            \item 8页，低位哈系，107857次
+            \item 8页，高位哈系，67844次
+            \item 128页,高位哈系，12227次
+            \item 128页,低位哈系，99591次
+        \end{itemize}
+        \paragraph{}
+            可见高位哈希由于一开始初始化好了目录，在IO上对低位有优势。
 \section{总结}
+    \begin{itemize}
+        \item 由纯C写成，调试经常因为野指针的问题时困难重重。后期又重写了一个python的原型进行测试，由此修复不少问题。
+        \item 由于疲劳很容易犯各种错误，一旦出现非常难找到。工程代码很需要头脑清醒。
+        \item 写出来的代码类似于操作系统做的事情，比如换页、IO请求等，加深了对数据库系统和系统这个概念的理解。
+    \end{itemize}
 \end{document}
