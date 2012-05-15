@@ -8,7 +8,7 @@
 #include "ehdb_record.h"
 #include "ehdb_page.h"
 #include "ehdb_utils.h"
-char path[200], path1[200];
+char in_path[200], out_path[200];
 
 void
 ehdb_bulk_insert(char * fileaddr)
@@ -27,38 +27,38 @@ main(int argc, char *argv[])
 {
     ehdb_init();
     if(argc == 2){
-        strcpy(path, argv[1]);
-        strcat(path, "/");
+        strcpy(in_path, argv[1]);
+        strcat(in_path, "/");
     }else{
-        strcpy(path, "./");
+        strcpy(in_path, "./");
     }
-    strcat(path, "lineitemcut.tbl");
+    strcat(in_path, "lineitemcut.tbl");
     // start insert
-    ehdb_bulk_insert(path);
+    ehdb_bulk_insert(in_path);
 
     if(argc == 2){
-        strcpy(path, argv[1]);
-        strcat(path, "/");
-        strcpy(path1, argv[1]);
-        strcat(path1, "/");
+        strcpy(in_path, argv[1]);
+        strcat(in_path, "/");
+        strcpy(out_path, argv[1]);
+        strcat(out_path, "/");
     }else{
-        strcpy(path, "./");
-        strcpy(path1, "./");
+        strcpy(in_path, "./");
+        strcpy(out_path, "./");
     }
-    strcat(path, "testinput.in");
-    strcat(path1, "testoutput.out");
+    strcat(in_path, "testinput.in");
+    strcat(out_path, "testoutput.out");
     // start query
-    ehdb_bulk_query(path, path1);
+    ehdb_bulk_query(in_path, out_path);
 
     if(argc == 2){
-        strcpy(path, argv[1]);
-        strcat(path, "/");
+        strcpy(in_path, argv[1]);
+        strcat(in_path, "/");
     }else{
-        strcpy(path, "./");
+        strcpy(in_path, "./");
     }
-    strcat(path, "hashindex.out");
+    strcat(in_path, "hashindex.out");
     // print to hashindex.out
-    ehdb_print_hashindex(path);
+    ehdb_print_hashindex(in_path);
 
     // clean an save
     ehdb_save_pages();
