@@ -9,3 +9,6 @@ faddr_inc();
 
 void
 ehdb_inc_IO_record();
+
+void
+ehdb_print_hashindex();

@@ -57,15 +57,3 @@ ehdb_next_line(record_t * record){
     current_pos = ehdb_raw2record(current_pos, record);
 }
 
-void
-ehdb_bulk_insert(char * fileaddr)
-{
-    ehdb_parse_start(fileaddr);
-    record_t record;
-    while(!ehdb_test_eof())
-    {
-        ehdb_next_line(&record);
-        ehdb_write_record(&record);
-    }
-}
-

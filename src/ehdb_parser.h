@@ -14,6 +14,3 @@ ehdb_next_line(record_t* record);
 
 int
 ehdb_test_eof();
-
-void
-ehdb_bulk_insert(char * fileaddr);

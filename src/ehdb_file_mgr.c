@@ -28,6 +28,8 @@ ehdb_file_init()
 #endif
     bucket_file = fopen("bucket", WRITEMODE);
     index_file = fopen("index", WRITEMODE);
+
+    temp_page.head = malloc(PAGE_SIZE);
 }
 
 void
@@ -80,7 +82,7 @@ void
 ehdb_copy_from_file(struct page_t *page_ptr)
 {
     FILE *file;
-#ifdef DEBUG
+#ifdef TRACKIO
     fprintf(stderr, "ehdb_copy_from_file: page id:%d\n", page_ptr->page_id);
 #endif
 
@@ -88,13 +90,19 @@ ehdb_copy_from_file(struct page_t *page_ptr)
         file = index_file;
     else if(page_ptr->page_type == BUCKET)
         file = bucket_file;
-#ifdef DEBUG
-    assert(page_ptr->page_type == INDEX || page_ptr->page_type == BUCKET);
+#ifdef TRACKIO
+    {
     int id, pos;
     id = (page_ptr->page_id);
     pos = (page_ptr->page_id) * PAGE_SIZE;
     fprintf(stderr, "fseek id=%d, pos=%d\n", id, pos);
-    assert(page_ptr->page_type != INDEX || id <= 64);
+    }
+#endif
+#ifdef DEBUG
+    int id, pos;
+    id = (page_ptr->page_id);
+    assert(page_ptr->page_type == INDEX || page_ptr->page_type == BUCKET);
+    assert(page_ptr->page_type != INDEX || id <= 640);
 #endif
 
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
@@ -127,7 +135,6 @@ ehdb_save_to_file(struct page_t *page_ptr)
 }
 
 /* split the bucket and
- * return a bucket id
  */
 void 
 ehdb_split_bucket(int page_id, int hvalue)
@@ -164,7 +171,7 @@ ehdb_split_bucket(int page_id, int hvalue)
     {
         if(ehdb_get_index_map(i) == page_id)
         {
-            if((i >> (local_depth - 1)) & 1 == 1)
+            if(((i >> (local_depth - 1)) & 1) == 1)
             {
                 ehdb_set_index_map(i, page_id_h);
             }
@@ -182,6 +189,11 @@ ehdb_split_bucket(int page_id, int hvalue)
 
     offset = 16;
     //loop through the page
+#ifdef DEBUG
+    int cnt1 = 0;
+    int cnt2 = 0;
+    fprintf(stderr, "start redistribution of records, depth= %d\n", depth);
+#endif
     while(offset != -1)
     {
         page_ptr = ehdb_get_bucket_page(Temp_bucket); //DEBUG purpose

@@ -3,6 +3,7 @@
 #include "ehdb_utils.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #define MAX_DEPTH 30
 #define UNUSED -1
 
@@ -11,8 +12,7 @@ ehdb_hash_func(int key, int depth)
 {
     #ifdef H_HASH
         return ehdb_hash_h(key, depth);
-    #endif
-    #ifdef L_HASH
+    #elif L_HASH
         return ehdb_hash_l(key, depth);
     #endif
 }
@@ -51,8 +51,7 @@ ehdb_hash_l(int key, int depth)
     return result;
 }
 
-/* check whether a page is overflowed after the insertion of record
- */
+/* check whether a page is overflowed after the insertion of record */
 short
 is_overflow(int bucket_id, record_t* record)
 {
