@@ -27,7 +27,6 @@ ehdb_get_invert_key(record_t* record){
         invert += ((key & (1 << (i - 1))) > 0) << (sig - i);
     return invert;
 }
->>>>>>> 015d7535bdb190c97e51b6c5f657e2357482f9c3
 
 // convert ints to date_t
 date_t ints2date(int y, int m, int d){
