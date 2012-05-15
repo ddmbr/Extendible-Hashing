@@ -23,7 +23,7 @@ ehdb_is_overflow(int bucket_id, record_t* record);
 /* write a record into a bucket
  */
 void
-ehdb_write_record(record_t* record);
+ehdb_single_insert(record_t* record);
 
 void
 ehdb_double_index();

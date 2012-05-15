@@ -53,6 +53,9 @@ ehdb_buffer_init(){
 #endif
 }
 
+int 
+find_page(page_type_t page_type, int page_id);
+
 static void
 swap_out_page(page_t* page){
 #ifdef TRACKIO
@@ -187,12 +190,6 @@ find_page(page_type_t page_type, int page_id){
 
 page_t*
 ehdb_get_bucket_page(int bucket_id){
-#ifdef DEBUG
-    if(bucket_id == 57)
-    {
-        fprintf(stderr, "Bark\n");
-    }
-#endif
     return load_page(bucket_id, BUCKET);
 }
 
@@ -203,15 +200,9 @@ ehdb_get_index_page(int index_id){
 
 page_t*
 ehdb_get_bucket_page_by_hvalue(int hash_value){
-    int index_id, offset, bucket_id;
-    page_t * index_page, 
-           * bucket_page;
-
+    int bucket_id;
     bucket_id = ehdb_get_index_map(hash_value);
-
-
-    bucket_page = load_page(bucket_id, BUCKET);
-    return bucket_page;
+    return load_page(bucket_id, BUCKET);
 }
 
 page_t* 

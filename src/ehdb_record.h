@@ -71,3 +71,5 @@ ehdb_record2page_record(record_t * record, int bucket_id);
  */
 size_t ehdb_test_record_size(record_t * record);
 
+int
+ehdb_get_invert_key(record_t* record);

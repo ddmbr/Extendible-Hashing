@@ -8,7 +8,6 @@
 #define LINE_SIZE (200)
 FILE * fin;
 static char buf[PAGE_SIZE + 1];
-static char line[LINE_SIZE];
 char * current_pos;
 int buf_size;
 int eof;

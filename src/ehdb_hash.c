@@ -63,7 +63,7 @@ is_overflow(int bucket_id, record_t* record)
 }
 
 void
-ehdb_write_record(record_t *record)
+ehdb_single_insert(record_t *record)
 {
     int hv, key;
 
@@ -96,10 +96,6 @@ ehdb_double_index()
     int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
-    int old_index_id, new_index_id;
-
-    page_t *src_index_page,
-           *dest_index_page;
 
     for(i = 0; i < (n / Dictpair_per_page); i++)
         ehdb_new_page(INDEX, UNUSED);
