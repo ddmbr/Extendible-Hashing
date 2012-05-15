@@ -30,3 +30,10 @@ ehdb_double_index();
 
 int
 ehdb_get_bucket_id_by_hvalue(int hvalue);
+
+/* split the bucket and
+ * return a bucket id
+ */
+void
+ehdb_split_bucket(int page_id, int hvalue);
+
