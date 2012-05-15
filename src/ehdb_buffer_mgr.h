@@ -4,6 +4,7 @@
 #include "ehdb_page.h"
 
 //define how many (hash_value, bucket_id) tuple can a page store
+//TODO hard code!
 #define Dictpair_per_page (2048) 
 
 void

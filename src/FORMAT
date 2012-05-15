@@ -21,11 +21,11 @@ in the middle is called free part.
         sahmonkeyhello(end of the page)
 
 * summary of the bucket page format
-    0, local depth
-    1, record num(count)
-    2, next bucket id
-    3, end offset
-    4~free_begin-1: datas
+    0, local depth          (int)
+    1, record num(count)    (int)
+    2, next bucket id       (int)
+    4, end offset           (int)
+    5~free_begin-1: datas
     free_begin~free_end-1: unused free space
     free_end~Page_size-1: strings
 

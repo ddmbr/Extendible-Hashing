@@ -14,6 +14,3 @@ ehdb_next_line(record_t* record);
 
 int
 ehdb_test_eof();
-
-int
-ehdb_get_key(record_t* record);

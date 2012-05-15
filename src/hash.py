@@ -171,30 +171,8 @@ def query(faddr):
                 print record.data
             print -1
 
-def mybin(x):
-    return bin(x)[2:]
-
 def hash_func(key, depth):
-    # return mybin(key)[::-1][:depth]
     return key & ((1 << depth) - 1)
-    # print '-'*80
-    # print bin(key), 
-    # invert = 0
-    # for i in xrange(30, -1, -1):
-    #     if key & (1 << i):
-    #         break
-    # sig = i
-    # print sig
-    # if sig >= depth:
-    #     key >>= (sig - depth)
-    # else:
-    #     key <<= (depth - sig)
-    # print bin(key)
-    # key &= ((1 << depth) - 1)
-    # ans = 0
-    # for i in xrange(0, depth):
-    #     ans = (ans << 1) + int((key & (1 << i)) > 0)
-    # return ans
 
 def double_index():
     global globalDepth

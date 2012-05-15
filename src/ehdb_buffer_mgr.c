@@ -65,7 +65,7 @@ swap_out_page(page_t* page){
         if(cache_pos[i] != -1 && cache_id[i] == page->page_id && cache_type[i] == page->page_type)
             cache_pos[i] = -1;
 #endif
-    if(1 || page->modified){
+    if(page->modified){
 #ifdef TRACKIO
         fprintf(stderr, "need write back to file\n");
 #endif
@@ -96,11 +96,6 @@ available_page_pos(){
     }else{
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
-            // increace clock_hand
-            // I'm a stupid. Don't write code when you are sleeping, please.
-            /* if(clock_hand == (clock_head + PAGE_NUM - 1) % ***PAGE_SIZE***){ */
-                // I'm a stupid. 
-                /* clock_hand = (clock_hand + 1) % ****PAGE_SIZE***; */
             clock_hand = (clock_hand + 1) % PAGE_NUM;
         }
         swap_out_page(clock_list[clock_hand].page);
@@ -116,6 +111,7 @@ available_page_pos(){
  */
 page_t*
 load_page(int page_id, page_type_t page_type){
+
     int page_pos;
     clock_list_node_t * node;
     // find page in mem
@@ -191,6 +187,12 @@ find_page(page_type_t page_type, int page_id){
 
 page_t*
 ehdb_get_bucket_page(int bucket_id){
+#ifdef DEBUG
+    if(bucket_id == 57)
+    {
+        fprintf(stderr, "Bark\n");
+    }
+#endif
     return load_page(bucket_id, BUCKET);
 }
 
@@ -205,7 +207,8 @@ ehdb_get_bucket_page_by_hvalue(int hash_value){
     page_t * index_page, 
            * bucket_page;
 
-    bucket_id = ehdb_get_bucket_id_by_hvalue(hash_value);
+    bucket_id = ehdb_get_index_map(hash_value);
+
 
     bucket_page = load_page(bucket_id, BUCKET);
     return bucket_page;

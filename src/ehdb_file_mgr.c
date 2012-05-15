@@ -9,11 +9,14 @@
 # include <assert.h>
 
 /* #define WRITEMODE ("r+") */
-#define WRITEMODE ("w+")
+ #define WRITEMODE ("w+") 
+#define UNUSED -1
 
 FILE *bucket_file;
 FILE *index_file;
-page_t temp_page;
+int Temp_bucket; /* A bucket which hold temp data */
+                 /* while splitting a bucket      */
+
 /* This will generate a new page
  * the provided page_t will be modified.
  */
@@ -31,12 +34,11 @@ ehdb_file_init()
 
 void
 ehdb_file_buckets_init(){
-    Index_page_num = 0;
-    Bucket_page_num = 0;
     page_t *index_page;
+    Temp_bucket = ehdb_new_page(BUCKET, 1);
     int bucket_0 = ehdb_new_page(BUCKET, 1);
     int bucket_1 = ehdb_new_page(BUCKET, 1);
-    ehdb_new_page(INDEX, -1);
+    ehdb_new_page(INDEX, UNUSED);
     index_page = ehdb_get_index_page(0);
     ((int*)index_page->head)[0] = bucket_0;
     ((int*)index_page->head)[1] = bucket_1;
@@ -49,42 +51,26 @@ ehdb_new_page(page_type_t type, int depth)
 #ifdef DEBUG
     fprintf(stderr, "call ehdb_new_page\n");
 #endif
-    int *page_num;
-#ifdef DEBUG
     assert(type == INDEX || type == BUCKET);
-#endif
-
-    if(type == INDEX)
-    {
-        page_num = &Index_page_num;
-    }
-    else if(type == BUCKET)
-    {
-        page_num = &Bucket_page_num;
-    }
-    (*page_num) ++;
 
     page_t *page_ptr;
-
     page_ptr = ehdb_make_available_page();
-
     page_ptr->page_type = type;
-    page_ptr->page_id = *page_num - 1;
-    page_ptr->modified = 0;
-    if(type == BUCKET){
-        ehdb_init_page_free_end(page_ptr);
-        ehdb_init_page_record_num(page_ptr);
-        ehdb_init_page_link(page_ptr);
-        ehdb_set_page_depth(page_ptr, depth);
+
+    if(type == BUCKET)
+    {
+        page_ptr->page_id = Bucket_page_num;
+        Bucket_page_num++;
+        ehdb_init_bucket_page(Bucket_page_num - 1, depth);
     }
-    page_ptr->modified = 1;
-
+    else if(type == INDEX)
+    {
+        ehdb_init_index_page(page_ptr, Index_page_num);
+        Index_page_num++;
+    }
 #ifdef DEBUG
-    char* ffk[2] = {"INDEX", "BUCKET"};
-    fprintf(stderr, "new page created, page{id=%d, type=%s\n",
-            page_ptr->page_id, ffk[page_ptr->page_type]);
+    fprintf(stderr, "new page id=%d created.\n", page_ptr->page_id);
 #endif
-
     return page_ptr->page_id;
 }
 
@@ -134,10 +120,15 @@ ehdb_save_to_file(struct page_t *page_ptr)
     FILE *file;
 
     if(page_ptr->page_type == INDEX)
+    {
         file = index_file;
+        assert((page_ptr->page_id) < Index_page_num);
+    }
     else if(page_ptr->page_type == BUCKET)
+    {
         file = bucket_file;
-
+        assert((page_ptr->page_id) < Bucket_page_num);
+    }
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
     fwrite(page_ptr->head, PAGE_SIZE, 1, file);
@@ -146,88 +137,55 @@ ehdb_save_to_file(struct page_t *page_ptr)
 /* split the bucket and
  */
 void 
-ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
+ehdb_split_bucket(int page_id, int hvalue)
 {
-#ifdef DEBUG
-    fprintf(stderr, "split a bucket id=%d, type=%d\n", page_ptr->page_id, page_ptr->page_type);
-#endif
-    int pid_h, depth;
-    int page_id = page_ptr->page_id;
+    //ehdb_statistics();
+    int page_id_h, local_depth;
     int offset;
-    int i, n, inc;
-    record_t record;
-    depth = ehdb_get_depth(page_ptr);
-    //check if local depth = global depth
-    if(depth == Global_depth)
-    {
-        ehdb_double_index(page_ptr);
-    }
-    page_ptr = ehdb_get_bucket_page(page_id);
-    depth++;
-    ehdb_set_page_depth(page_ptr, depth);
+    struct record_t record;
+    local_depth = ehdb_get_depth(page_id);
 
-    page_t *page_l, *page_h;
+    //check if local depth = global depth
+    if(local_depth == Global_depth)
+    {
+        ehdb_double_index();
+    }
+
+    //depth increase because of splitting
+    local_depth++;
+    page_t *page_ptr = ehdb_get_bucket_page(page_id);
+    ehdb_set_page_depth(page_ptr, local_depth);
 
     // create a new page on the disk
-    pid_h = ehdb_new_page(BUCKET, depth);
-    page_h = ehdb_get_bucket_page(pid_h);
-    page_ptr = ehdb_get_bucket_page(page_id);
+    page_id_h = ehdb_new_page(BUCKET, local_depth);
 
     // write the new page's id to index
     page_t *index_page;
-#ifdef L_HASH
-    int old_index = (((1 << (depth-1))-1) & hvalue);
-    /* int old_index = ehdb_hash_func(hvalue, depth-1); */
-    int new_index = (1 << (depth - 1)) + old_index;
-    inc = 1 << (depth-1);
-#elif H_HASH
-    int old_index = ehdb_hash_func(hvalue, depth-1) << 1;
-    int new_index = old_index + 1;
-    inc = 1;
-#endif
-    int new_key;
+    int old_index = (((1 << (local_depth-1))-1) & hvalue);
+    int new_index = (1 << (local_depth-1))+ old_index;
 
-#ifdef DEBUG
-    fprintf(stderr, "relink index\n");
-#endif
-
+    int i, n, inc;
     n = 1 << Global_depth;
-#ifdef H_HASH
-    int j, rlen;
-    for(rlen = 1; rlen + depth - 1 <= Global_depth; rlen++)
-        for(j = 0; j < (1 << rlen); j++){
-            i = (old_index << (rlen-1)) + j;
-#elif L_HASH
-    for(i = old_index; i < n; i += inc){
-#endif
-        //TODO: wrap the set index procedure
-        index_page = ehdb_get_index_page(i / Dictpair_per_page);
-        if(((int*)index_page->head)[i % Dictpair_per_page] == page_id){
-            assert(i >= old_index);
-            index_page->modified = 1;
-
-            new_key = ehdb_hash_func(i, depth);
-            if(new_key == new_index){
-                ((int*)index_page->head)[i % Dictpair_per_page] = pid_h;
-            }else if(new_key == old_index){
-                ((int*)index_page->head)[i % Dictpair_per_page] = page_id;
-            }else{
-                fprintf(stderr, "key error when relink");
-                exit(EXIT_FAILURE);
+    inc = 1 << (local_depth - 1);
+    for(i = old_index; i <= n; i += inc)
+    {
+        if(ehdb_get_index_map(i) == page_id)
+        {
+            if(((i >> (local_depth - 1)) & 1) == 1)
+            {
+                ehdb_set_index_map(i, page_id_h);
+            }
+            else
+            {
+                ehdb_set_index_map(i, page_id);
             }
         }
     }
 
-    page_ptr = ehdb_get_bucket_page(page_id);
-    page_h = ehdb_get_bucket_page(pid_h);
-    // page_l is temp page, it will write back to current page later
-    page_l = &temp_page;
-    page_l->page_id = -1;
-    page_l->page_type = BUCKET;
-    ehdb_init_page_free_end(page_l);
-    ehdb_init_page_record_num(page_l);
-    ehdb_init_page_link(page_l);
-    ehdb_set_page_depth(page_l, depth);
+    //copy the origin bucket to the temp bucket
+    ehdb_copy_page(page_id, Temp_bucket);
+    //remove all records from the origin bucket
+    ehdb_init_bucket_page(page_id, local_depth);
 
     offset = 16;
     //loop through the page
@@ -238,49 +196,20 @@ ehdb_split_bucket(struct page_t *page_ptr, int hvalue)
 #endif
     while(offset != -1)
     {
+        page_ptr = ehdb_get_bucket_page(Temp_bucket); //DEBUG purpose
         offset = ehdb_page_record2record(page_ptr, offset, &record);
-#ifdef DEBUG
-        fprintf(stderr, "key = %d, hv=%d", record.orderkey,ehdb_hash_func(record.orderkey, depth));
-#endif
-        new_key = ehdb_hash_func(record.orderkey, depth);
-        if(new_key == new_index)
+        if(ehdb_hash_func(record.orderkey, local_depth)
+            == new_index)
         {
             // this record need to move to new bucket
-            ehdb_record2page_record(&record, page_h);
-#ifdef DEBUG
-            fprintf(stderr, " => new page(id=%d)\n", pid_h);
-            cnt1++;
-#endif
+            ehdb_record2page_record(&record, page_id_h);
         }
-        else if(new_key == old_index)
+        else if(ehdb_hash_func(record.orderkey, local_depth) 
+            == old_index)
         {
-            ehdb_record2page_record(&record, page_l);
-#ifdef DEBUG
-            fprintf(stderr, " => old page(id=%d)\n", page_id);
-            cnt2++;
-#endif
-        }else{
-            fprintf(stderr, "key error");
-            exit(EXIT_FAILURE);
+            ehdb_record2page_record(&record, page_id);
         }
     }
-#ifdef DEBUG
-    fprintf(stderr, "cnt:new_bucket = %d, old_bucket = %d\n", cnt1, cnt2);
-#endif
-
-    memcpy(page_ptr->head, page_l->head, PAGE_SIZE);
-    page_ptr->modified = 1;
-}
-
-int
-ehdb_bucket_grow(struct page_t* page_ptr)
-{
-    int prev_id = page_ptr->page_id;
-    int bucket_id = ehdb_new_page(BUCKET, ehdb_get_depth(page_ptr));
-    page_ptr = ehdb_get_bucket_page(bucket_id);
-    ehdb_set_page_link(page_ptr, prev_id);
-
-    return bucket_id;
 }
 
 void

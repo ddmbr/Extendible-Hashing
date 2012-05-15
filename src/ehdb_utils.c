@@ -40,25 +40,6 @@ faddr_inc()
     }
 }
 
-void ehdb_print_hashindex(char *path){
-    FILE * fout = fopen(path, "w");
-    fprintf(fout, "\"\"\"This is the hash index output and also a python source file\"\"\"\n");
-
-    fprintf(fout, "Global_depth = %d\n", Global_depth);
-    int i, n;
-    page_t * index_page;
-    int bucket_id;
-    n = (1 << Global_depth);
-    fprintf(fout, "hashindex = {\n");
-    for(i = 0; i < n; i++){
-        index_page = ehdb_get_index_page(i / Dictpair_per_page);
-        bucket_id = ((int*)(index_page->head))[i % Dictpair_per_page];
-        fprintf(fout, "%d: %d,\n", i, bucket_id);
-    }
-    fprintf(fout, "}\n");
-    fclose(fout);
-}
-
 void
 ehdb_statistics()
 {

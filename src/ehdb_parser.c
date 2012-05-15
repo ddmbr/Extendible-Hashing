@@ -22,11 +22,6 @@ ehdb_parse_start(char * fileaddr){
 }
 
 int
-ehdb_get_key(record_t* record){
-    return record->orderkey;
-}
-
-int
 ehdb_test_eof(){
     return (current_pos - buf >= buf_size && eof == 1);
 }

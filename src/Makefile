@@ -1,10 +1,8 @@
 Compiler=gcc
-HashFunc=L_HASH
-Flags=-pg -g -DCACHE -D$(HashFunc) \
-	  -DDEBUG -DTRACKIO
-#
-# Flags=-O3 -g -D$(HashFunc) -DCACHE
-
+HashFunc=H_HASH
+Flags=-g -DDEBUG1 -D$(HashFunc)
+#Flags=-O3 -D$(HashFunc) -DCACHE
+#Flags=-pg -g -D$(HashFunc) -DCACHE
 Objects=ehdb_parser.o\
 		ehdb_record.o\
 		ehdb_buffer_mgr.o\
