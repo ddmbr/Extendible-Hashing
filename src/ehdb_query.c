@@ -23,32 +23,39 @@ void select_sort(record_t * a, int n){
 
 void ehdb_query(int key, FILE *fout){
 
-	int i, hash_value, offset, while_count = 0;
+	int i, hv, offset, while_count = 0;
+    int next_bucket;
 	page_t * hash_bucket;
 
-	hash_value = ehdb_hash_func(key, Global_depth);
-	hash_bucket = ehdb_get_bucket_page_by_hvalue(hash_value); 
+	hv = ehdb_hash_func(key, Global_depth);
+	hash_bucket = ehdb_get_bucket_page_by_hvalue(hv); 
 
-    //DO NOT write code when you feel sleepy.
-	//while(offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count) && offset != -1){ *Notice PIORITY!*
-	//while((offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count)) && offset != -1){
-	if(ehdb_get_record_num(hash_bucket) != 0)
+    while(1)
     {
-        offset = 16;
-        while(1){
-            offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count);
-            if(ehdb_get_key(record_array+while_count) == key)
-                while_count++;	
-            if(offset == -1) break;
-        } 
+        if(ehdb_get_record_num(hash_bucket) != 0)
+        {
+            offset = 16;
+            while(1){
+                offset = ehdb_page_record2record(hash_bucket, offset, record_array + while_count);
+    #ifdef DEBUG1
+                fprintf(stderr, "in hv: %d, expect key %d, found %d\n", hv, key, ehdb_get_key(record_array+while_count));
+    #endif
+                if(ehdb_get_key(record_array+while_count) == key)
+                    while_count++;	
+                if(offset == -1) break;
+            } 
+        }
+        next_bucket = ehdb_get_next_bucket(hash_bucket->page_id);
+        if(next_bucket != 0)
+        {
+            hash_bucket = ehdb_get_bucket_page(next_bucket);
+        }
+        else
+        {
+            break;
+        }
     }
 
-/* #ifdef DEBUG */
-    else{
-        fprintf(stderr, "Record key=%d not found \n", key);
-    }
-/* #endif */
-    /* quick_sorting(record_array, 0, while_count-1, record_length); */
     select_sort(record_array, while_count);
     for(i=0; i < while_count; i++){
         //DO NOT write code when you feel sleepy.

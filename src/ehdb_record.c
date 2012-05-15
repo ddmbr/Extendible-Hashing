@@ -2,6 +2,30 @@
 #include "stdio.h"
 #include "string.h"
 #include "ehdb_page.h"
+#include <assert.h>
+#define MAX_DEPTH 30
+
+int
+ehdb_get_key(record_t* record){
+    return record->orderkey;
+}
+
+int
+ehdb_get_invert_key(record_t* record){
+    int key = ehdb_get_key(record);
+    int invert = 0, i;
+
+    for(i = MAX_DEPTH - 1; i >= 0; i--)
+        if((key & (1 << i)) > 0)
+            break;
+    int sig = i;
+
+    key &= ((1 << sig) - 1);
+
+    for(i = 1; i <= sig; i++)
+        invert += ((key & (1 << (i - 1))) > 0) << (sig - i);
+    return invert;
+}
 
 // convert ints to date_t
 date_t ints2date(int y, int m, int d){
@@ -177,15 +201,19 @@ write_str(page_t* page, void**begin, void**end, char*s){
     *begin = (short*)(*begin) + 2;
 }
 void
-ehdb_record2page_record(record_t * record, page_t * page){
+//ehdb_record2page_record(record_t * record, page_t * page){
+ehdb_record2page_record(record_t * record, int bucket_id){
     void * begin,
          * end;
-    begin = ehdb_free_begin(page);
-    end = ehdb_free_end(page);
-    page->modified = 1;
+    page_t *page_ptr = ehdb_get_bucket_page(bucket_id);
+    assert(page_ptr->page_type == BUCKET);
+
+    begin = ehdb_free_begin(page_ptr);
+    end = ehdb_free_end(page_ptr);
+    page_ptr->modified = 1;
 
 #ifdef DEBUG
-    fprintf(stderr, "insert record into bucket page(id=%d), begin %d, end %d\n", page->page_id, (begin - page->head), (end - page->head));
+    fprintf(stderr, "insert record into bucket page(id=%d), begin %d, end %d\n", page_ptr->page_id, (begin - page_ptr->head), (end - page_ptr->head));
 #endif
 
     begin = write_int(begin, record->orderkey);
@@ -205,14 +233,15 @@ ehdb_record2page_record(record_t * record, page_t * page){
     begin = write_int(begin, record->commitdate);
     begin = write_int(begin, record->receiptdate);
 
-    write_str(page, &begin, &end, record->shipinstruct);
-    write_str(page, &begin, &end, record->shipmode);
-    write_str(page, &begin, &end, record->comment);
+    write_str(page_ptr, &begin, &end, record->shipinstruct);
+    write_str(page_ptr, &begin, &end, record->shipmode);
+    write_str(page_ptr, &begin, &end, record->comment);
 
-    ehdb_set_page_record_num(page, ehdb_get_record_num(page)+1);
-    ehdb_set_free_end(page, end);
+    //TODO:wrap
+    ehdb_set_page_record_num(page_ptr, ehdb_get_record_num(page_ptr)+1);
+    ehdb_set_free_end(page_ptr, end);
 #ifdef DEBUG
-    fprintf(stderr, "after insert, begin %d, end %d\n\n",(begin - page->head), (end - page->head));
+    fprintf(stderr, "after insert, begin %d, end %d\n\n",(begin - page_ptr->head), (end - page_ptr->head));
 #endif
 }
 

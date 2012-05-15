@@ -22,11 +22,6 @@ ehdb_parse_start(char * fileaddr){
 }
 
 int
-ehdb_get_key(record_t* record){
-    return record->orderkey;
-}
-
-int
 ehdb_test_eof(){
     return (current_pos - buf >= buf_size && eof == 1);
 }
@@ -70,20 +65,7 @@ ehdb_bulk_insert(char * fileaddr)
     while(!ehdb_test_eof())
     {
         ehdb_next_line(&record);
-        ehdb_single_insert(&record);
+        ehdb_write_record(&record);
     }
 }
 
-void ehdb_single_insert(record_t *record)
-{
-    int key = ehdb_get_key(record);
-    int hv = ehdb_hash_func(key, Global_depth);
-#ifdef DEBUG
-    fprintf(stderr, "key: %d, global depth: %d, hash value: %d\n", key, Global_depth, hv);
-#endif
-
-    page_t *page_ptr;
-    page_ptr = ehdb_get_bucket_page_by_hvalue(hv);
-
-    ehdb_write_record(page_ptr, record);
-}

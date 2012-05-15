@@ -80,7 +80,7 @@ int
 available_page_pos(){
     int pos;
     if(clock_size < PAGE_NUM){
-        pos = (clock_head + clock_size) % PAGE_SIZE;
+        pos = (clock_head + clock_size) % PAGE_NUM;
         clock_size++;
         // allocate the page space for the page
         clock_list[pos].page = (page_t*)malloc(sizeof(page_t));
@@ -89,10 +89,10 @@ available_page_pos(){
         while(clock_list[clock_hand].refbit == 1){
             clock_list[clock_hand].refbit = 0;
             // increace clock_hand
-            if(clock_hand == (clock_head + clock_size - 1) % PAGE_SIZE){
+            if(clock_hand == (clock_head + clock_size - 1) % PAGE_NUM){
                 clock_hand = clock_head;
             }else{
-                clock_hand = (clock_hand + 1) % PAGE_SIZE;
+                clock_hand = (clock_hand + 1) % PAGE_NUM;
             }
         }
         swap_out_page(clock_list[clock_hand].page);
@@ -108,6 +108,7 @@ available_page_pos(){
  */
 page_t*
 load_page(int page_id, page_type_t page_type){
+
     int page_pos;
     clock_list_node_t * node;
     // find page in mem
@@ -176,6 +177,12 @@ find_page(page_type_t page_type, int page_id){
 
 page_t*
 ehdb_get_bucket_page(int bucket_id){
+#ifdef DEBUG
+    if(bucket_id == 57)
+    {
+        fprintf(stderr, "Bark\n");
+    }
+#endif
     return load_page(bucket_id, BUCKET);
 }
 
@@ -190,7 +197,8 @@ ehdb_get_bucket_page_by_hvalue(int hash_value){
     page_t * index_page, 
            * bucket_page;
 
-    bucket_id = ehdb_get_bucket_id_by_hvalue(hash_value);
+    bucket_id = ehdb_get_index_map(hash_value);
+
 
     bucket_page = load_page(bucket_id, BUCKET);
     return bucket_page;

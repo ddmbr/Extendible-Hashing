@@ -31,6 +31,9 @@ struct record_t{
 
 typedef struct record_t record_t;
 
+int
+ehdb_get_key(record_t* record);
+
 /* read the string and convert to `record`, starting from `start`
  * return: the end position
  */
@@ -62,7 +65,7 @@ ehdb_page_record2record(page_t * page, int offset, record_t * record);
 /* write a record to page
  */
 void 
-ehdb_record2page_record(record_t * record, page_t * page);
+ehdb_record2page_record(record_t * record, int bucket_id);
 
 /* check the total size if the record is to be converted to page_record
  */
