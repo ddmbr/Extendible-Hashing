@@ -1,0 +1,49 @@
+EHDB
+======
+EHDB is the Extendible Hash DataBase. It supports data insertion and query.
+
+INSTALL & USAGE
+---------------
+*NOTE*: you need python to run the build script.
+To build the binary executables, `cd` into the `src` directory, run:
+
+    $ ./build.py L 8 # to build the LSB hash program with page number = 8
+    $ ./build.py H 8 # to bulid the MSB hash program with page number = 128
+    $ ./build.py L 128
+    $ ./build.py H 128
+
+These will generate 4 binary executable files into 'bin/'.
+
+You can also change some options in the `Makefile` in the src directory.
+For example, to Enable the `CACHE` system, you can append '-DCACHE' to the 
+`Flags` variable. For the details of the cache system, you can read the document in doc/report.pdf.
+
+ To Enable the `STAT`(statistic) functionality, you can append '-DSTAT' to the `Flags` variable. It will make the program output the bucket/index state into a file with the 'snapshot-' prefix. It's a raw ascii file and human readable.
+
+DEVELOP
+-------
+There are many more utils in the src directory. Most of them are Python scripts which help visualization and debugging. They are
+    * hash.py 
+        This is a program has the same function as the main EHDB program. It supports data insertion and query. When it's inserting data. It will show the bucket usage and index usage with the bar chart, dynamically. This is the LSB version. It's used to help confrim the correctness of our algorithm.
+
+    * hhash.py
+        Same as hash.py but MSB version.
+
+    * gpr.sh / ppf.sh
+        profile scripts that can generate profile picture. The `gpr.sh` is CPU profiling only, while the `ppf.sh` uses the `linux perf` that can profile both CPU and I/O.
+
+    * cutlines.py
+        For example, run:
+            
+            $ ./cutlines.py 30000
+       
+        will generate a file 'lineitemcut.tbl' with 30000 lines. Of course you may hardcode the program to stop after reading 30000 lines. However, with this we can test the program speed without recompiling.
+
+    * seeksize.py
+        To monitor the bucket and index file size when ehdb is running.
+
+The program data formats are specified in src/FORMAT.
+
+---------------------------------------------
+author of this readme: Zhanrui Liang. 
+email: ray040123@gmail.com

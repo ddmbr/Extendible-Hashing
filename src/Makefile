@@ -1,8 +1,13 @@
 Compiler=gcc
 HashFunc=H_HASH
-#Flags=-g -DDEBUG1 -D$(HashFunc) -Wall
-Flags=-O3 -D$(HashFunc) -Wall -DCACHE
-#Flags=-pg -g -D$(HashFunc) -DCACHE
+PageNum=8
+# the next line's option is with the profile function
+#Flags=-pg -g -D$(HashFunc) -Wall -DCACHE 
+# with debug output and statistic output
+#Flags=-O3 -D$(HashFunc) -Wall -DCACHE -DSTAT -DDEBUG 
+
+Flags=-O3 -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
+#Flags=-g -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
 		ehdb_buffer_mgr.o\
