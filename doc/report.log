@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.2-0.9995.2 (TeX Live 2009/Debian) (format=xelatex 2012.1.22)  13 MAY 2012 03:28
+This is XeTeX, Version 3.1415926-2.2-0.9995.2 (TeX Live 2009/Debian) (format=xelatex 2012.1.22)  17 MAY 2012 17:19
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -89,140 +89,186 @@ LaTeX Info: Redefining \sffamily on input line 766.
 LaTeX Info: Redefining \ttfamily on input line 770.
 \xeCJK@featureadded=\count101
 )
-\c@zf@famc@WenQuanYi Micro Hei=\count102
-Package fontspec Info: Defining font family for 'WenQuanYi Micro Hei'with optio
-ns [] on input line 4.
-Package fontspec Info: Could not resolve font WenQuanYi Micro Hei/B (it might n
-ot exist) on input line 4.
-Package fontspec Info: Could not resolve font WenQuanYi Micro Hei/I (it might n
-ot exist) on input line 4.
-Package fontspec Info: Could not resolve font WenQuanYi Micro Hei/BI (it might 
-not exist) on input line 4.
-LaTeX Info: Redefining \xeCJK@font@rm on input line 4.
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: xetex.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/xelatex/xetex-def/xetex.def
+File: xetex.def 2009/11/22 v0.94 LaTeX color/graphics driver for XeTeX (RRM/JK)
+
+))
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
+)
+\c@zf@famc@SimSun=\count102
+Package fontspec Info: Defining font family for 'SimSun'with options [] on inpu
+t line 5.
+Package fontspec Info: Could not resolve font SimSun/B (it might not exist) on 
+input line 5.
+Package fontspec Info: Could not resolve font SimSun/I (it might not exist) on 
+input line 5.
+Package fontspec Info: Could not resolve font SimSun/BI (it might not exist) on
+ input line 5.
+LaTeX Info: Redefining \xeCJK@font@rm on input line 5.
  (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid this).
- on input line 7.
+ on input line 8.
 \symlegacymaths=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 7.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 7.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 7.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 7.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 7.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 7.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 7.
-LaTeX Font Info:    Redeclaring math accent \check on input line 7.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 7.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 7.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \colon on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 7.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 7.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 7.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 8.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 8.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 8.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 8.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 8.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 8.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 8.
+LaTeX Font Info:    Redeclaring math accent \check on input line 8.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 8.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 8.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \colon on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 8.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 8.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 8.
 LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
-(Font)              `operators' in the math version `normal' on input line 7.
+(Font)              `operators' in the math version `normal' on input line 8.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> EU1/lmr/m/n on input line 7.
+(Font)                  OT1/cmr/m/n --> EU1/lmr/m/n on input line 8.
 LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
-(Font)              `operators' in the math version `bold' on input line 7.
+(Font)              `operators' in the math version `bold' on input line 8.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> EU1/lmr/m/n on input line 7.
+(Font)                  OT1/cmr/bx/n --> EU1/lmr/m/n on input line 8.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  EU1/lmr/m/n --> EU1/lmr/m/n on input line 7.
+(Font)                  EU1/lmr/m/n --> EU1/lmr/m/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  EU1/lmr/m/n --> EU1/lmr/m/n on input line 7.
+(Font)                  EU1/lmr/m/n --> EU1/lmr/m/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> EU1/lmr/m/it on input line 7.
+(Font)                  OT1/cmr/m/it --> EU1/lmr/m/it on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> EU1/lmr/bx/n on input line 7.
+(Font)                  OT1/cmr/bx/n --> EU1/lmr/bx/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> EU1/lmss/m/n on input line 7.
+(Font)                  OT1/cmss/m/n --> EU1/lmss/m/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> EU1/lmtt/m/n on input line 7.
+(Font)                  OT1/cmtt/m/n --> EU1/lmtt/m/n on input line 8.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  EU1/lmr/m/n --> EU1/lmr/bx/n on input line 7.
+(Font)                  EU1/lmr/m/n --> EU1/lmr/bx/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  EU1/lmr/m/n --> EU1/lmr/bx/n on input line 7.
+(Font)                  EU1/lmr/m/n --> EU1/lmr/bx/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> EU1/lmr/bx/it on input line 7.
+(Font)                  OT1/cmr/bx/it --> EU1/lmr/bx/it on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> EU1/lmss/bx/n on input line 7.
+(Font)                  OT1/cmss/bx/n --> EU1/lmss/bx/n on input line 8.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> EU1/lmtt/bx/n on input line 7.
+(Font)                  OT1/cmtt/m/n --> EU1/lmtt/bx/n on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 8.
+(Font)              <12> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 8.
+(Font)              <8> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 8.
-LaTeX Font Info:    Font shape `EU1/WenQuanYiMicroHei(0)/bx/n' undefined
-(Font)              using `EU1/WenQuanYiMicroHei(0)/m/n' instead on input line 
-9.
+(Font)              <6> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 15.
+(Font)              <7> on input line 18.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 15.
+(Font)              <5> on input line 18.
 
 
 Package xeCJK Warning: Unknown CJK family `tt' is ignored.
-Use \setCJKfamilyfont to define a CJK family. on input line 22.
+Use \setCJKfamilyfont to define a CJK family. on input line 25.
 
-LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 22.
+LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 25.
 
 (/usr/share/texmf-texlive/tex/xelatex/euenc/eu1lmtt.fd
 File: eu1lmtt.fd 2007/01/14 v1.3 Font defs for Latin Modern
 ) [1
 
-]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 69.
+] [2]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 78.
 
 (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 69.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 78.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 69.
- [2] [3] (./report.aux)
-LaTeX Font Info:    Some font shapes were not available, defaults substituted.
- ) 
-Here is how much of TeX's memory you used:
- 2528 strings out of 495713
- 50226 string characters out of 1188883
- 134559 words of memory out of 3000000
- 5659 multiletter control sequences out of 15000+50000
- 6815 words of font info for 41 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 34i,6n,28p,455b,225s stack positions out of 5000i,500n,10000p,200000b,50000s
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 78.
+File: img/arch1.png Graphic file (type QTm)
+ <use  "img/arch1.png" > [3]
+File: img/arch2.png Graphic file (type QTm)
 
-Output written on report.pdf (3 pages).
+<use  "img/arch2.png" > [4] [5] [6]
+Overfull \hbox (10.25pt too wide) in paragraph at lines 170--170
+[]\EU1/lmtt/m/n/10 ehdb_page_record2record(page_t * page, int offset, record_t 
+* record);[] 
+ []
+
+[7]
+File: img/pic20000_l.png Graphic file (type QTm)
+ <use  "img/pic20000_l.png" >
+Overfull \hbox (66.89438pt too wide) in paragraph at lines 188--189
+ [] [] 
+ []
+
+File: img/pic20000_h.png Graphic file (type QTm)
+<use  "img/pic20000_h.png" >
+Overfull \hbox (67.29587pt too wide) in paragraph at lines 191--192
+ [] [] 
+ []
+
+[8]
+File: img/proff_big_record.png Graphic file (type QTm)
+ <use  "img/proff_big_record.png" >
+Overfull \hbox (96.51547pt too wide) in paragraph at lines 205--206
+ [] [] 
+ []
+
+[9] [10] [11] (./report.aux) ) 
+Here is how much of TeX's memory you used:
+ 2857 strings out of 495713
+ 54128 string characters out of 1188883
+ 137285 words of memory out of 3000000
+ 5959 multiletter control sequences out of 15000+50000
+ 6823 words of font info for 42 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 34i,8n,32p,574b,247s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on report.pdf (11 pages).

@@ -1,26 +1,26 @@
 #include "ehdb_page.h"
-#include "ehdb_hash.h"
 #include "ehdb_init.h"
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_record.h"
 #define UNUSED -1
+#define DEPTH_POS 0
+#define RECORD_NUM_POS 1
 #define LINK_POS 2
-#define DIRTY_FLAG_POS 5
-#define LAST_KEY_POS 6
+#define FREE_END_POS 3
 #define BUCKET_HEAD_LENGTH 16
 #define NO_KEY 0
 
 int
 ehdb_get_record_num(page_t* page_ptr)
 {
-    return ((int*)(page_ptr->head))[1];
+    return ((int*)(page_ptr->head))[RECORD_NUM_POS];
 }
 
 int
 ehdb_get_depth(int bucket_id)
 {
     page_t *page_ptr = ehdb_get_bucket_page(bucket_id);
-    return ((int*)(page_ptr->head))[0];
+    return ((int*)(page_ptr->head))[DEPTH_POS];
 }
 
 int
@@ -40,7 +40,7 @@ ehdb_free_begin(page_t* page_ptr)
 void*
 ehdb_free_end(page_t* page_ptr)
 {
-    return page_ptr->head + ((int*)(page_ptr->head))[3];
+    return page_ptr->head + ((int*)(page_ptr->head))[FREE_END_POS];
 }
 
 void
@@ -80,23 +80,6 @@ ehdb_is_dirty(int bucket_id)
     return 0;
 }
 
-/*
-void
-ehdb_make_dirty(int bucket_id)
-{
-    page_t* page_ptr = ehdb_get_bucket_page(bucket_id);
-
-    ((int*)(page_ptr->head))[DIRTY_FLAG_POS] = 1;
-}
-
-void
-ehdb_init_clean(int bucket_id)
-{
-    page_t* page_ptr = ehdb_get_bucket_page(bucket_id);
-
-    ((int*)(page_ptr->head))[DIRTY_FLAG_POS] = 0;
-}
-*/
 void
 ehdb_init_page_free_end(page_t *page_ptr)
 {
@@ -118,21 +101,21 @@ ehdb_init_page_link(int bucket_id)
 void
 ehdb_set_page_depth(page_t *page_ptr, int depth)
 {
-    ((int*)(page_ptr->head))[0] = depth;
+    ((int*)(page_ptr->head))[DEPTH_POS] = depth;
     page_ptr->modified = 1;
 }
 
 void
 ehdb_set_page_record_num(page_t *page_ptr, int record_num)
 {
-    ((int*)(page_ptr->head))[1] = record_num;
+    ((int*)(page_ptr->head))[RECORD_NUM_POS] = record_num;
     page_ptr->modified = 1;
 }
 
 void
 ehdb_set_free_end(page_t *page_ptr, void* free_end)
 {
-    ((int*)(page_ptr->head))[3] = free_end - page_ptr->head;
+    ((int*)(page_ptr->head))[FREE_END_POS] = free_end - page_ptr->head;
     page_ptr->modified = 1;
 }
 
@@ -200,33 +183,9 @@ ehdb_bucket_grow(int bucket_id, int hv)
     int n = 1 << Global_depth;
     for(i = hv; i < n; i += inc)
     {
-        if(ehdb_get_index_map(i) == bucket_id) //TO BE DELETE
+        if(ehdb_get_index_map(i) == bucket_id)
             ehdb_set_index_map(i, new_bucket);
     }
 
     return new_bucket;
 }
-
-/*
-int
-ehdb_get_last_key(int bucket_id)
-{
-    page_t* page_ptr = ehdb_get_bucket_page(src_bucket);
-    page_ptr->modified = 1;
-    return ((int*)(page_ptr->head))[LAST_KEY_POS];
-}
-
-int
-ehdb_set_last_key(int bucket_id, int key)
-{
-    page_t* page_ptr = ehdb_get_bucket_page(src_bucket);
-    page_ptr->modified = 1;
-    ((int*)(page_ptr->head))[LAST_KEY_POS] = 0;
-}
-
-int
-ehdb_init_last_key(int bucket_id)
-{
-    ehdb_set_last_key(bucket_id, 0);
-}
-*/

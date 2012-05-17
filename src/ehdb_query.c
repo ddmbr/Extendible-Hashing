@@ -1,14 +1,14 @@
 #include "ehdb_page.h"
-#include "ehdb_hash.h"
 #include "ehdb_record.h"
-#include "ehdb_query.h"
 #include "ehdb_buffer_mgr.h"
+#include "ehdb_hash.h"
 #include <stdio.h>
 
 char buf[300];
 record_t record_array[10];
 
-void select_sort(record_t * a, int n){
+void
+select_sort(record_t * a, int n){
     int i, j, k;
     record_t temp;
     for(i = 0; i < n; i++){
@@ -23,7 +23,8 @@ void select_sort(record_t * a, int n){
     }
 }
 
-void ehdb_query(int key, FILE *fout){
+void
+ehdb_query(int key, FILE *fout){
 
 	int i, hv, offset, while_count = 0;
     int next_bucket;
@@ -69,17 +70,22 @@ void ehdb_query(int key, FILE *fout){
 }
 
 void
-ehdb_bulk_query(char * faddr_in, char* faddr_out){
-    FILE *fin = fopen(faddr_in, "r");
-    FILE *fout = fopen(faddr_out, "w");
+ehdb_bulk_query(char * in_path, char * out_path){
+    printf("QUERY: Doing query...\n");
+
+    FILE *fin = fopen(in_path, "r");
+    FILE *fout = fopen(out_path, "w");
+    /* FILE *fin = stdin; */
     int n, key;
     fscanf(fin, "%d", &n);
     while(n--)
     {
         fscanf(fin, "%d", &key);
-        ehdb_query(key, fout); 
+        ehdb_query(key, fout);
     }
     fclose(fin);
     fclose(fout);
+
+    printf("QUERY: Done.\n");
 }
 

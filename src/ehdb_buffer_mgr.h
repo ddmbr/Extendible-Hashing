@@ -22,10 +22,8 @@ ehdb_get_index_page(int index_id);
 page_t *
 ehdb_make_available_page();
 
-page_t*
-load_page(int page_id, page_type_t page_type);
-
 void
 ehdb_save_pages();
 
-
+int 
+find_page(page_type_t page_type, int page_id);

@@ -8,7 +8,5 @@ ehdb
 gmon.out
 lineitem*
 out
-ehdb_h
-ehdb_l
 tags
 *.log

@@ -6,18 +6,21 @@
 void
 ehdb_file_init();
 
-// call to init the two bucket
+/* Init 3 buckets, namely, the
+ * temp bucket, `0' bucket and `1' bucket.
+ * (based on hash values)
+ */
 void
 ehdb_file_buckets_init();
 
-/* This will generate a new page
- * the provided page_t will be modified.
+/* This will generate a new page with the
+ * specific type and depth(if appropriate)
  * return value is the bucket id
  */
 int
 ehdb_new_page(page_type_t type, int depth);
 
-/* Providing page_t, page_id and page_type,
+/* Providing a page_t pointer,
  * this method will copy the corresponding
  * page from disk to the memory
  */
@@ -30,11 +33,13 @@ ehdb_copy_from_file(struct page_t *page_ptr);
 void
 ehdb_save_to_file(page_t *page_ptr);
 
-/* split the bucket and
- * return a bucket id
+/* split the bucket
  */
 void
 ehdb_split_bucket(int page_id, int hvalue);
 
+/* Close all files that have been
+ * previously opened.
+ */
 void
 ehdb_file_close();

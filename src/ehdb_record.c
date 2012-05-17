@@ -1,9 +1,8 @@
 #include "ehdb_record.h"
 #include "stdio.h"
-#include "ehdb_buffer_mgr.h"
 #include "string.h"
 #include "ehdb_page.h"
-#include "ehdb_init.h"
+#include "ehdb_buffer_mgr.h"
 #include <assert.h>
 #define MAX_DEPTH 30
 
@@ -215,12 +214,7 @@ ehdb_record2page_record(record_t * record, int bucket_id){
     page_ptr->modified = 1;
 
 #ifdef DEBUG
-    fprintf(stderr, "insert record (key=%d, hv=%d, into bucket page(id=%d), begin %d, end %d\n",
-            record->orderkey, ehdb_hash_func(record->orderkey, Global_depth),
-            page->page_id, (begin - page->head), (end - page->head));
-    FILE * logf = fopen("insert.log", "a");
-    fprintf(logf, "rid(%d) -> (%d, %d)\n", record->orderkey, page->page_type, page->page_id);
-    fclose(logf);
+    fprintf(stderr, "insert record into bucket page(id=%d), begin %d, end %d\n", page_ptr->page_id, (begin - page_ptr->head), (end - page_ptr->head));
 #endif
 
     begin = write_int(begin, record->orderkey);

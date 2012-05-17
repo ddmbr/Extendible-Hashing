@@ -1,6 +1,6 @@
 # include "ehdb_init.h"
+# include "ehdb_utils.h"
 # include "ehdb_buffer_mgr.h"
-# include "ehdb_file_mgr.h"
 # include "ehdb_page.h"
 # include "ehdb_record.h"
 # include <stdio.h>
@@ -12,46 +12,69 @@ int IO_count;
 FILE *snapshot;
 char faddr[20];
 
-void ehdb_print_hashindex(char *path){
-    FILE * fout = fopen(path, "w");
-    fprintf(fout, "\"\"\"This is the hash index output and also a python source file\"\"\"\n");
+void
+ehdb_statistics_init()
+{
+    strcpy(faddr, "snapshot0000.log\0");
+    IO_count = 0;
+}
 
-    fprintf(fout, "Global_depth = %d\n", Global_depth);
-    int i, n;
+void
+ehdb_inc_IO_record()
+{
+    IO_count++;
+}
+
+void
+faddr_inc()
+{
+    int i = 0;
+    while(1)
+    {
+        if(faddr[BEGIN_POS - i] < '9')
+        {
+            faddr[BEGIN_POS - i]++;
+            break;
+        }
+        else faddr[BEGIN_POS - i] = '0'; 
+        i++;
+    }
+}
+
+void
+ehdb_statistics()
+{
+    printf("STAT: taking snapshot...\n");
+    faddr_inc();
+    snapshot = fopen(faddr, "w");
+    fprintf(snapshot, "Global_depth=%d\n", Global_depth);
+    fprintf(snapshot, "Total IO times=%d\n", IO_count);
+    ehdb_print_hashindex(faddr);
+    fclose(snapshot);
+    printf("STAT: Done.\n");
+}
+
+void
+ehdb_print_hashindex(char *out_path)
+{
+    FILE * fout;
+    fout = fopen(out_path, "w");
+
+    page_t *index_page;
+    page_t *bucket_page;
     int bucket_id;
-    n = (1 << Global_depth);
-    fprintf(fout, "hashindex = {\n");
-    for(i = 0; i < n; i++){
-        bucket_id = ehdb_get_index_map(i);
-        fprintf(fout, "%d: %d,\n", i, bucket_id);
-    }
-    fprintf(fout, "}\n");
-    fclose(fout);
-}
 
-char bin_buf[50];
-char * itob(int x){
     int i;
-    for(i = 0; i < 30; i++){
-        if(i % 4 == 0)
-            bin_buf[i++] = ' ';
-        bin_buf[i] = '0' + (x & 1);
-        x >>= 1;
-    }
-    bin_buf[i++] = 'H';
-    return bin_buf;
-}
+    int n = (1 << Global_depth);
+    int size;
 
-void ehdb_print_bucket(int bucket_id){
-    page_t * bucket = ehdb_get_bucket_page(bucket_id);
-    int n = ehdb_get_record_num(bucket);
-    int i;
-    printf("Bukcet(id=%d, record_num=%d, ldepth=%d)-----------\n", bucket_id, n,
-            ehdb_get_depth(bucket_id));
-    record_t record;
-    for(i = 16; (i = ehdb_page_record2record(bucket, i, &record)) != -1;){
-        printf("%s,\n", itob(record.orderkey));
+    fprintf(fout, "[hash value] -> [bucket id] : [n(record) in that bucket]\n");
+    for(i = 0; i < n; i++)
+    {
+        index_page = ehdb_get_index_page(i / Dictpair_per_page);
+        bucket_id = ((int*)(index_page->head))[i % Dictpair_per_page];
+        bucket_page = ehdb_get_bucket_page(bucket_id);
+        size = ehdb_get_record_num(bucket_page);
+        fprintf(fout, "%d -> %d, record_num: %d\n", i, bucket_id, size);
     }
-    printf("-----------------------------------\n");
 }
-

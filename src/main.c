@@ -1,67 +1,47 @@
 #include "ehdb_init.h"
-#include "ehdb_buffer_mgr.h"
-#include "ehdb_hash.h"
-#include "ehdb_query.h"
-#include "string.h"
-#include "ehdb_parser.h"
-#include "stdio.h"
-#include "ehdb_record.h"
-#include "ehdb_page.h"
 #include "ehdb_utils.h"
-char in_path[200], out_path[200];
+#include "ehdb_buffer_mgr.h"
+#include "ehdb_query.h"
+#include "ehdb_parser.h"
 
-void
-ehdb_bulk_insert(char * fileaddr)
+char out_path[200];
+char in_path[200];
+
+inline void
+init_path(char * data_path, char *given_path, char *file_name)
 {
-    ehdb_parse_start(fileaddr);
-    record_t record;
-    while(!ehdb_test_eof())
-    {
-        ehdb_next_line(&record);
-        ehdb_single_insert(&record);
-    }
+    strcpy(data_path, given_path);
+    strcat(data_path, "/");
+    strcat(data_path, file_name);
 }
 
 int
 main(int argc, char *argv[])
 {
-    ehdb_init();
-    if(argc == 2){
-        strcpy(in_path, argv[1]);
-        strcat(in_path, "/");
-    }else{
-        strcpy(in_path, "./");
+    if(argc != 2)
+    {
+        printf("usage: ./ehdb /path/to/lineitem\n\n");
+        return 0;
     }
-    strcat(in_path, "lineitemcut.tbl");
-    // start insert
+    /* init the program */
+    ehdb_init();
+
+    /* Build the database   */
+    init_path(in_path, argv[1], "lineitem.tbl");
     ehdb_bulk_insert(in_path);
 
-    if(argc == 2){
-        strcpy(in_path, argv[1]);
-        strcat(in_path, "/");
-        strcpy(out_path, argv[1]);
-        strcat(out_path, "/");
-    }else{
-        strcpy(in_path, "./");
-        strcpy(out_path, "./");
-    }
-    strcat(in_path, "testinput.in");
-    strcat(out_path, "testoutput.out");
-    // start query
+    /* start query  */
+    init_path(in_path, argv[1], "testinput.in");
+    init_path(out_path, argv[1], "testoutput.out");
     ehdb_bulk_query(in_path, out_path);
 
-    if(argc == 2){
-        strcpy(in_path, argv[1]);
-        strcat(in_path, "/");
-    }else{
-        strcpy(in_path, "./");
-    }
-    strcat(in_path, "hashindex.out");
-    // print to hashindex.out
-    ehdb_print_hashindex(in_path);
+    /* Output the result    */
+    init_path(out_path, argv[1], "hashindex.out");
+    ehdb_print_hashindex(out_path);
 
-    // clean an save
+    /* clean an save        */
     ehdb_save_pages();
     ehdb_file_close();
+
     return 0;
 }

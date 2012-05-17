@@ -34,6 +34,9 @@ typedef struct record_t record_t;
 int
 ehdb_get_key(record_t* record);
 
+int
+ehdb_get_invert_key(record_t* record);
+
 /* read the string and convert to `record`, starting from `start`
  * return: the end position
  */
@@ -62,7 +65,8 @@ ehdb_record2raw(record_t * record, char * raw);
 int 
 ehdb_page_record2record(page_t * page, int offset, record_t * record);
 
-/* write a record to page
+/* convert record_t and write it back
+ * to a page on disk
  */
 void 
 ehdb_record2page_record(record_t * record, int bucket_id);
@@ -71,5 +75,3 @@ ehdb_record2page_record(record_t * record, int bucket_id);
  */
 size_t ehdb_test_record_size(record_t * record);
 
-int
-ehdb_get_invert_key(record_t* record);
