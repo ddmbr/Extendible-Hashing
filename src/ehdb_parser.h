@@ -10,8 +10,9 @@ ehdb_parse_start(char * fileaddr);
 
 /* get next line in the file,
  * convert and store in record
+ * return 1 if success, else 0
  */
-void
+int
 ehdb_next_line(record_t* record);
 
 /* test whether end-of-file is reached

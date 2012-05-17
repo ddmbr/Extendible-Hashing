@@ -7,6 +7,7 @@ INSTALL & USAGE
 *NOTE*: you need python to run the build script.
 To build the binary executables, `cd` into the `src` directory, run:
 
+    $ ./build.py # to build all 4 objects
     $ ./build.py L 8 # to build the LSB hash program with page number = 8
     $ ./build.py H 8 # to bulid the MSB hash program with page number = 128
     $ ./build.py L 128
@@ -18,7 +19,7 @@ You can also change some options in the `Makefile` in the src directory.
 For example, to Enable the `CACHE` system, you can append '-DCACHE' to the 
 `Flags` variable. For the details of the cache system, you can read the document in doc/report.pdf.
 
- To Enable the `STAT`(statistic) functionality, you can append '-DSTAT' to the `Flags` variable. It will make the program output the bucket/index state into a file with the 'snapshot-' prefix. It's a raw ascii file and human readable.
+To Enable the `STAT` (statistic) functionality, you can append '-DSTAT' to the `Flags` variable. It will make the program output the bucket/index state into a file with the 'snapshot-' prefix. It's a raw ascii file and human readable.
 
 DEVELOP
 -------

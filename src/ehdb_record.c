@@ -46,6 +46,7 @@ ehdb_raw2record(char * start, record_t * record){
     memset(record->shipinstruct, 0, sizeof record->shipinstruct);
     memset(record->shipmode, 0, sizeof record->shipmode);
     memset(record->comment, 0, sizeof record->comment);
+    int r = 
     sscanf(start, 
             //"%d|%d|%d|%d|%f|%f|%f|%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%[^|]|%[^|]|%[^|]|\n",
             "%d|%d|%d|%d|%f|%f|%f|%f|%c|%c|%d-%d-%d|%d-%d-%d|%d-%d-%d|%[^|]|%[^|]|%[^|]|\n",
@@ -71,6 +72,10 @@ ehdb_raw2record(char * start, record_t * record){
             record->shipmode,
             record->comment
                 );
+    if(r == 0){
+        fprintf(stderr, "error data line\n");
+        return NULL;
+    }
     record->shipdate = ints2date(ymds[0][0], ymds[0][1], ymds[0][2]);
     record->commitdate = ints2date(ymds[1][0], ymds[1][1], ymds[1][2]);
     record->receiptdate = ints2date(ymds[2][0], ymds[2][1], ymds[2][2]);

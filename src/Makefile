@@ -7,7 +7,7 @@ PageNum=8
 #Flags=-O3 -D$(HashFunc) -Wall -DCACHE -DSTAT -DDEBUG 
 
 Flags=-O3 -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
-#Flags=-g -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
+# Flags=-g -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
 		ehdb_buffer_mgr.o\

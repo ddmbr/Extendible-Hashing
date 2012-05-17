@@ -21,6 +21,11 @@ int eof;
 void
 ehdb_parse_start(char * fileaddr){
     fin = fopen(fileaddr, "r");
+    if(fin == NULL){
+        fprintf(stderr, "open file %s failed\n", fileaddr);
+    }else{
+        fprintf(stderr, "loaded file %s \n", fileaddr);
+    }
     buf_size = 0;
     current_pos = buf;
     eof = 0;
@@ -30,18 +35,19 @@ ehdb_parse_start(char * fileaddr){
  */
 int
 ehdb_test_eof(){
+    if(fin == NULL) return 1;
     return (current_pos - buf >= buf_size && eof == 1);
 }
 
 /* get next line in the file,
  * convert and store in record
  */
-void
+int
 ehdb_next_line(record_t * record){
-    if(ehdb_test_eof()) return;
     char * end_pos;
     size_t rest_size;
     while(1){
+        if(ehdb_test_eof()) return 0;
         end_pos = current_pos;
 
         /* find the next '\n'   */
@@ -64,10 +70,13 @@ ehdb_next_line(record_t * record){
                 eof = 1;
             }
         }else{
+            if(end_pos == current_pos)
+                return 0;
             break;
         }
     }
     current_pos = ehdb_raw2record(current_pos, record);
+    return 1;
 }
 
 /* load data from file
@@ -82,7 +91,7 @@ ehdb_bulk_insert(char * fileaddr)
 
     while(!ehdb_test_eof())
     {
-        ehdb_next_line(&record);
+        if(ehdb_next_line(&record) == 0) continue;
         ehdb_write_record(&record);
 
         record_num++;
