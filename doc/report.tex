@@ -60,6 +60,12 @@ While the end of the raw file(i.e, lineitem.tbl) is not reached,
         Write the record into the page.
 
 \end{verbatim}
+    \subsubsection{Split Bucket}
+        This is the most important part of the extendible hash algorithm. A bucket need to be splited when a new record is to be inserted into it but failed since the size limit. After the bucket spliting, the records in the old bucket are redistributed into two new buckets, and one of the new buckets will replace the old bucket. 
+
+        The index need to be updated, too. Suppose a mapping \verb|(hv, oldBucketID)| exist before the spliting, then the mapping may change to either \verb|(hv, newBucketID)| or \verb|(hv, newBucketID2)|. We call the procedure remapping.
+
+        When doing the remapping, we use a efficient method. Note that if two mapping \verb|(hv1, oldBucketID)| and \verb|(hv2, oldBucketID)| exist with the old bucket some localDepth, then the lowbits count to \verb|localDepth| bits of hv1 and hv2 are equal. So we don't need to scan all the index mapping and modify them. We need only scan the in \verb|{hv, hv + (1<<localDepth), hv + 2*(1<<localDepth), ...\}|. This improves the speed of the program by 10 times!
     \subsection{Query}
         \paragraph{}
             This process is much simply compared with the building process, with the folliwing steps:
@@ -187,7 +193,7 @@ struct page_t{
             To help us comphrehense the idea of extendible hashing better, and ease the debugging, we rerwrite the program in Python(\verb|hash.py,hhash.py| in the src folder), which is both shorter and more comphrehensive(about 250 lines and it can show the process of hashing). Then we generated an animation and got a feel about how the bucket split and how the index double.
         \paragraph{} \includegraphics[scale=0.4]{img/pic20000_l.png}
         \paragraph{}
-            The graph above describes the pages of index(4 pages) and buckets(Many!), with the LSB hashing strategy and 20000 raw records. With some observation we confirmed that the usage rate of a bucket is about 70%. 
+            The graph above describes the pages of index(4 pages) and buckets(Many!), with the LSB hashing strategy and 20000 raw records. With some observation we confirmed that the usage rate of a bucket is about 70\%. 
         \paragraph{} \includegraphics[scale=0.4]{img/pic20000_h.png}
         \paragraph{}
             Then the MSB strategy. We see that the MSB strategy consume more storage and with lower usage rate of bucket. Howver it's much faster. Here's a list about the different version and the corresponding IO frequency.
@@ -211,7 +217,7 @@ struct page_t{
         \paragraph{}
             As buffer grows bigger, it takes more time for Buffer Mgr to search for a specific page in the buffer. Then we came up with an idea. We design a cache algorithm, which stores 2 recently used pages' ID. When the user program require a page, the buffer manager will scan the cache for the required page. After the test we made, we found that the cache hit rate\footnote{(cache hit count)/(buffer hit count)} of the LSB hash is about 75\%, while in MSB 95\%. We can believe that in most time the cache is helpful. 
         \paragraph{}
-            We compare the 128 pages buffer with cache and the one without cache, and discover that the cache is indeed a great help. It decrease the total time cost by about 10%.
+            We compare the 128 pages buffer with cache and the one without cache, and discover that the cache is indeed a great help. It decrease the total time cost by about 10\%.
     \subsection{More optimization}
         \paragraph{}
             We have more thoughts on this project, however time is limit. Here are two other ideas that we are interested in.
