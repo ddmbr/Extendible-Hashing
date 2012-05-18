@@ -1,6 +1,7 @@
 #include "ehdb_hash.h"
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_utils.h"
+#include "ehdb_IO_tracker.h"
 #include <stdlib.h>
 #include <stdio.h>
 #define MAX_DEPTH 30
@@ -99,12 +100,19 @@ ehdb_write_record(record_t *record)
 void
 ehdb_double_index()
 {
+    ehdb_IO_double_start();
     int n = (1 << Global_depth);
     int i, j;
     int bucket_id;
 
-    for(i = 0; i < (n / Dictpair_per_page); i++)
-        ehdb_new_page(INDEX, UNUSED);
+    /* for(i = 0; i < (n / Dictpair_per_page); i++) */
+    /*     ehdb_new_page(INDEX, UNUSED); */
+    for(i = 0; i < n; i++){
+        j = n + i;
+        if(j >= Dictpair_per_page * Index_page_num){
+            ehdb_new_page(INDEX, UNUSED);
+        }
+    }
 
     for(i = 0; i < n; i++){
         /* i is the index to be duplicated  */
@@ -113,6 +121,7 @@ ehdb_double_index()
         ehdb_set_index_map(j, bucket_id);
     }
     Global_depth++;
+    ehdb_IO_double_end();
 #ifdef STAT
     /* if `STAT' is enable, it will take a `snapshot'   */
     /* about the database every time when the index     */

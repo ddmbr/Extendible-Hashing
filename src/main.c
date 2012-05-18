@@ -39,6 +39,9 @@ main(int argc, char *argv[])
     init_path(out_path, argv[1], "hashindex.out");
     ehdb_print_hashindex(out_path);
 
+    /* print simple statistic */
+    ehdb_IO_print(stdout);
+
     /* clean an save        */
     ehdb_save_pages();
     ehdb_file_close();

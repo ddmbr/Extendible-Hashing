@@ -2,6 +2,7 @@
 #include "ehdb_buffer_mgr.h"
 #include "ehdb_file_mgr.h"
 #include "ehdb_utils.h"
+#include "ehdb_IO_tracker.h"
 #include <stdio.h>
 
 int Global_depth;
@@ -17,5 +18,6 @@ ehdb_init()
     ehdb_file_init();
     ehdb_file_buckets_init();
     ehdb_statistics_init();
+    ehdb_IO_track_init();
     printf("Init: Done.\n");
 }

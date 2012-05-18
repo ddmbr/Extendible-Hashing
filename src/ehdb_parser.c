@@ -7,13 +7,14 @@
 #include "stdio.h"
 
 #define LINE_SIZE (200)
-#define MAX_RECORD_NUM 6001215
 
 FILE * fin;
 static char buf[PAGE_SIZE + 1];
 char * current_pos;
 int buf_size;
 int eof;
+int total_fsize;
+int total_read;
 
 /* this function must be called
  * before calling ehdb_next_line()
@@ -26,6 +27,12 @@ ehdb_parse_start(char * fileaddr){
     }else{
         fprintf(stderr, "loaded file %s \n", fileaddr);
     }
+    fseek(fin, 0, SEEK_END);
+    total_fsize = ftell(fin) + 1;
+    printf("total file size is %d\n", total_fsize);
+    fseek(fin, 0, SEEK_SET);
+    
+    total_read = 0;
     buf_size = 0;
     current_pos = buf;
     eof = 0;
@@ -63,6 +70,11 @@ ehdb_next_line(record_t * record){
 
             /* read new lines into buf after        */
             int readnum = fread(buf + rest_size, 1, (PAGE_SIZE - rest_size), fin);
+            total_read += readnum;
+
+            printf("\rPARSER: building database...");
+            printf("%.2lf%%", (total_read * 100.0 / total_fsize));
+
             buf_size = rest_size + readnum;
             if(readnum < PAGE_SIZE - rest_size){
                 if(buf[rest_size + readnum - 1] != '\n')
@@ -95,8 +107,6 @@ ehdb_bulk_insert(char * fileaddr)
         ehdb_write_record(&record);
 
         record_num++;
-        printf("\rPARSER: building database...");
-        printf("%d%%", (record_num * 100 / MAX_RECORD_NUM));
     }
     printf("\nPARSER: Done.\n");
 }

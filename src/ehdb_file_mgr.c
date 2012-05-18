@@ -4,6 +4,7 @@
 # include "ehdb_hash.h"
 # include "ehdb_record.h"
 # include "ehdb_utils.h"
+# include "ehdb_IO_tracker.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <assert.h>
@@ -38,9 +39,11 @@ ehdb_file_buckets_init(){
     int bucket_1 = ehdb_new_page(BUCKET, 1);
     ehdb_new_page(INDEX, UNUSED);
     index_page = ehdb_get_index_page(0);
-    ((int*)index_page->head)[0] = bucket_0;
-    ((int*)index_page->head)[1] = bucket_1;
-    index_page->modified = 1;
+    /* ((int*)index_page->head)[0] = bucket_0; */
+    /* ((int*)index_page->head)[1] = bucket_1; */
+    /* index_page->modified = 1; */
+    ehdb_set_index_map(0, bucket_0);
+    ehdb_set_index_map(1, bucket_1);
 }
 
 /* This will generate a new page with the
@@ -71,7 +74,7 @@ ehdb_new_page(page_type_t type, int depth)
         Index_page_num++;
     }
 #ifdef DEBUG
-    fprintf(stderr, "new page id=%d created.\n", page_ptr->page_id);
+    fpTrintf(stderr, "new page id=%d created.\n", page_ptr->page_id);
 #endif
     return page_ptr->page_id;
 }
@@ -98,6 +101,7 @@ ehdb_copy_from_file(struct page_t *page_ptr)
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
     fread(page_ptr->head, PAGE_SIZE, 1, file);
+    ehdb_IO_mark_read();
     page_ptr->modified = 0;
 }
 
@@ -123,6 +127,7 @@ ehdb_save_to_file(struct page_t *page_ptr)
     }
     fseek(file, (page_ptr->page_id) * PAGE_SIZE, SEEK_SET);
     ehdb_inc_IO_record();
+    ehdb_IO_mark_write();
     fwrite(page_ptr->head, PAGE_SIZE, 1, file);
 }
 
@@ -142,6 +147,9 @@ ehdb_split_bucket(int page_id, int hvalue)
         ehdb_double_index();
     }
 
+
+    ehdb_IO_split_start();
+
     /*depth increase because of splitting   */
     local_depth++;
     page_t *page_ptr = ehdb_get_bucket_page(page_id);
@@ -158,7 +166,7 @@ ehdb_split_bucket(int page_id, int hvalue)
     int i, n, inc;
     n = 1 << Global_depth;
     inc = 1 << (local_depth - 1);
-    for(i = old_index; i <= n; i += inc)
+    for(i = old_index; i < n; i += inc)
     {
         if(ehdb_get_index_map(i) == page_id)
         {
@@ -168,7 +176,8 @@ ehdb_split_bucket(int page_id, int hvalue)
             }
             else
             {
-                ehdb_set_index_map(i, page_id);
+                //no need to set since it was already there
+                //ehdb_set_index_map(i, page_id);
             }
         }
     }
@@ -197,6 +206,7 @@ ehdb_split_bucket(int page_id, int hvalue)
             ehdb_record2page_record(&record, page_id);
         }
     }
+    ehdb_IO_split_end();
 }
 
 /* Close all files that have been

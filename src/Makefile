@@ -1,12 +1,12 @@
 Compiler=gcc
 HashFunc=H_HASH
-PageNum=8
+PageNum=128
 # the next line's option is with the profile function
 #Flags=-pg -g -D$(HashFunc) -Wall -DCACHE 
 # with debug output and statistic output
 #Flags=-O3 -D$(HashFunc) -Wall -DCACHE -DSTAT -DDEBUG 
 
-Flags=-O3 -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
+Flags=-O3 -DNDEBUG -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
 # Flags=-g -D$(HashFunc) -Wall -DCACHE -D PAGE_NUM=$(PageNum)
 Objects=ehdb_parser.o\
 		ehdb_record.o\
@@ -16,7 +16,8 @@ Objects=ehdb_parser.o\
 		ehdb_page.o\
 		ehdb_init.o\
 		ehdb_query.o\
-		ehdb_utils.o
+		ehdb_utils.o\
+		ehdb_IO_tracker.o
 TestObjects=test_parser print_bucket
 
 ehdb: $(Objects) main.o
@@ -32,7 +33,10 @@ main.o: main.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_ut
 	ehdb_query.h
 	$(Compiler) $(Flags) -c main.c
 
-ehdb_utils.o: ehdb_utils.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h
+ehdb_IO_tracker.o:
+	$(Compiler) $(Flags) -c ehdb_IO_tracker.c
+
+ehdb_utils.o: ehdb_utils.c ehdb_init.h ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h ehdb_utils.h
 	$(Compiler) $(Flags) -c ehdb_utils.c
 
 ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
@@ -44,7 +48,7 @@ ehdb_buffer_mgr.o: ehdb_buffer_mgr.c\
 	ehdb_hash.h
 	$(Compiler) $(Flags) -c ehdb_buffer_mgr.c
 
-ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_utils.h
+ehdb_init.o: ehdb_init.c ehdb_page.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_init.h ehdb_utils.h ehdb_IO_tracker.h
 	$(Compiler) $(Flags) -c ehdb_init.c
 
 ehdb_page.o: ehdb_page.c ehdb_page.h ehdb_init.h ehdb_file_mgr.h ehdb_buffer_mgr.h ehdb_record.h
@@ -57,7 +61,8 @@ ehdb_hash.o: ehdb_hash.c\
 	ehdb_buffer_mgr.h\
 	ehdb_page.h\
 	ehdb_record.h\
-	ehdb_utils.h
+	ehdb_utils.h\
+	ehdb_IO_tracker.h
 	$(Compiler) $(Flags) -c ehdb_hash.c
 
 ehdb_file_mgr.o: ehdb_file_mgr.c\
@@ -67,7 +72,8 @@ ehdb_file_mgr.o: ehdb_file_mgr.c\
 	ehdb_buffer_mgr.h\
 	ehdb_utils.h\
 	ehdb_record.h\
-	ehdb_hash.h
+	ehdb_hash.h\
+	ehdb_IO_tracker.h
 	$(Compiler) $(Flags) -c ehdb_file_mgr.c
 
 ehdb_parser.o: ehdb_parser.c\
