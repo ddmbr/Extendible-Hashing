@@ -43,6 +43,9 @@ There are many more utils in the src directory. Most of them are Python scripts 
     * seeksize.py
         To monitor the bucket and index file size when ehdb is running.
 
+    * iopercent.py
+        To check the {IO time}/{total time} of a program. I use this to get the tabulate data in the report.
+
 The program data formats are specified in src/FORMAT.
 
 ---------------------------------------------

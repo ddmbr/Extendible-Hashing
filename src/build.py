@@ -15,6 +15,7 @@ def build(LH, PageNum):
     if LH in 'LH' and PageNum in ('8', '128'):
         s = open('Makefile', 'r').read()
         s = re.sub('HashFunc=[LH]_HASH', 'HashFunc=%s_HASH' % LH, s)
+        s = re.sub('PageNum=\d+', 'PageNum=%s' % PageNum, s)
         open(tmpfile, 'w').write(s)
         os.system(makecmd + ehdbs[LH, PageNum])
     else:
