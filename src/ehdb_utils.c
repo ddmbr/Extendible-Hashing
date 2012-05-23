@@ -57,6 +57,7 @@ ehdb_statistics()
 void
 ehdb_print_hashindex(char *out_path)
 {
+    printf("generating hash index...\n");
     FILE * fout;
     fout = fopen(out_path, "w");
 
@@ -77,4 +78,5 @@ ehdb_print_hashindex(char *out_path)
         size = ehdb_get_record_num(bucket_page);
         fprintf(fout, "%d -> %d, record_num: %d\n", i, bucket_id, size);
     }
+    printf("Done.");
 }
