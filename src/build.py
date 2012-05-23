@@ -5,10 +5,10 @@ makecmd='make -B -f %s && mv -v ehdb ../bin/' % tmpfile
 import sys,os
 import re
 ehdbs = {
-    ('L', '8'):'ehdb_least_8',
-    ('H', '8'):'ehdb_most_8',
-    ('L', '128'):'ehdb_least_128',
-    ('H', '128'):'ehdb_most_128'
+    ('L', '8'):'least_8',
+    ('H', '8'):'most_8',
+    ('L', '128'):'least_128',
+    ('H', '128'):'most_128'
     }
 
 def build(LH, PageNum):

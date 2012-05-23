@@ -1,4 +1,5 @@
 #include "ehdb_IO_tracker.h"
+#include "ehdb_init.h"
 #include <stdio.h>
 
 int icnt, ocnt,
@@ -57,5 +58,6 @@ ehdb_IO_print(FILE* fout){
             icnt_split*100.0/icnt, ocnt_split*100.0/ocnt);
     fprintf(fout, "double: I: %.2f%% O: %.2f%% (percentage of all I/O)\n", 
             icnt_double*100.0/icnt, ocnt_double*100.0/ocnt);
+    fprintf(fout, "index count: %d\nbucket count: %d\n", Index_page_num, Bucket_page_num);
 }
 

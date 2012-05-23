@@ -72,8 +72,8 @@ ehdb_next_line(record_t * record){
             int readnum = fread(buf + rest_size, 1, (PAGE_SIZE - rest_size), fin);
             total_read += readnum;
 
-            printf("\rPARSER: building database...");
-            printf("%.2lf%%", (total_read * 100.0 / total_fsize));
+            fprintf(stderr, "\rPARSER: building database...");
+            fprintf(stderr, "%.2lf%%", (total_read * 100.0 / total_fsize));
 
             buf_size = rest_size + readnum;
             if(readnum < PAGE_SIZE - rest_size){
@@ -108,6 +108,6 @@ ehdb_bulk_insert(char * fileaddr)
 
         record_num++;
     }
-    printf("\nPARSER: Done.\n");
+    fprintf(stderr, "\nPARSER: Done.\n");
 }
 

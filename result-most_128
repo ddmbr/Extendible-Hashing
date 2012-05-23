@@ -1,0 +1,16 @@
+Init: EHDB is initializing
+Init: Done.
+total file size is 759863288
+QUERY: Doing query...
+QUERY: Done.
+I/O count:
+  in: 7170972(78.583%)
+  out: 1954421(21.417%)
+  total: 9125393
+
+split: I: 32.54% O: 79.09% (percentage of all I/O)
+double: I: 0.05% O: 0.21% (percentage of all I/O)
+index count: 2048
+bucket count: 137665
+run: ['/usr/bin/time', '-f', '%P', '-o', '/tmp/time-out-25616', 'bin/most_128', 'src']
+io percentage: 93.0
