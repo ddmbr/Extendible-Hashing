@@ -74,9 +74,10 @@ ehdb_print_hashindex(char *out_path)
     {
         index_page = ehdb_get_index_page(i / Dictpair_per_page);
         bucket_id = ((int*)(index_page->head))[i % Dictpair_per_page];
-        bucket_page = ehdb_get_bucket_page(bucket_id);
-        size = ehdb_get_record_num(bucket_page);
-        fprintf(fout, "%d -> %d, record_num: %d\n", i, bucket_id, size);
+        //bucket_page = ehdb_get_bucket_page(bucket_id);
+        //size = ehdb_get_record_num(bucket_page);
+        //fprintf(fout, "%d -> %d, record_num: %d\n", i, bucket_id, size);
+        fprintf(fout, "%d -> %d\n", i, bucket_id);
     }
     printf("Done.");
 }

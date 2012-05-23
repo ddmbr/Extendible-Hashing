@@ -1,4 +1,5 @@
-\documentclass{article}
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2.8cm, right=2.2cm]{geometry}
 \usepackage{xeCJK}
 \usepackage{graphicx}
 \linespread{1.1}
@@ -17,7 +18,7 @@
         \item Compiler: GCC
         \item Documentation: \LaTeX , asciidoc, Markdown
         \item Collaboration Platform/Project Hosting: GitHub
-        \item Debug utils: GDB, python, perf, gprof, xdot, gprof2dot, VIM(to do regex matching often)
+        \item Debug utils: GDB, python, perf, gprof, xdot, gprof2dot, time(GNU utils), VIM(to do regex matching often)
         \item Editor: VIM
     \end{enumerate}
     \paragraph{}
@@ -203,6 +204,19 @@ struct page_t{
             \item 128 pages buffer, MSB，12227 IOs
             \item 128 pages buffer, LSB，99591 IOs
         \end{itemize}
+
+        The table below show some comparations using the full \verb|lineitem.tbl| as input data.
+
+        \begin{tabular}[h]{|r|r|r|r|r|r|r|r|}
+            \hline
+            setting & I(times) & O(times) & I+O & time(sec) & IO time& index& bucket\\
+            \hline
+            least\_8 & 1678284 & 1755142 & 3433426 & 582.55& 89.0\% & 256 & 121848 \\
+            least\_128 & 1506350 & 1624453& 3130803& 445.12& 85.0\% & 256& 121848 \\
+            most\_8 & 5041315& 2503254& 7544569& 737.94&90.0\% & 2048& 137665\\
+            most\_128 & 2976667& 1954421&4931088& 650.76&88.0\% & 2048& 137665\\
+            \hline
+        \end{tabular}
         \paragraph{}
             Larger buffer definetely helps improve IO performance. However there's a flaw about it, which we will discuss later.
     \subsection{The record structure}
